@@ -487,6 +487,21 @@
             <onclick>ActivateWindow(videos,addons://sources/video/,return)</onclick>
             <visible>True</visible>
         </item>
+        <item>
+            <label>Publish update</label>
+            <icon>special://skin/extras/icons/upload.png</icon>
+            <property name="path">RunScript(script.smoke.publish)</property>
+            <property name="menu">powermainmenu</property>
+            <property name="mode"/>
+            <property name="node"/>
+            <property name="item">$NUMBER[3]</property>
+            <property name="guid">guid-smokepub</property>
+            <property name="target"/>
+            <onclick>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onclick>
+            <onclick condition="Window.IsActive(DialogButtonMenu.xml) | Window.IsVisible(1170)">Close</onclick>
+            <onclick>RunScript(script.smoke.publish)</onclick>
+            <visible>True</visible>
+        </item>
     </include>
     <!-- Static Power Side Menu -->
     <include name="skinvariables-powersidemenu-staticitems">

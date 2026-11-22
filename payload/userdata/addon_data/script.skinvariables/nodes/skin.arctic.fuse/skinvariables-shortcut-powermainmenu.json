@@ -19,5 +19,12 @@
         "icon": "special://skin/extras/icons/addon.png",
         "target": "videos",
         "guid": "guid-8d85f357"
+    },
+    {
+        "label": "Publish update",
+        "path": "RunScript(script.smoke.publish)",
+        "icon": "special://skin/extras/icons/upload.png",
+        "target": "",
+        "guid": "guid-smokepub"
     }
 ]

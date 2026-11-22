@@ -12,6 +12,7 @@ import os
 import re
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from collections import Counter
@@ -61,6 +62,21 @@ def content(rel):
         text = SETTING.sub(lambda m: '%s></setting>' % m.group(1) if PERSONAL_ID.search(m.group(2)) else m.group(0), text)
         data = text.encode('utf-8')
     return data
+
+
+def settings_values(text):
+    return {m.group(2): m.group(3) or '' for m in SETTING.finditer(text)}
+
+
+def same_settings(rel, head):
+    """Kodi rewrites settings files (order, formatting) without changing anything: compare the values."""
+    if not rel.endswith('settings.xml'):
+        return False
+    try:
+        repo = base64.b64decode(gh('GET', '/contents/payload/%s?ref=%s' % (urllib.parse.quote(rel), head))['content']).decode('utf-8', 'ignore')
+    except Exception:
+        return False
+    return settings_values(repo) == settings_values(content(rel).decode('utf-8', 'ignore'))
 
 
 def sha256(p):
@@ -144,6 +160,8 @@ def main():
                 missing.append(rel)
             continue
         if rel not in files or files[rel]['sha256'] != sha256(p):
+            if rel in files and same_settings(rel, head):
+                continue
             changed.append(rel)
 
     bumped = []

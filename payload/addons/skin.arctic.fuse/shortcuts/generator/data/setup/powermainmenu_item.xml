@@ -1,6 +1,11 @@
 <contents>
     <rules name="parts_visible">
         <rule>
+            <!-- claude 20261122: Box update status/button only where the updater runs (friends' boxes) -->
+            <condition>{item_path}==RunScript(service.smoke.updater)</condition>
+            <value>System.HasAddon(service.smoke.updater)</value>
+        </rule>
+        <rule>
             <!-- claude 20261122: Publish update button only where the publish add-on exists (the master box) -->
             <condition>{item_path}==RunScript(script.smoke.publish)</condition>
             <value>System.HasAddon(script.smoke.publish)</value>

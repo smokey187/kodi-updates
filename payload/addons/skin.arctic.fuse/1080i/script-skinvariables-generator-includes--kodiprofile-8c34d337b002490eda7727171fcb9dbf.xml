@@ -502,6 +502,21 @@
             <onclick>RunScript(script.smoke.publish)</onclick>
             <visible>System.HasAddon(script.smoke.publish)</visible>
         </item>
+        <item>
+            <label>$INFO[Window(Home).Property(SmokeUpdate.Label)]</label>
+            <icon>special://skin/extras/icons/update.png</icon>
+            <property name="path">RunScript(service.smoke.updater)</property>
+            <property name="menu">powermainmenu</property>
+            <property name="mode"/>
+            <property name="node"/>
+            <property name="item">$NUMBER[4]</property>
+            <property name="guid">guid-smokeupd</property>
+            <property name="target"/>
+            <onclick>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onclick>
+            <onclick condition="Window.IsActive(DialogButtonMenu.xml) | Window.IsVisible(1170)">Close</onclick>
+            <onclick>RunScript(service.smoke.updater)</onclick>
+            <visible>System.HasAddon(service.smoke.updater)</visible>
+        </item>
     </include>
     <!-- Static Power Side Menu -->
     <include name="skinvariables-powersidemenu-staticitems">

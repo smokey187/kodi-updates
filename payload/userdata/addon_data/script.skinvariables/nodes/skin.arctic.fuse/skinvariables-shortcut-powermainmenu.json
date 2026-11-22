@@ -26,5 +26,12 @@
         "icon": "special://skin/extras/icons/upload.png",
         "target": "",
         "guid": "guid-smokepub"
+    },
+    {
+        "label": "$INFO[Window(Home).Property(SmokeUpdate.Label)]",
+        "path": "RunScript(service.smoke.updater)",
+        "icon": "special://skin/extras/icons/update.png",
+        "target": "",
+        "guid": "guid-smokeupd"
     }
 ]

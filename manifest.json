@@ -1,0 +1,457 @@
+{
+ "enable": [
+  "service.nf.channelguard",
+  "service.nf.skipintro",
+  "service.studio.logo.fallback",
+  "service.subs.multilang",
+  "service.smoke.updater"
+ ],
+ "files": {
+  "addons/plugin.video.elementum/resources/site-packages/elementum/navigation.py": {
+   "sha256": "fba5be1d147f7b9ba1e5aab0917eaae633a10f96b6f2ec1b4a98a266fd2790d3",
+   "size": 25847
+  },
+  "addons/plugin.video.elementum/resources/site-packages/elementum/nf_loading.py": {
+   "sha256": "8c13df249ca0c085d683f81a13b170f2f73204f541ce4ac5f938f0934a870813",
+   "size": 8764
+  },
+  "addons/plugin.video.elementum/resources/site-packages/elementum/rpc.py": {
+   "sha256": "25a905955c9847e220e7e2e2988221ebbeadddd913f3b5b7238ce335f397d4c7",
+   "size": 23446
+  },
+  "addons/plugin.video.elementum/resources/skins/Default/1080i/nf_loading.xml": {
+   "sha256": "32f8996df09a27953ddec6b00d0a171b9ff1018313a7da5d8048be1fde75f5e6",
+   "size": 3405
+  },
+  "addons/plugin.video.elementum/service.py": {
+   "sha256": "fb51e2dfe8f75b7bc8339e65c7138046d31307d532ae5cf6810d735bf587e51e",
+   "size": 1102
+  },
+  "addons/plugin.video.themoviedb.helper/resources/service.py": {
+   "sha256": "98379e8363aae62a089c20726dc6cfde487b91159516224b9105026266f8d148",
+   "size": 688
+  },
+  "addons/script.trakt/default.py": {
+   "sha256": "fe8244e489c07738ba0888289ea7949764214c0e05aeb9200c39b74bd92fbce8",
+   "size": 1303
+  },
+  "addons/service.nf.channelguard/addon.xml": {
+   "sha256": "09e6f18b3035468d14b67b03deeb359740740008770de55af18d7026404e5326",
+   "size": 490
+  },
+  "addons/service.nf.channelguard/checker.py": {
+   "sha256": "6f4ba72daf1df1ad246d409e6fb980995cee74c8bbd8d91ebfa2595d5a0266a1",
+   "size": 2558
+  },
+  "addons/service.nf.channelguard/service.py": {
+   "sha256": "a8b283285f95d67814aaa476f341048a08ac268df1d1f0d1ed90b34eb8910782",
+   "size": 9402
+  },
+  "addons/service.nf.channelguard/service.py.v1": {
+   "sha256": "02ab7ed36ab9c28a02bd931521e052fd9d832a079022f4325b8abd2c9b15eb99",
+   "size": 2233
+  },
+  "addons/service.nf.channelguard/service.py.v12": {
+   "sha256": "b6720fa053633ffe711a039f2339d8d5b760562231a2195435c027db4ba63e0b",
+   "size": 8635
+  },
+  "addons/service.nf.channelguard/service.py.v13": {
+   "sha256": "a120b413e19a11643d269f788375297e4a3b83865ee26e5fd60aa686904b816e",
+   "size": 9332
+  },
+  "addons/service.nf.channelguard/watchdog.py": {
+   "sha256": "7100b52172220c3182e37b49e870e495b01fcd38f92b32160d286d0147b1af32",
+   "size": 1921
+  },
+  "addons/service.nf.skipintro/addon.xml": {
+   "sha256": "98ceaaa9d3ba003f15f42435753530eb614c00e6e78e9f27f8ad2781dae318bb",
+   "size": 645
+  },
+  "addons/service.nf.skipintro/nflogo.py": {
+   "sha256": "468a2d9732b74df8ee4fba411aac083ca43b433477cb4c102950635c7692525f",
+   "size": 2500
+  },
+  "addons/service.nf.skipintro/resources/skins/default/1080i/skipintro.xml": {
+   "sha256": "e9b30c9cae84a53808335ffd8f493b487267adfccdc80b25c5b307ea6130f51b",
+   "size": 2223
+  },
+  "addons/service.nf.skipintro/service.py": {
+   "sha256": "6e71c546fe6d4fd6639d932ce3549db452c20dcfc0a39a6cc8d16d93d059bbcf",
+   "size": 5878
+  },
+  "addons/service.smoke.updater/addon.xml": {
+   "sha256": "a23ee7d8506ad1184eb11ed2d65bf2eea737c398237dd78495a248b486e2458d",
+   "size": 725
+  },
+  "addons/service.smoke.updater/service.py": {
+   "sha256": "157d014806c19633f305b67d5ee6561fe267fbe7594dfe5fb03addf79879553d",
+   "size": 9170
+  },
+  "addons/service.studio.logo.fallback/addon.xml": {
+   "sha256": "33b400a2f6b0ebfad694019ad5429ad9c35b4c25e4fe789e7f5ea399a73774f9",
+   "size": 617
+  },
+  "addons/service.studio.logo.fallback/service.py": {
+   "sha256": "0a940476d08082014caa4a6049f76b42a13c0e77cc453fe15d0d45500bc2888d",
+   "size": 4853
+  },
+  "addons/service.subs.multilang/addon.xml": {
+   "sha256": "920b2648bcf64ee06c04e932fd973322da949dad67c4f499e2f567713e9b3a2d",
+   "size": 838
+  },
+  "addons/service.subs.multilang/more.py": {
+   "sha256": "da33cebbc7180db69949165560ec2d72f50be7d6ef78ddbf900ecbcd205adad4",
+   "size": 4244
+  },
+  "addons/service.subs.multilang/resources/skins/default/1080i/nf_toast.xml": {
+   "sha256": "44a3c17412cb79f05bb1f0dee3dffbe19223fefadeeea12e623646f0f01c0e35",
+   "size": 2802
+  },
+  "addons/service.subs.multilang/service.py": {
+   "sha256": "4d3aba7d222e46dcab151f5a65c39cf4f99010760767f18edb8d98da0ac8df2c",
+   "size": 13221
+  },
+  "addons/service.upnext/resources/lib/service_entry.py": {
+   "sha256": "ea9a75efa95ee8e35097c4a3d663a089ff8fc068f6f67e8d99eff4f59d920da6",
+   "size": 669
+  },
+  "addons/skin.arctic.fuse/1080i/Custom_1105_Hub_Search.xml": {
+   "sha256": "48e3e133d88698c0712fec4811ea70bb2722c2b1f633cee54beb61d4c3f84bed",
+   "size": 834
+  },
+  "addons/skin.arctic.fuse/1080i/Custom_1123_Dialog_Trailer.xml": {
+   "sha256": "fd52ca83c1e31162e7a74ac829ffa5b3ce354fa8ef49d99b9816ae6f1d9f67f3",
+   "size": 8588
+  },
+  "addons/skin.arctic.fuse/1080i/Custom_1141_OSD_Cast.xml": {
+   "sha256": "36aa4fc6eb7f735df4b8da15b46ced2ef0d1e85a18cc277047cdb6bb5f69216c",
+   "size": 11421
+  },
+  "addons/skin.arctic.fuse/1080i/Custom_1198_Window_Startup.xml": {
+   "sha256": "fc92516640ac24f6ca1017c5fff8c02ec83a48ca7be597c06f060a7adcdcd825",
+   "size": 10940
+  },
+  "addons/skin.arctic.fuse/1080i/DialogContextMenu.xml": {
+   "sha256": "7d48bf40f689ab719e5d696586446de356a279a5873699653225c3a441b9ef45",
+   "size": 6087
+  },
+  "addons/skin.arctic.fuse/1080i/DialogPVRChannelGuide.xml": {
+   "sha256": "10fd5b0f9c364587ea8e2bd16fd24cbbf232f3be85c5d267b117a47a1f268355",
+   "size": 9137
+  },
+  "addons/skin.arctic.fuse/1080i/DialogPVRChannelsOSD.xml": {
+   "sha256": "57f434067102da6559f2803f28a92729d9bf894020a425c942cfc128aa182808",
+   "size": 9486
+  },
+  "addons/skin.arctic.fuse/1080i/DialogSeekBar.xml": {
+   "sha256": "36db79dc145ca3193ed52f9eb800c413eeb8fe47746d5136001d2ada288afdcd",
+   "size": 9594
+  },
+  "addons/skin.arctic.fuse/1080i/Home.xml": {
+   "sha256": "1e328302865d56ae42dc9e7b9096fd65b3abdc0e86b892548745938a9a34e009",
+   "size": 1032
+  },
+  "addons/skin.arctic.fuse/1080i/Includes.xml": {
+   "sha256": "f1e7ada5178a66abdf69b57549bc94f45a1c66ba49b6b10caa2ee68b9fd6fcc4",
+   "size": 4323
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Actions.xml": {
+   "sha256": "703db529bef559a80b32a477ea6e1ace6da36116af7faadbeede91e3ab43d45f",
+   "size": 70072
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Background.xml": {
+   "sha256": "1e2feaeea17118bd5b9fa565e472e3db4f09e28a721d20323a7ee3b3108a428a",
+   "size": 15850
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Categories.xml": {
+   "sha256": "3bf1509ee737abe06320362d349e666e3b23c5b578f46b13747e9eb9090007aa",
+   "size": 8128
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Constants.xml": {
+   "sha256": "4ac6d996654a3a38915fd595330e009b85473e7443947fbd0c2b55d750100426",
+   "size": 11293
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Defaults.xml": {
+   "sha256": "70be4379a3d64b70932bead86e30f3f3a12fc52127c9a7cd9d396d6a3581964d",
+   "size": 31924
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_DialogContextMenu.xml": {
+   "sha256": "becb73f3fabe62eb89eb8f8fa961d597b51033f5aaed6e4850640d388150ff68",
+   "size": 10116
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_DialogInfo.xml": {
+   "sha256": "16a6f74117073813d62fa9a144b5e4da333c69bbd5d0387172c23931484d8d17",
+   "size": 106363
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Expressions.xml": {
+   "sha256": "4212b0285ccb05d1cf590ab359595f53cfc60d9e1e9d673b04272c1821a1fb9c",
+   "size": 43696
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Furniture.xml": {
+   "sha256": "4cb82932c9a12cb9433aea9955ae3f95ddce055d2e51c336cc0986d1f7fc75ba",
+   "size": 32695
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Hubs.xml": {
+   "sha256": "9fbd99fcd7435d96b7574a0ce07ba80a269c56de02f2f1b84ae04eb167c242c6",
+   "size": 42241
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Images.xml": {
+   "sha256": "249bee9084d4a221bcb52e46ab235a0ace4470cb10a65a73ac23453c7aaf6985",
+   "size": 65007
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Info.xml": {
+   "sha256": "0b2adda2d0d0992d4dd86b1b1f2dd6456a3252e6156774249b3c2431a0d25c6a",
+   "size": 182978
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Items.xml": {
+   "sha256": "650e133357141b1ffb6ab094a87d64f3dfff228ade7dc44fc97c9a88d126ee42",
+   "size": 125105
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Labels.xml": {
+   "sha256": "c743c4d83c19045a5ee193f7c7838cb8b7f04ff03dad06f6e1d09b973ca7e6e6",
+   "size": 155208
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Layouts.xml": {
+   "sha256": "6e3d28708b902782d2dc2c6448fe018cd680ed3a468c9d00195f1fd7d482bf62",
+   "size": 157999
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Lists.xml": {
+   "sha256": "eef61292feb97aacfd38b69cd133b93e8da6b19b9d80c92ee8a51def710e81d6",
+   "size": 70255
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_OSD.xml": {
+   "sha256": "ce5c610732309c397b622125d3e36da6b423f6401f0a7fccc4045a867649e1f0",
+   "size": 86307
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_OSDNF.xml": {
+   "sha256": "c21a647d32c6147dd9ace319adf2c73b3c0812be9cfc60e557024b3ce3a07386",
+   "size": 12545
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Overlay.xml": {
+   "sha256": "7b429cafb32822e7faa7a1e5a45fc9fe85cdacfdedddd4e8498cc65b5e1a6463",
+   "size": 18950
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Paths.xml": {
+   "sha256": "d57a09891b27617ee3712da14dc49c3307bb612d9500d9d43adf23b0bc1d626c",
+   "size": 48789
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Search_View.xml": {
+   "sha256": "2357d269a20dceec0e0525abd18a2e3c1477b49d5b016a3e286da178b073fe92",
+   "size": 48989
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Spotlight.xml": {
+   "sha256": "80207f07bfa0ed59225592c41247aa776108c2743355e2444678e493c70b7fa0",
+   "size": 18634
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Views.xml": {
+   "sha256": "49a44bc167690f9050447ed4417b7096aa10387a2c401c7651268b4bc7adbd41",
+   "size": 27268
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Views_Combined.xml": {
+   "sha256": "96e7ae72ad642f91fe1f46fa962813698e9667a9f8a36c75330333eeca187c76",
+   "size": 12426
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Views_List.xml": {
+   "sha256": "3af2581371f507312c0124dc46bb14aa19f7f15fe6283e30d9a6565dfdf0fbd3",
+   "size": 10968
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Views_Row.xml": {
+   "sha256": "e50cdbd57a2f1ff4e42ceed17a54a5ea7a64f92be804a5b8153b771a8b7ad6e6",
+   "size": 3681
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Widgets.xml": {
+   "sha256": "46bdf6b34a02a865e58d146d081e275b872fdac1f84316c8482b61991da6f07a",
+   "size": 41512
+  },
+  "addons/skin.arctic.fuse/1080i/Timers.xml": {
+   "sha256": "ea03d81e33698153a4132a7f05436bab444182b62e3d433e844f4d3dc7c088da",
+   "size": 4264
+  },
+  "addons/skin.arctic.fuse/1080i/VideoOSD.xml": {
+   "sha256": "bf092b0035c1045c51eaf802125d83c939d818e1111b0ddceaed2832d2819163",
+   "size": 43047
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-includes--kodiprofile-8c34d337b002490eda7727171fcb9dbf.xml": {
+   "once": true,
+   "sha256": "8b5184213edfd741c423b0207f5c25ba9e19af3e543dc92b976bea0614ade5fd",
+   "size": 45937
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-includes-.xml": {
+   "once": true,
+   "sha256": "115a40393dc81bd567b4dad501eabb8839b00a1fc618f2766d6b0ce613e11513",
+   "size": 245
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-textures-includes-kodiprofile-8c34d337b002490eda7727171fcb9dbf.xml": {
+   "once": true,
+   "sha256": "915bd5b23689d2b3211911d0ae2c3312948cd4a7de9ccd79ec6913604c6e6237",
+   "size": 8600
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-textures-includes.xml": {
+   "once": true,
+   "sha256": "14a5f1394a97b5fe7a9972b2c8f1a6333ab660086c9ddc2d1a4bf6b18987eebb",
+   "size": 253
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinvariables-images-includes.xml": {
+   "once": true,
+   "sha256": "08bbf475dc7c9e6d2a6495e9f1117e5bbe1757df76e86aa9fed2624c9977ca11",
+   "size": 1415126
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinvariables-labels-includes.xml": {
+   "once": true,
+   "sha256": "992c857932c67cba8624e2f9052d37e831e3656f7af5eba9bb5983c91e50bebc",
+   "size": 2230373
+  },
+  "addons/skin.arctic.fuse/1080i/script-skinviewtypes-includes.xml": {
+   "once": true,
+   "sha256": "f09c6d6bffaf5481e5b2221176f692a5a3028fd86aa9e6c622e8592d194f5150",
+   "size": 6346
+  },
+  "addons/skin.arctic.fuse/fonts/NotoSansHebrew-VariableFont_wdth,wght.ttf": {
+   "sha256": "d5f42a54e852b44d62f26ea93703dac022f07a6a5036d27f0a6b470689b7a246",
+   "size": 112332
+  },
+  "addons/skin.arctic.fuse/shortcuts/builtins/skinvariables-playtrailer.json": {
+   "once": true,
+   "sha256": "608c9accf636ac7edf8fba94d70affddfb112541249b16a8233453c29b371021",
+   "size": 518
+  },
+  "addons/skin.arctic.fuse/shortcuts/skinvariables-generator.json": {
+   "once": true,
+   "sha256": "53b03c3c6a2c02a60913316284d8469699bed5313f7f51b2c03d4964d22d205b",
+   "size": 1073
+  },
+  "addons/skin.arctic.fuse/shortcuts/skinvariables-images.xml": {
+   "once": true,
+   "sha256": "7d7ee80450e775bacc86405160f67f0bc097804b7489f95831f38671ad90c8d4",
+   "size": 9705
+  },
+  "addons/skin.arctic.fuse/shortcuts/skinvariables-labels.xml": {
+   "once": true,
+   "sha256": "99469d0851f5e6ae98770d152bd6e8813996327bb43859577ff4eb64853671c2",
+   "size": 7566
+  },
+  "userdata/addon_data/script.skinshortcuts/0.DATA.xml": {
+   "once": true,
+   "sha256": "c3c8dcd59829e9b7ba707cb0d2440b81c46e4327cb02cfd63ec62349356a7b7c",
+   "size": 13
+  },
+  "userdata/addon_data/script.skinshortcuts/1.DATA.xml": {
+   "once": true,
+   "sha256": "f5715c70e3788f7dab996e6a5dd09407cee7c64caa02fb21ebbf435cd93a1dac",
+   "size": 208
+  },
+  "userdata/addon_data/script.skinshortcuts/33060.DATA.xml": {
+   "once": true,
+   "sha256": "c3c8dcd59829e9b7ba707cb0d2440b81c46e4327cb02cfd63ec62349356a7b7c",
+   "size": 13
+  },
+  "userdata/addon_data/script.skinshortcuts/mainmenu.DATA.xml": {
+   "once": true,
+   "sha256": "9bae43f28dc86ba03cbbdc5666666e8944d6859ea293960e35631c64e35ad611",
+   "size": 2329
+  },
+  "userdata/addon_data/script.skinshortcuts/music.DATA.xml": {
+   "once": true,
+   "sha256": "a110730debf5ceaeec33b546c1fa6ad2ea364e793b140389e25feeaf9a615a73",
+   "size": 2060
+  },
+  "userdata/addon_data/script.skinshortcuts/plugin-video-elementum-movies.DATA.xml": {
+   "once": true,
+   "sha256": "405ef9da753c39c6269780a2966a0c1ff7fa67afe5d8485505c72c4f109565a9",
+   "size": 1180
+  },
+  "userdata/addon_data/script.skinshortcuts/plugin-video-elementum-shows.DATA.xml": {
+   "once": true,
+   "sha256": "3069703b114b3caf32d34a336e2ccc8b74da79aa1536a14579cc7f6b80649162",
+   "size": 1010
+  },
+  "userdata/addon_data/script.skinshortcuts/plugin-video-idanplus.DATA.xml": {
+   "once": true,
+   "sha256": "406e1e6889f6d72ea07d5eccb0b357dc9b5619f8524375c0c1c56d80c70ed21f",
+   "size": 1187
+  },
+  "userdata/addon_data/script.skinshortcuts/powermenu.DATA.xml": {
+   "once": true,
+   "sha256": "961267c663e2d1546980d64f16b98e983c003e2c725b494f4531a3f2f75dd7a0",
+   "size": 2846
+  },
+  "userdata/addon_data/script.skinshortcuts/settings.DATA.xml": {
+   "once": true,
+   "sha256": "c47dccd7569daa6fe11507f60a2c39dafcc0d0854096d849085317c238cecc7d",
+   "size": 694
+  },
+  "userdata/addon_data/script.skinshortcuts/skin.arctic.zephyr.mod.hash": {
+   "once": true,
+   "sha256": "bb728e9dbe802fb42dc5a8ec2e159611237492a80d7904963100614c888f4b09",
+   "size": 4645
+  },
+  "userdata/addon_data/script.skinshortcuts/skin.arctic.zephyr.mod.properties": {
+   "once": true,
+   "sha256": "7a113ec162c8c3af5a883d1b015916b7cc0049d64163b878ceddfbaaaa426dc4",
+   "size": 4940
+  },
+  "userdata/addon_data/script.skinshortcuts/videos.DATA.xml": {
+   "once": true,
+   "sha256": "38482d97491ddd2a6274279dd8a69b6710df450e91f001546f3df4ac330d851b",
+   "size": 579
+  },
+  "userdata/addon_data/script.skinvariables/log_request/Settings.SetSettingValue_setting-lookandfeel.skincolors_value-SKINDEFAULT.json": {
+   "once": true,
+   "sha256": "7c9ab2fd06d31ef7110db88f520ec93894e225f9d3adb20c474be830a8d2cc39",
+   "size": 202
+  },
+  "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-homemenu.json": {
+   "once": true,
+   "sha256": "9f37a7a5f8efb21ee82e08cbd3fc4bf3590a76d6f898b3f9139a3116e7f22ef8",
+   "size": 4450
+  },
+  "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-options-tray.json": {
+   "once": true,
+   "sha256": "d10098218c242eec27fa7e78a6f5dc351494064962c74fd508a834625044b163",
+   "size": 579
+  },
+  "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-powermainmenu.json": {
+   "once": true,
+   "sha256": "037c4df9cdb92af9861f89fe40cbeea9aa39d5075f09b36396fc9ead95cc808f",
+   "size": 621
+  },
+  "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-searchmenu.json": {
+   "once": true,
+   "sha256": "0b6fc7f603096e8e29319bd47f1140d2210fea81f189490b8d8f12b5a0ee6edf",
+   "size": 1208
+  },
+  "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-sidemenu.json": {
+   "once": true,
+   "sha256": "5ad423021981f06f73bc59603223bd9c9f8ac598f1c57947409355a6b8036f27",
+   "size": 2914
+  },
+  "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-sidemenu.json.with-cw": {
+   "once": true,
+   "sha256": "1bc46b5b2356b8fca092a79bf06c980ee1083b6a973d21655652feec0f5532a5",
+   "size": 3518
+  },
+  "userdata/addon_data/script.skinvariables/skin.arctic.fuse-viewtypes.json": {
+   "once": true,
+   "sha256": "080fc26a6e3b2b843d73eab9a823f2c0effac2c1f64326017d49ad18f106cd62",
+   "size": 1459
+  },
+  "userdata/addon_data/skin.arctic.fuse/settings.xml": {
+   "once": true,
+   "sha256": "5fb502904b4466871814d1229a9db8d1ed015737ef97830a496ae7e5cfde6d67",
+   "size": 21900
+  },
+  "userdata/keymaps/gen.xml": {
+   "once": true,
+   "sha256": "70b17b6d3e4288de274c352770c32637cef0e08f273cae08328b8c25368d50ee",
+   "size": 86
+  }
+ },
+ "requires": {
+  "plugin.video.elementum": "0.1.119",
+  "plugin.video.themoviedb.helper": "6.21.5",
+  "script.trakt": "3.9.0",
+  "service.upnext": "1.3.4",
+  "skin.arctic.fuse": "0.7.39~omega"
+ },
+ "version": 1
+}

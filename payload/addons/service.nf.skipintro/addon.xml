@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.nf.skipintro" name="Skip Intro (IntroDB)" version="1.0.0" provider-name="claude">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.service" library="service.py"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Netflix-style "Skip Intro" / "Skip Recap" button</summary>
+        <description lang="en_GB">Shows a Skip Intro / Skip Recap button during TV episodes, using community timestamps from introdb.app.</description>
+        <platform>all</platform>
+    </extension>
+</addon>

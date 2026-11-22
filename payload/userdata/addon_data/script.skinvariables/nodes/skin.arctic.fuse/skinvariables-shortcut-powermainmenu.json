@@ -1,0 +1,23 @@
+[
+    {
+        "icon": "special://skin/extras/icons/favourites2.png",
+        "label": "$LOCALIZE[1036]",
+        "path": "ActivateWindow(1160)",
+        "target": "",
+        "guid": "guid-0afe6e88"
+    },
+    {
+        "icon": "special://skin/extras/icons/filebox.png",
+        "label": "$LOCALIZE[7]",
+        "path": "ActivateWindow(filemanager)",
+        "target": "",
+        "guid": "guid-3153c437"
+    },
+    {
+        "label": "Video Add-ons",
+        "path": "addons://sources/video/",
+        "icon": "special://skin/extras/icons/addon.png",
+        "target": "videos",
+        "guid": "guid-8d85f357"
+    }
+]

@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+# NF boot priority (claude 20261115): let Elementum start first so the home rows fill quickly
+def _nf_wait_for_elementum(limit=45):
+    import socket, time, xbmc
+    mon, t0 = xbmc.Monitor(), time.time()
+    while time.time() - t0 < limit and not mon.abortRequested():
+        try:
+            socket.create_connection(('127.0.0.1', 65220), 1).close()
+            return
+        except Exception:
+            mon.waitForAbort(1)
+_nf_wait_for_elementum()
+# /NF boot priority
+
+# GNU General Public License v2.0 (see COPYING or https://www.gnu.org/licenses/gpl-2.0.txt)
+
+from monitor import UpNextMonitor
+
+# Start the monitor
+UpNextMonitor().run()

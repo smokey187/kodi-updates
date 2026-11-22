@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- claude 20261115: variables for the minimal player OSD (VideoOSD.xml) -->
+<includes>
+    <variable name="OSDNF_Hint">
+        <value condition="Control.HasFocus(9101) + VideoPlayer.Content(livetv)">Channels</value>
+        <value condition="Control.HasFocus(9101)">-10 s</value>
+        <value condition="Control.HasFocus(9102) + Player.Paused">Play</value>
+        <value condition="Control.HasFocus(9102)">Pause</value>
+        <value condition="Control.HasFocus(9103) + VideoPlayer.Content(livetv)">TV guide</value>
+        <value condition="Control.HasFocus(9103)">+10 s</value>
+        <value condition="Control.HasFocus(9104) + VideoPlayer.SubtitlesEnabled + !String.IsEmpty(VideoPlayer.SubtitlesLanguage)">Subtitles  ·  $INFO[VideoPlayer.SubtitlesLanguage]</value>
+        <value condition="Control.HasFocus(9104)">Subtitles  ·  Off</value>
+        <value condition="Control.HasFocus(9105) + !String.IsEmpty(VideoPlayer.AudioLanguage)">Audio  ·  $INFO[VideoPlayer.AudioLanguage]</value>
+        <value condition="Control.HasFocus(9105)">Audio</value>
+        <value condition="Control.HasFocus(9106)">Subtitles  ·  sync &amp; settings</value>
+        <value condition="Control.HasFocus(9107)">Next episode</value>
+    </variable>
+        <variable name="OSDNF_Icon_9101">
+            <value condition="VideoPlayer.Content(livetv)">special://skin/extras/icons/list.png</value>
+            <value>special://skin/extras/icons/backward.png</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9101">
+            <value condition="Control.HasFocus(9101)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_Icon_9102">
+            <value condition="Player.Paused | Player.Forwarding | Player.Rewinding">special://skin/extras/icons/play.png</value>
+            <value>special://skin/extras/icons/pause.png</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9102">
+            <value condition="Control.HasFocus(9102)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_Icon_9103">
+            <value condition="VideoPlayer.Content(livetv)">special://skin/extras/icons/tvguide.png</value>
+            <value>special://skin/extras/icons/forward.png</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9103">
+            <value condition="Control.HasFocus(9103)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9104">
+            <value condition="Control.HasFocus(9104)">FF101010</value>
+            <value condition="!VideoPlayer.SubtitlesEnabled">80FFFFFF</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9105">
+            <value condition="Control.HasFocus(9105)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9106">
+            <value condition="Control.HasFocus(9106)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9108">
+            <value condition="Control.HasFocus(9108)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_IconColor_9107">
+            <value condition="Control.HasFocus(9107)">FF101010</value>
+            <value>FFFFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9111">
+            <value condition="Control.HasFocus(9111)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9112">
+            <value condition="Control.HasFocus(9112)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9113">
+            <value condition="Control.HasFocus(9113)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9114">
+            <value condition="Control.HasFocus(9114)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9115">
+            <value condition="Control.HasFocus(9115)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <!-- ===== claude 20261115: live TV card (zap banner + live OSD) ===== -->
+        <variable name="NF_Genre_">
+            <value condition="String.Contains(ListItem.Genre,Unknown)"></value>
+            <value>$INFO[ListItem.Genre]</value>
+        </variable>
+        <variable name="NF_Genre_Next">
+            <value condition="String.Contains(ListItem.NextGenre,Unknown)"></value>
+            <value>$INFO[ListItem.NextGenre]</value>
+        </variable>
+        <include name="NF_LiveCard">
+            <param name="bottom">96</param>
+            <definition>
+            <control type="group">
+                <right>96</right>
+                <bottom>$PARAM[bottom]</bottom>
+                <width>800</width>
+                <height>224</height>
+                <animation effect="slide" start="60,0" end="0,0" time="260" tween="cubic" easing="out">WindowOpen</animation>
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>800</width>
+                    <height>224</height>
+                    <texture colordiffuse="E60E0E10" border="20">common/box.png</texture>
+                </control>
+                <!-- channel logo -->
+                <control type="image">
+                    <right>28</right>
+                    <top>30</top>
+                    <width>220</width>
+                    <height>140</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture background="true">$INFO[Player.Icon]</texture>
+                </control>
+                <!-- number + name -->
+                <control type="label">
+                    <left>130</left>
+                    <right>276</right>
+                    <top>20</top>
+                    <height>48</height>
+                    <align>right</align>
+                    <font>font_main_bold</font>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <label>$INFO[VideoPlayer.ChannelNumberLabel,,  ·  ]$INFO[VideoPlayer.ChannelName]</label>
+                </control>
+                <!-- LIVE / preview badge -->
+                <control type="group">
+                    <left>28</left>
+                    <top>26</top>
+                    <width>84</width>
+                    <height>36</height>
+                    <control type="image">
+                        <texture colordiffuse="FFE50914" border="8">common/box.png</texture>
+                        <visible>!Player.ChannelPreviewActive</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="FFFFFFFF" border="8">common/box.png</texture>
+                        <visible>Player.ChannelPreviewActive</visible>
+                    </control>
+                    <control type="label">
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <font>font_tiny_black</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>LIVE</label>
+                        <visible>!Player.ChannelPreviewActive</visible>
+                    </control>
+                    <control type="label">
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <font>font_tiny_black</font>
+                        <textcolor>FF141414</textcolor>
+                        <label>OK</label>
+                        <visible>Player.ChannelPreviewActive</visible>
+                    </control>
+                </control>
+                <!-- programme -->
+                <control type="textbox">
+                    <left>28</left>
+                    <right>276</right>
+                    <top>68</top>
+                    <height>56</height>
+                    <align>right</align>
+                    <aligny>center</aligny>
+                    <font>font_main_black</font>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <autoscroll>false</autoscroll>
+                    <label>$VAR[OSDNF_ProgrammeTitle]</label>
+                </control>
+                <!-- time, next to the LIVE badge -->
+                <control type="label">
+                    <left>124</left>
+                    <top>26</top>
+                    <width>300</width>
+                    <height>36</height>
+                    <aligny>center</aligny>
+                    <font>font_mini</font>
+                    <textcolor>B3FFFFFF</textcolor>
+                    <label>$INFO[VideoPlayer.StartTime]$INFO[VideoPlayer.EndTime, – ,]</label>
+                </control>
+                <control type="image">
+                    <left>28</left>
+                    <top>134</top>
+                    <width>496</width>
+                    <height>6</height>
+                    <texture colordiffuse="40FFFFFF">common/white.png</texture>
+                </control>
+                <control type="progress">
+                    <left>28</left>
+                    <top>134</top>
+                    <width>496</width>
+                    <height>6</height>
+                    <texturebg colordiffuse="00FFFFFF">common/white.png</texturebg>
+                    <lefttexture />
+                    <righttexture />
+                    <overlaytexture />
+                    <midtexture colordiffuse="FFE50914">common/white.png</midtexture>
+                    <info>PVR.EpgEventProgress</info>
+                </control>
+                <!-- next -->
+                <control type="textbox">
+                    <left>28</left>
+                    <right>276</right>
+                    <top>156</top>
+                    <height>44</height>
+                    <align>right</align>
+                    <aligny>center</aligny>
+                    <font>font_mini</font>
+                    <textcolor>99FFFFFF</textcolor>
+                    <autoscroll>false</autoscroll>
+                    <label>$INFO[VideoPlayer.NextStartTime,הבא ב-,  ·  ]$INFO[VideoPlayer.NextTitle]</label>
+                </control>
+            </control>
+            </definition>
+        </include>
+        <variable name="OSDNF_ProgrammeTitle">
+            <value condition="!String.IsEmpty(VideoPlayer.EpgEventTitle)">$INFO[VideoPlayer.EpgEventTitle]</value>
+            <value>$INFO[VideoPlayer.Title]</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9121">
+            <value condition="Control.HasFocus(9121)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9122">
+            <value condition="Control.HasFocus(9122)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="OSDNF_BtnColor_9123">
+            <value condition="Control.HasFocus(9123)">FF141414</value>
+            <value>E6FFFFFF</value>
+        </variable>
+        <variable name="NF_Pause_Poster">
+            <value condition="!String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
+            <value condition="!String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
+            <value>$INFO[Player.Art(thumb)]</value>
+        </variable>
+        <variable name="NF_Pause_Logo">
+            <value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">$INFO[Player.Art(tvshow.clearlogo)]</value>
+            <value condition="!String.IsEmpty(Player.Art(clearlogo))">$INFO[Player.Art(clearlogo)]</value>
+            <value>$INFO[Window(Home).Property(NF.PauseLogo)]</value>
+        </variable>
+        <variable name="NF_Pause_Title">
+            <value condition="!String.IsEmpty(VideoPlayer.TVShowTitle)">$INFO[VideoPlayer.TVShowTitle]</value>
+            <value>$INFO[VideoPlayer.Title]</value>
+        </variable>
+        <variable name="NF_Pause_Sub">
+            <value condition="!String.IsEmpty(VideoPlayer.TVShowTitle)">$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E,  ·  ]$INFO[VideoPlayer.Title]</value>
+            <value>$INFO[VideoPlayer.Year]$INFO[VideoPlayer.Genre,  ·  ,]$INFO[VideoPlayer.Duration(mins),  ·  , min]</value>
+        </variable>
+</includes>

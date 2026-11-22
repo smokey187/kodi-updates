@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol>996</defaultcontrol>
+    <coordinates>
+        <origin x="0" y="0" />
+    </coordinates>
+    <onload condition="!String.StartsWith(Control.GetLabel(1001),Resume from)">AlarmClock(Refocus,SetFocus(1001),00:00,silent)</onload>
+    <!-- claude 20261115: Kodi's "Resume from / Play from beginning" prompt gets its own minimal card -->
+    <controls>
+        <control type="group">
+            <!-- resume prompt: Kodi's real buttons stay focusable but invisible; the card below draws them -->
+            <animation effect="fade" start="0" end="0" time="0" condition="String.StartsWith(Control.GetLabel(1001),Resume from)">Conditional</animation>
+
+        <!-- Small Menu -->
+        <include content="Dialog_ContextMenu" condition="Window.IsVisible(1160) | Window.IsVisible(favouritesbrowser) | Window.IsVisible(filemanager)">
+            <param name="include_fullmenu">false</param>
+            <param name="dialog_size">Dimension_DialogSideMenu</param>
+            <param name="button_width">dialog_main_button_w</param>
+            <param name="lines_right">0</param>
+        </include>
+
+        <!-- Large Menu -->
+        <include content="Dialog_ContextMenu" condition="![Window.IsVisible(1160) | Window.IsVisible(favouritesbrowser) | Window.IsVisible(filemanager)]">
+            <param name="include_fullmenu">true</param>
+            <param name="dialog_size">Dimension_DialogHugeMenu</param>
+            <param name="button_width">764</param>
+            <param name="lines_right">476</param>
+        </include>
+        </control>
+
+        <!-- minimal resume card -->
+        <control type="group">
+            <visible>String.StartsWith(Control.GetLabel(1001),Resume from)</visible>
+            <control type="image">
+                <left>0</left><top>0</top><width>1920</width><height>1080</height>
+                <texture colordiffuse="B3000000">common/white.png</texture>
+            </control>
+            <control type="group">
+                <centerleft>50%</centerleft><centertop>50%</centertop>
+                <width>900</width><height>404</height>
+                <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+                <animation effect="zoom" start="94" end="100" center="auto" time="220" tween="cubic" easing="out">Visible</animation>
+                <control type="image">
+                    <texture colordiffuse="F2141416" border="24">common/box.png</texture>
+                </control>
+                <control type="label">
+                    <left>60</left><top>46</top><width>780</width><height>60</height>
+                    <font>font_main_black</font>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.title)]</label>
+                </control>
+                <control type="label">
+                    <left>60</left><top>106</top><width>780</width><height>40</height>
+                    <font>font_mini</font>
+                    <textcolor>99FFFFFF</textcolor>
+                    <label>$INFO[Control.GetLabel(1001)]</label>
+                </control>
+                <control type="group">
+                    <left>60</left><top>176</top><width>780</width><height>76</height>
+                    <control type="image">
+                        <texture colordiffuse="FFFFFFFF" border="18">common/box.png</texture>
+                        <visible>Control.HasFocus(1001)</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="26FFFFFF" border="18">common/box.png</texture>
+                        <visible>!Control.HasFocus(1001)</visible>
+                    </control>
+                    <control type="label">
+                        <left>36</left><width>708</width><height>76</height><aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>E6FFFFFF</textcolor>
+                        <label>Resume</label>
+                        <visible>!Control.HasFocus(1001)</visible>
+                    </control>
+                    <control type="label">
+                        <left>36</left><width>708</width><height>76</height><aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FF141414</textcolor>
+                        <label>Resume</label>
+                        <visible>Control.HasFocus(1001)</visible>
+                    </control>
+                </control>
+                <control type="group">
+                    <left>60</left><top>268</top><width>780</width><height>76</height>
+                    <control type="image">
+                        <texture colordiffuse="FFFFFFFF" border="18">common/box.png</texture>
+                        <visible>Control.HasFocus(1002)</visible>
+                    </control>
+                    <control type="image">
+                        <texture colordiffuse="26FFFFFF" border="18">common/box.png</texture>
+                        <visible>!Control.HasFocus(1002)</visible>
+                    </control>
+                    <control type="label">
+                        <left>36</left><width>708</width><height>76</height><aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>E6FFFFFF</textcolor>
+                        <label>Start over</label>
+                        <visible>!Control.HasFocus(1002)</visible>
+                    </control>
+                    <control type="label">
+                        <left>36</left><width>708</width><height>76</height><aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FF141414</textcolor>
+                        <label>Start over</label>
+                        <visible>Control.HasFocus(1002)</visible>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

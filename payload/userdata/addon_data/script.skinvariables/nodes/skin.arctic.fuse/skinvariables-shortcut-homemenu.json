@@ -1,0 +1,121 @@
+[
+    {
+        "label": "Videos",
+        "path": "library://video/",
+        "icon": "special://skin/extras/icons/video.png",
+        "target": "videos",
+        "sidemenu_guid": "guid-19ada9cd",
+        "guid": "guid-01dcc5fb",
+        "submenulist_label": "Videos",
+        "submenulist_path": "library://video/",
+        "submenulist_icon": "special://skin/extras/icons/video.png",
+        "submenulist_target": "videos",
+        "widgets": [
+            {
+                "label": "New Movies",
+                "icon": "special://skin/extras/icons/list-ol.png",
+                "path": "special://skin/extras/playlists/NewMovies.xsp",
+                "target": "videos",
+                "widget_style": "Landscape",
+                "guid": "guid-b965a69c"
+            },
+            {
+                "label": "New Tv Shows",
+                "path": "special://skin/extras/playlists/NewShows.xsp",
+                "icon": "DefaultRecentlyAddedMovies.png",
+                "target": "videos",
+                "widget_style": "Landscape",
+                "guid": "guid-417e3c8f"
+            },
+            {
+                "label": "Recent Movies",
+                "path": "special://skin/extras/playlists/RecentMovies.xsp",
+                "icon": "special://skin/extras/icons/list-ol.png",
+                "target": "videos",
+                "widget_style": "Landscape",
+                "guid": "guid-29adb721"
+            },
+            {
+                "label": "Recent Tv Shows",
+                "path": "special://skin/extras/playlists/RecentTvShows.xsp",
+                "icon": "DefaultMusicRecentlyPlayed.png",
+                "target": "videos",
+                "widget_style": "Landscape",
+                "guid": "guid-f1961522"
+            },
+            {
+                "label": "In-Progress Tv Shows",
+                "path": "library://video/tvshows/inprogressshows.xml",
+                "icon": "special://skin/extras/icons/timer.png",
+                "target": "videos",
+                "widget_style": "Landscape",
+                "guid": "guid-9c9ed943"
+            },
+            {
+                "label": "Random Movies",
+                "path": "special://skin/extras/playlists/RandomMovies.xsp",
+                "icon": "special://skin/extras/icons/list-ol.png",
+                "target": "videos",
+                "widget_style": "Landscape",
+                "guid": "guid-9dbc0971"
+            }
+        ]
+    },
+    {
+        "label": "Add-ons",
+        "path": "ActivateWindow(1132)",
+        "icon": "special://skin/extras/icons/addon.png",
+        "target": "",
+        "sidemenu_guid": "guid-19ada9cd",
+        "guid": "guid-82cc4511",
+        "submenu": [
+            {
+                "label": "Video Add-ons",
+                "icon": "special://skin/extras/icons/addon.png",
+                "path": "addons://sources/video/",
+                "target": "videos",
+                "guid": "guid-b12b6c3d"
+            },
+            {
+                "label": "Music Add-ons",
+                "path": "addons://sources/audio/",
+                "icon": "special://skin/extras/icons/addon.png",
+                "target": "music",
+                "guid": "guid-7d841812"
+            },
+            {
+                "label": "Image Add-ons",
+                "path": "addons://sources/image/",
+                "icon": "special://skin/extras/icons/addon.png",
+                "target": "pictures",
+                "guid": "guid-88677675"
+            }
+        ],
+        "widgets": [
+            {
+                "label": "Video Add-ons",
+                "icon": "special://skin/extras/icons/addon.png",
+                "path": "addons://sources/video/",
+                "target": "videos",
+                "widget_style": "Square",
+                "guid": "guid-4db7d325"
+            },
+            {
+                "label": "Music Add-ons",
+                "path": "addons://sources/audio/",
+                "icon": "special://skin/extras/icons/addon.png",
+                "target": "music",
+                "widget_style": "Square",
+                "guid": "guid-9155fb96"
+            },
+            {
+                "label": "Image Add-ons",
+                "path": "addons://sources/image/",
+                "icon": "special://skin/extras/icons/addon.png",
+                "target": "pictures",
+                "widget_style": "Square",
+                "guid": "guid-a20f03c6"
+            }
+        ]
+    }
+]

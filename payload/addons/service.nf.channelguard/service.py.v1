@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+# When a live channel fails to open, say so and go back to the channel that was playing.
+import json, time, xbmc
+
+def rpc(method, params=None):
+    return json.loads(xbmc.executeJSONRPC(json.dumps({"jsonrpc": "2.0", "id": 1, "method": method, "params": params or {}})))
+
+def label(cid):
+    try:
+        return rpc("PVR.GetChannelDetails", {"channelid": cid})["result"]["channeldetails"]["label"]
+    except Exception:
+        return ""
+
+class Guard(xbmc.Monitor):
+    def __init__(self):
+        super().__init__()
+        self.good = None      # last channel that started
+        self.trying = None    # channel being opened, not started yet
+        self.since = 0
+        self.returning = False
+
+    def onNotification(self, sender, method, data):
+        try:
+            d = json.loads(data) if data else {}
+            if not isinstance(d, dict):
+                d = {}
+        except Exception:
+            d = {}
+        item = d.get("item") or {}
+        cid = item.get("id") if item.get("type") == "channel" else None
+        if method == "Player.OnPlay":
+            if cid is not None:
+                self.trying, self.since = cid, time.time()
+        elif method == "Player.OnAVStart":
+            if cid is not None:
+                self.good, self.trying, self.returning = cid, None, False
+        elif method == "Player.OnStop":
+            failed = self.trying
+            if failed is None or time.time() - self.since > 30 or (cid is not None and cid != failed):
+                return
+            self.trying = None
+            name = label(failed) or "הערוץ"
+            if self.good is not None and self.good != failed and not self.returning:
+                self.returning = True
+                xbmc.executebuiltin('Notification(%s לא זמין כרגע,חוזר ל%s,6000,DefaultIconError.png)' % (name, label(self.good)))
+                rpc("Player.Open", {"item": {"channelid": self.good}})
+            else:
+                xbmc.executebuiltin('Notification(%s לא זמין כרגע,נסה ערוץ גיבוי,6000,DefaultIconError.png)' % name)
+
+if __name__ == "__main__":
+    m = Guard()
+    while not m.abortRequested():
+        if m.waitForAbort(10):
+            break

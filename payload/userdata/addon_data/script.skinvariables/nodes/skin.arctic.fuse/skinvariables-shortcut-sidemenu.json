@@ -1,0 +1,78 @@
+[
+    {
+        "label": "$LOCALIZE[20342]",
+        "icon": "special://skin/extras/icons/film.png",
+        "path": "plugin://plugin.video.elementum/movies/",
+        "target": "videos",
+        "widgets": [
+            {
+                "label": "Movies",
+                "path": "plugin://plugin.video.elementum/movies/trakt/popular?nfreload=$INFO[Window(Home).Property(NF.WidgetReload)]",
+                "icon": "special://skin/extras/icons/director.png",
+                "target": "videos",
+                "guid": "guid-c9a1a145",
+                "widget_style": "Poster",
+                "widget_autoscroll": "True"
+            }
+        ],
+        "guid": "guid-488ad32f",
+        "spotlight_label": "Random Movies",
+        "spotlight_path": "special://skin/extras/playlists/RandomMovies.xsp",
+        "spotlight_icon": "special://skin/extras/icons/list-ol.png",
+        "spotlight_target": "videos",
+        "disabled": "",
+        "submenu": [
+            {
+                "label": "Files",
+                "icon": "DefaultFolder.png",
+                "path": "library://video/files.xml/",
+                "target": "videos",
+                "guid": "guid-16102089"
+            }
+        ]
+    },
+    {
+        "label": "$LOCALIZE[20343]",
+        "icon": "special://skin/extras/icons/tv.png",
+        "path": "plugin://plugin.video.elementum/shows/",
+        "target": "videos",
+        "widgets": [
+            {
+                "label": "Tv Shows",
+                "path": "plugin://plugin.video.elementum/shows/trakt/trending?nfreload=$INFO[Window(Home).Property(NF.WidgetReload)]",
+                "icon": "special://skin/extras/icons/film.png",
+                "target": "videos",
+                "guid": "guid-168e89ce",
+                "widget_style": "Poster",
+                "widget_autoscroll": "True"
+            }
+        ],
+        "guid": "guid-0a9df9a5",
+        "spotlight_label": "Random Tv Shows",
+        "spotlight_path": "special://skin/extras/playlists/RandomTvShows.xsp",
+        "spotlight_icon": "DefaultTVShows.png",
+        "spotlight_target": "videos"
+    },
+    {
+        "label": "$LOCALIZE[31085]",
+        "icon": "special://skin/extras/icons/livetv.png",
+        "path": "ActivateWindow(TVChannels)",
+        "target": "",
+        "widgets": [
+            {
+                "label": "Live TV",
+                "path": "pvr://channels/tv/%D7%A8%D7%90%D7%A9%D7%99@-1/",
+                "widget_style": "Square",
+                "target": "tvguide",
+                "guid": "guid-27538532",
+                "icon": "special://skin/extras/icons/tvguide.png",
+                "widget_autoscroll": "True"
+            }
+        ],
+        "guid": "guid-e79824eb",
+        "spotlight_label": "Last Played Channels",
+        "spotlight_path": "pvr://channels/tv/*?view=lastplayed",
+        "spotlight_icon": "DefaultAddonPVRClient.png",
+        "spotlight_target": ""
+    }
+]

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">3001</defaultcontrol>
+    <zorder>2</zorder>
+    <animation effect="fade" start="0" end="100" time="200">WindowOpen</animation>
+    <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+    <controls>
+        <control type="group">
+            <right>96</right>
+            <bottom>140</bottom>
+            <width>300</width>
+            <height>76</height>
+            <animation effect="slide" start="40,0" end="0,0" time="250" tween="cubic" easing="out">WindowOpen</animation>
+            <control type="button" id="3001">
+                <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                <texturenofocus colordiffuse="CC141414" border="12">common/box.png</texturenofocus>
+                <label />
+            </control>
+            <control type="image">
+                <left>2</left>
+                <top>2</top>
+                <width>296</width>
+                <height>72</height>
+                <texture colordiffuse="99FFFFFF" border="12">common/box-outline.png</texture>
+                <visible>!Control.HasFocus(3001)</visible>
+            </control>
+            <control type="label">
+                <left>0</left>
+                <top>0</top>
+                <width>300</width>
+                <height>76</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font_main_bold</font>
+                <textcolor>FF141414</textcolor>
+                <label>$INFO[Window.Property(label)]</label>
+                <visible>Control.HasFocus(3001)</visible>
+            </control>
+            <control type="label">
+                <left>0</left>
+                <top>0</top>
+                <width>300</width>
+                <height>76</height>
+                <align>center</align>
+                <aligny>center</aligny>
+                <font>font_main_bold</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[Window.Property(label)]</label>
+                <visible>!Control.HasFocus(3001)</visible>
+            </control>
+        </control>
+    </controls>
+</window>

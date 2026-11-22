@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- claude 20261115 v2: Netflix-TV style player OSD for Arctic Fuse 2.
+     - focus starts on the progress bar ("scrubber"): OK = pause/play, left/right = accelerating skip
+     - text buttons bottom-left: Stop | Audio & Subtitles | Next Episode (or Channels / Guide on live TV)
+     - one Audio & Subtitles panel at the bottom; playback keeps running while it is open
+     Previous versions: VideoOSD.xml.bak-20261115-* -->
+<window>
+    <defaultcontrol always="true">9100</defaultcontrol>
+    <animation effect="fade" start="0" end="100" time="200">WindowOpen</animation>
+    <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+    <onload>SetProperty(UID,$ESCINFO[Player.Title]$INFO[Player.Time(ss)])</onload>
+    <onload condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onload>
+    <onload condition="VideoPlayer.Content(livetv)">SetFocus(9121)</onload>
+    <onunload>CancelAlarm(osdnf_hide,true)</onunload>
+    <onunload>CancelAlarm(osd_timeout,true)</onunload>
+
+    <controls>
+        <control type="group">
+            <visible>!VideoPlayer.Content(livetv)</visible>
+        <!-- gradients -->
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>220</height>
+            <texture flipy="true" colordiffuse="99000000">common/dim-thick-bottom-full.png</texture>
+        </control>
+        <control type="image">
+            <left>0</left>
+            <bottom>0</bottom>
+            <width>1920</width>
+            <height>420</height>
+            <texture colordiffuse="F2000000">common/dim-thick-bottom-full.png</texture>
+        </control>
+
+        <!-- top: title + clock -->
+        <control type="label">
+            <left>96</left>
+            <top>56</top>
+            <width>1400</width>
+            <height>60</height>
+            <font>font_main_black</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[VideoPlayer.TVShowTitle,,  ·  ]$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E, ]$INFO[VideoPlayer.Title]</label>
+            <visible>![!String.IsEmpty(Player.Art(clearlogo)) | !String.IsEmpty(Player.Art(tvshow.clearlogo)) | !String.IsEmpty(Window(Home).Property(NF.PauseLogo))] + !Player.Paused</visible>
+        </control>
+        <!-- clear logo instead of the text title when one exists -->
+        <control type="image">
+            <left>96</left>
+            <top>40</top>
+            <width>480</width>
+            <height>120</height>
+            <aspectratio align="left" aligny="center">keep</aspectratio>
+            <texture background="true">$VAR[NF_Pause_Logo]</texture>
+            <visible>[!String.IsEmpty(Player.Art(clearlogo)) | !String.IsEmpty(Player.Art(tvshow.clearlogo)) | !String.IsEmpty(Window(Home).Property(NF.PauseLogo))] + !Player.Paused</visible>
+        </control>
+        <control type="label">
+            <left>96</left>
+            <top>166</top>
+            <width>1400</width>
+            <height>44</height>
+            <font>font_mini</font>
+            <textcolor>CCFFFFFF</textcolor>
+            <label>$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E,  ·  ]$INFO[VideoPlayer.Title]</label>
+            <visible>[!String.IsEmpty(Player.Art(clearlogo)) | !String.IsEmpty(Player.Art(tvshow.clearlogo)) | !String.IsEmpty(Window(Home).Property(NF.PauseLogo))] + !String.IsEmpty(VideoPlayer.TVShowTitle) + !Player.Paused</visible>
+        </control>
+        <control type="label">
+            <right>96</right>
+            <top>56</top>
+            <width>300</width>
+            <height>60</height>
+            <align>right</align>
+            <font>font_main</font>
+            <textcolor>99FFFFFF</textcolor>
+            <label>$INFO[System.Time]</label>
+        </control>
+
+        <!-- ===== progress bar (scrubber) ===== -->
+        <control type="group">
+            <left>96</left>
+            <bottom>164</bottom>
+            <width>1484</width>
+            <height>40</height>
+            <!-- seek target, shown while skipping -->
+            <control type="label">
+                <left>0</left>
+                <top>-56</top>
+                <width>1484</width>
+                <height>48</height>
+                <align>center</align>
+                <font>font_main_black</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[Player.SeekOffset]</label>
+                <visible>Player.Seeking | Player.HasPerformedSeek(1)</visible>
+            </control>
+            <control type="image">
+                <left>0</left>
+                <top>15</top>
+                <width>1484</width>
+                <height>10</height>
+                <texture colordiffuse="4DFFFFFF" border="4">common/box.png</texture>
+            </control>
+            <control type="progress">
+                <left>0</left>
+                <top>15</top>
+                <width>1484</width>
+                <height>10</height>
+                <texturebg colordiffuse="00FFFFFF">common/white.png</texturebg>
+                <lefttexture />
+                <righttexture />
+                <overlaytexture />
+                <midtexture colordiffuse="4DFFFFFF">common/white.png</midtexture>
+                <info>Player.ProgressCache</info>
+            </control>
+            <control type="progress">
+                <left>0</left>
+                <top>15</top>
+                <width>1484</width>
+                <height>10</height>
+                <texturebg colordiffuse="00FFFFFF">common/white.png</texturebg>
+                <lefttexture />
+                <righttexture />
+                <overlaytexture />
+                <midtexture colordiffuse="FFE50914">common/white.png</midtexture>
+                <info>Player.Progress</info>
+            </control>
+            <control type="progress">
+                <left>0</left>
+                <top>15</top>
+                <width>1484</width>
+                <height>10</height>
+                <texturebg colordiffuse="00FFFFFF">common/white.png</texturebg>
+                <lefttexture />
+                <righttexture />
+                <overlaytexture />
+                <midtexture colordiffuse="CCFFFFFF">common/white.png</midtexture>
+                <info>Player.SeekBar</info>
+                <visible>Player.Seeking</visible>
+            </control>
+            <!-- scrubber focus: thin white frame around the bar -->
+            <control type="image">
+                <left>-8</left>
+                <top>5</top>
+                <width>1500</width>
+                <height>30</height>
+                <texture colordiffuse="40FFFFFF" border="12">common/box-outline.png</texture>
+                <visible>Control.HasFocus(9100)</visible>
+            </control>
+            <control type="button" id="9100">
+                <left>0</left>
+                <top>0</top>
+                <width>1484</width>
+                <height>40</height>
+                <texturefocus />
+                <texturenofocus />
+                <label />
+                <onup>noop</onup>
+                <ondown>9112</ondown>
+                <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                <onfocus condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                <onclick>CancelAlarm(osdnf_hide,true)</onclick>
+                <onclick>PlayerControl(Play)</onclick>
+                <onclick condition="Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onclick>
+                <onleft>CancelAlarm(osdnf_hide,true)</onleft>
+                <onleft condition="!VideoPlayer.Content(livetv)">Action(StepBack)</onleft>
+                <onleft condition="VideoPlayer.Content(livetv)">Action(ChannelDown)</onleft>
+                <onleft condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onleft>
+                <onright>CancelAlarm(osdnf_hide,true)</onright>
+                <onright condition="!VideoPlayer.Content(livetv)">Action(StepForward)</onright>
+                <onright condition="VideoPlayer.Content(livetv)">Action(ChannelUp)</onright>
+                <onright condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onright>
+            </control>
+        </control>
+        <!-- remaining time, right of the bar -->
+        <control type="label">
+            <right>96</right>
+            <bottom>164</bottom>
+            <width>230</width>
+            <height>40</height>
+            <align>right</align>
+            <aligny>center</aligny>
+            <font>font_main</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[Player.TimeRemaining]</label>
+            <visible>!Player.Seeking</visible>
+        </control>
+        <control type="label">
+            <right>96</right>
+            <bottom>164</bottom>
+            <width>230</width>
+            <height>40</height>
+            <align>right</align>
+            <aligny>center</aligny>
+            <font>font_main_bold</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>$INFO[Player.SeekTime]</label>
+            <visible>Player.Seeking</visible>
+        </control>
+        <!-- paused hint, centre -->
+        <control type="image">
+            <centerleft>50%</centerleft>
+            <centertop>50%</centertop>
+            <width>120</width>
+            <height>120</height>
+            <aspectratio>keep</aspectratio>
+            <texture colordiffuse="CCFFFFFF">special://skin/extras/icons/play.png</texture>
+            <visible>false</visible>
+            <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+        </control>
+
+        <!-- ===== bottom-left text buttons ===== -->
+        <!-- 9111 Stop -->
+        <control type="group">
+            <left>80</left>
+            <bottom>64</bottom>
+            <width>210</width>
+            <height>64</height>
+            <visible>!ControlGroup(9200).HasFocus()</visible>
+            <control type="button" id="9111">
+                <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                <texturenofocus />
+                <font>font_mini_bold</font>
+                <textcolor>E6FFFFFF</textcolor>
+                <focusedcolor>FF141414</focusedcolor>
+                <textoffsetx>66</textoffsetx>
+                <aligny>center</aligny>
+                <label>Stop</label>
+                <onup>9100</onup>
+                <onleft>noop</onleft>
+                <onright>9112</onright>
+                <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                <onfocus condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                <onclick>CancelAlarm(osdnf_hide,true)</onclick>
+                <onclick>PlayerControl(Stop)</onclick>
+            </control>
+            <control type="image">
+                <left>22</left>
+                <top>19</top>
+                <width>26</width>
+                <height>26</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="$VAR[OSDNF_BtnColor_9111]">special://skin/extras/icons/stop.png</texture>
+            </control>
+        </control>
+        <!-- 9112 Audio & Subtitles -->
+        <control type="group">
+            <left>302</left>
+            <bottom>64</bottom>
+            <width>390</width>
+            <height>64</height>
+            <visible>!ControlGroup(9200).HasFocus()</visible>
+            <control type="button" id="9112">
+                <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                <texturenofocus />
+                <font>font_mini_bold</font>
+                <textcolor>E6FFFFFF</textcolor>
+                <focusedcolor>FF141414</focusedcolor>
+                <textoffsetx>74</textoffsetx>
+                <aligny>center</aligny>
+                <label>Audio &amp; Subtitles</label>
+                <onup>9100</onup>
+                <onleft>9111</onleft>
+                <onright condition="Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength) + !VideoPlayer.Content(livetv)">9113</onright>
+                <onright condition="VideoPlayer.Content(livetv)">9114</onright>
+                <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                <onfocus condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                <onclick>CancelAlarm(osdnf_hide,true)</onclick>
+                <onclick>SetFocus(9201)</onclick>
+            </control>
+            <control type="image">
+                <left>22</left>
+                <top>16</top>
+                <width>32</width>
+                <height>32</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="$VAR[OSDNF_BtnColor_9112]">special://skin/extras/icons/closed-captioning.png</texture>
+            </control>
+        </control>
+        <!-- 9113 Next Episode (only when there is a next item) -->
+        <control type="group">
+            <left>704</left>
+            <bottom>64</bottom>
+            <width>340</width>
+            <height>64</height>
+            <visible>Integer.IsLess(VideoPlayer.PlaylistPosition,VideoPlayer.PlaylistLength) + !VideoPlayer.Content(livetv) + !ControlGroup(9200).HasFocus()</visible>
+            <control type="button" id="9113">
+                <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                <texturenofocus />
+                <font>font_mini_bold</font>
+                <textcolor>E6FFFFFF</textcolor>
+                <focusedcolor>FF141414</focusedcolor>
+                <textoffsetx>66</textoffsetx>
+                <aligny>center</aligny>
+                <label>Next Episode</label>
+                <onup>9100</onup>
+                <onleft>9112</onleft>
+                <onright>noop</onright>
+                <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                <onfocus condition="!Player.Paused">AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                <onclick>PlayerControl(Next)</onclick>
+            </control>
+            <control type="image">
+                <left>22</left>
+                <top>19</top>
+                <width>26</width>
+                <height>26</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="$VAR[OSDNF_BtnColor_9113]">special://skin/extras/icons/forward-step.png</texture>
+            </control>
+        </control>
+        <!-- 9114 Channels / 9115 Guide (live TV only) -->
+        <control type="group">
+            <left>704</left>
+            <bottom>64</bottom>
+            <width>290</width>
+            <height>64</height>
+            <visible>VideoPlayer.Content(livetv) + !ControlGroup(9200).HasFocus()</visible>
+            <control type="button" id="9114">
+                <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                <texturenofocus />
+                <font>font_mini_bold</font>
+                <textcolor>E6FFFFFF</textcolor>
+                <focusedcolor>FF141414</focusedcolor>
+                <textoffsetx>66</textoffsetx>
+                <aligny>center</aligny>
+                <label>Channels</label>
+                <onup>9100</onup>
+                <onleft>9112</onleft>
+                <onright>9115</onright>
+                <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                <onclick>Close</onclick>
+                <onclick>ActivateWindow(TVChannels)</onclick>
+            </control>
+            <control type="image">
+                <left>22</left>
+                <top>19</top>
+                <width>26</width>
+                <height>26</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="$VAR[OSDNF_BtnColor_9114]">special://skin/extras/icons/list.png</texture>
+            </control>
+        </control>
+        <control type="group">
+            <left>1006</left>
+            <bottom>64</bottom>
+            <width>240</width>
+            <height>64</height>
+            <visible>VideoPlayer.Content(livetv) + !ControlGroup(9200).HasFocus()</visible>
+            <control type="button" id="9115">
+                <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                <texturenofocus />
+                <font>font_mini_bold</font>
+                <textcolor>E6FFFFFF</textcolor>
+                <focusedcolor>FF141414</focusedcolor>
+                <textoffsetx>66</textoffsetx>
+                <aligny>center</aligny>
+                <label>Guide</label>
+                <onup>9100</onup>
+                <onleft>9114</onleft>
+                <onright>noop</onright>
+                <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                <onclick>Close</onclick>
+                <onclick>ActivateWindow(TVGuide)</onclick>
+            </control>
+            <control type="image">
+                <left>22</left>
+                <top>19</top>
+                <width>26</width>
+                <height>26</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="$VAR[OSDNF_BtnColor_9115]">special://skin/extras/icons/tvguide.png</texture>
+            </control>
+        </control>
+
+        <!-- torrent health (Elementum), bottom-right -->
+        <control type="grouplist">
+            <right>96</right>
+            <bottom>64</bottom>
+            <width>700</width>
+            <height>64</height>
+            <orientation>horizontal</orientation>
+            <align>right</align>
+            <itemgap>12</itemgap>
+            <usecontrolcoords>true</usecontrolcoords>
+            <visible>!String.IsEmpty(Window(Home).Property(NF.Health)) + !ControlGroup(9200).HasFocus()</visible>
+            <control type="image">
+                <top>26</top>
+                <width>12</width>
+                <height>12</height>
+                <texture colordiffuse="$INFO[Window(Home).Property(NF.HealthColor)]">common/circle.png</texture>
+            </control>
+            <control type="label">
+                <width>auto</width>
+                <height>64</height>
+                <aligny>center</aligny>
+                <font>font_tiny</font>
+                <textcolor>99FFFFFF</textcolor>
+                <label>$INFO[Window(Home).Property(NF.Health)]</label>
+            </control>
+        </control>
+
+        <!-- ===== Audio & Subtitles panel (bottom sheet, playback continues) ===== -->
+        <control type="group" id="9200">
+            <left>0</left>
+            <bottom>0</bottom>
+            <width>1920</width>
+            <height>520</height>
+            <visible allowhiddenfocus="true">ControlGroup(9200).HasFocus()</visible>
+            <animation effect="slide" start="0,80" end="0,0" time="220" tween="cubic" easing="out">Visible</animation>
+            <animation effect="fade" start="0" end="100" time="180">Visible</animation>
+            <animation effect="fade" start="100" end="0" time="150">Hidden</animation>
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>520</height>
+                <texture colordiffuse="EB0E0E10">common/white.png</texture>
+            </control>
+
+            <!-- Audio -->
+            <control type="label">
+                <left>160</left>
+                <top>48</top>
+                <width>500</width>
+                <height>50</height>
+                <font>font_main_black</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>Audio</label>
+            </control>
+            <control type="list" id="9202">
+                <left>120</left>
+                <top>116</top>
+                <width>560</width>
+                <height>360</height>
+                <onleft>noop</onleft>
+                <onright>9205</onright>
+                <onup>noop</onup>
+                <ondown>noop</ondown>
+                <onback>SetFocus(9112)</onback>
+                <scrolltime tween="quadratic">200</scrolltime>
+                <itemlayout height="60">
+                    <control type="image">
+                        <left>14</left>
+                        <top>22</top>
+                        <width>16</width>
+                        <height>16</height>
+                        <texture colordiffuse="FFE50914">common/circle.png</texture>
+                        <visible>!String.IsEmpty(ListItem.Property(iscurrent))</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>500</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main</font>
+                        <textcolor>99FFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 73FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>String.IsEmpty(ListItem.Property(iscurrent))</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>500</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 99FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>!String.IsEmpty(ListItem.Property(iscurrent))</visible>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="60">
+                    <control type="image">
+                        <texture colordiffuse="2EFFFFFF" border="12">common/box.png</texture>
+                        <visible>Control.HasFocus(9202)</visible>
+                    </control>
+                    <control type="image">
+                        <left>14</left>
+                        <top>22</top>
+                        <width>16</width>
+                        <height>16</height>
+                        <texture colordiffuse="FFE50914">common/circle.png</texture>
+                        <visible>!String.IsEmpty(ListItem.Property(iscurrent))</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>500</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <scroll>true</scroll>
+                        <label>$INFO[ListItem.Label][COLOR 99FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>Control.HasFocus(9202)</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>500</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main</font>
+                        <textcolor>99FFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 73FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>!Control.HasFocus(9202) + [String.IsEmpty(ListItem.Property(iscurrent))]</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>500</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 99FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>!Control.HasFocus(9202) + [!String.IsEmpty(ListItem.Property(iscurrent))]</visible>
+                    </control>
+                </focusedlayout>
+                <content>plugin://script.skinvariables?info=get_player_streams&amp;stream_type=audio&amp;reload=$INFO[Window.Property(UID)]</content>
+                <onclick>Runscript(script.skinvariables,set_player_audiostream=$INFO[ListItem.Property(index)],reload_property=UID)</onclick>
+            </control>
+
+            <!-- Subtitles -->
+            <control type="label">
+                <left>760</left>
+                <top>48</top>
+                <width>560</width>
+                <height>50</height>
+                <font>font_main_black</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>Subtitles</label>
+            </control>
+            <control type="group">
+                <left>720</left>
+                <top>116</top>
+                <width>600</width>
+                <height>60</height>
+                <control type="button" id="9205">
+                    <texturefocus colordiffuse="2EFFFFFF" border="12">common/box.png</texturefocus>
+                    <texturenofocus />
+                    <font>font_main</font>
+                    <textcolor>99FFFFFF</textcolor>
+                    <focusedcolor>FFFFFFFF</focusedcolor>
+                    <textoffsetx>40</textoffsetx>
+                    <aligny>center</aligny>
+                    <align>left</align>
+                    <label>Off</label>
+                    <onleft>9202</onleft>
+                    <onright>9203</onright>
+                    <onup>noop</onup>
+                    <ondown>9201</ondown>
+                    <onback>SetFocus(9112)</onback>
+                    <onclick condition="VideoPlayer.SubtitlesEnabled">Action(ShowSubtitles)</onclick>
+                    <onclick>SetProperty(UID,$INFO[System.Time(hh:mm:ss)]off)</onclick>
+                </control>
+                <control type="image">
+                    <left>14</left>
+                    <top>22</top>
+                    <width>16</width>
+                    <height>16</height>
+                    <texture colordiffuse="FFE50914">common/circle.png</texture>
+                    <visible>!VideoPlayer.SubtitlesEnabled</visible>
+                </control>
+            </control>
+            <control type="list" id="9201">
+                <left>720</left>
+                <top>176</top>
+                <width>600</width>
+                <height>300</height>
+                <onleft>9202</onleft>
+                <onright>9203</onright>
+                <onup>9205</onup>
+                <ondown>noop</ondown>
+                <onback>SetFocus(9112)</onback>
+                <scrolltime tween="quadratic">200</scrolltime>
+                <itemlayout height="60">
+                    <control type="image">
+                        <left>14</left>
+                        <top>22</top>
+                        <width>16</width>
+                        <height>16</height>
+                        <texture colordiffuse="FFE50914">common/circle.png</texture>
+                        <visible>!String.IsEmpty(ListItem.Property(iscurrent)) + VideoPlayer.SubtitlesEnabled</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>540</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main</font>
+                        <textcolor>99FFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 73FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>String.IsEmpty(ListItem.Property(iscurrent)) | !VideoPlayer.SubtitlesEnabled</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>540</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 99FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>!String.IsEmpty(ListItem.Property(iscurrent)) + VideoPlayer.SubtitlesEnabled</visible>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="60">
+                    <control type="image">
+                        <texture colordiffuse="2EFFFFFF" border="12">common/box.png</texture>
+                        <visible>Control.HasFocus(9201)</visible>
+                    </control>
+                    <control type="image">
+                        <left>14</left>
+                        <top>22</top>
+                        <width>16</width>
+                        <height>16</height>
+                        <texture colordiffuse="FFE50914">common/circle.png</texture>
+                        <visible>!String.IsEmpty(ListItem.Property(iscurrent)) + VideoPlayer.SubtitlesEnabled</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>540</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <scroll>true</scroll>
+                        <label>$INFO[ListItem.Label][COLOR 99FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>Control.HasFocus(9201)</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>540</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main</font>
+                        <textcolor>99FFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 73FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>!Control.HasFocus(9201) + [String.IsEmpty(ListItem.Property(iscurrent)) | !VideoPlayer.SubtitlesEnabled]</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>540</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label][COLOR 99FFFFFF]$INFO[ListItem.Label2,  ·  ,][/COLOR]</label>
+                        <visible>!Control.HasFocus(9201) + [!String.IsEmpty(ListItem.Property(iscurrent)) + VideoPlayer.SubtitlesEnabled]</visible>
+                    </control>
+                </focusedlayout>
+                <content>plugin://script.skinvariables?info=get_player_streams&amp;stream_type=subtitle&amp;reload=$INFO[Window.Property(UID)]</content>
+                <onclick condition="!String.IsEmpty(ListItem.Property(iscurrent)) + VideoPlayer.SubtitlesEnabled">noop</onclick>
+                <onclick condition="String.IsEmpty(ListItem.Property(iscurrent)) | !VideoPlayer.SubtitlesEnabled">Runscript(script.skinvariables,set_player_subtitle=$INFO[ListItem.Property(index)],reload_property=UID)</onclick>
+            </control>
+
+            <!-- Options -->
+            <control type="label">
+                <left>1420</left>
+                <top>48</top>
+                <width>420</width>
+                <height>50</height>
+                <font>font_main_black</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>Options</label>
+            </control>
+            <control type="list" id="9203">
+                <left>1380</left>
+                <top>116</top>
+                <width>440</width>
+                <height>300</height>
+                <onleft>9205</onleft>
+                <onright>noop</onright>
+                <onup>noop</onup>
+                <ondown>noop</ondown>
+                <onback>SetFocus(9112)</onback>
+                <itemlayout height="60">
+                    <control type="label">
+                        <left>40</left>
+                        <width>380</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main</font>
+                        <textcolor>99FFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="60">
+                    <control type="image">
+                        <texture colordiffuse="2EFFFFFF" border="12">common/box.png</texture>
+                        <visible>Control.HasFocus(9203)</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>380</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main_bold</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>Control.HasFocus(9203)</visible>
+                    </control>
+                    <control type="label">
+                        <left>40</left>
+                        <width>380</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <font>font_main</font>
+                        <textcolor>99FFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>!Control.HasFocus(9203)</visible>
+                    </control>
+                </focusedlayout>
+                <content>
+                    <item>
+                        <label>Subtitle timing</label>
+                        <onclick>Action(SubtitleDelay)</onclick>
+                    </item>
+                    <item>
+                        <label>Subtitle style</label>
+                        <onclick>ActivateWindow(osdsubtitlesettings)</onclick>
+                    </item>
+                    <item>
+                        <label>Download more subtitles</label>
+                        <onclick>Dialog.Close(videoosd)</onclick>
+                        <onclick>RunScript(service.subs.multilang)</onclick>
+                    </item>
+                    <item>
+                        <label>Audio timing</label>
+                        <onclick>Action(AudioDelay)</onclick>
+                    </item>
+                </content>
+            </control>
+        </control>
+        </control>
+
+        <!-- ===== LIVE TV (claude 20261115): small card bottom-right + Channels / Guide / Stop ===== -->
+        <control type="group">
+            <visible>VideoPlayer.Content(livetv)</visible>
+            <control type="image">
+                <left>0</left>
+                <bottom>0</bottom>
+                <width>1920</width>
+                <height>420</height>
+                <texture colordiffuse="B3000000">common/dim-thick-bottom-full.png</texture>
+            </control>
+            <include content="NF_LiveCard">
+                <param name="bottom">150</param>
+            </include>
+            <control type="group">
+                <right>486</right>
+                <bottom>64</bottom>
+                <width>236</width>
+                <height>64</height>
+                <control type="button" id="9121">
+                    <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                    <texturenofocus colordiffuse="99141414" border="12">common/box.png</texturenofocus>
+                    <label />
+                    <onleft>noop</onleft>
+                    <onright>9122</onright>
+                    <onup>Dialog.Close(videoosd)</onup>
+                    <onup>Action(ChannelUp,12005)</onup>
+                    <ondown>Dialog.Close(videoosd)</ondown>
+                    <ondown>Action(ChannelDown,12005)</ondown>
+                    <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                    <onfocus>AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                    <onclick>CancelAlarm(osdnf_hide,true)</onclick>
+                    <onclick>Dialog.Close(videoosd)</onclick>
+                    <onclick>ActivateWindow(PVROSDChannels)</onclick>
+                </control>
+                <control type="image">
+                    <left>22</left>
+                    <top>19</top>
+                    <width>26</width>
+                    <height>26</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture colordiffuse="$VAR[OSDNF_BtnColor_9121]">special://skin/extras/icons/list.png</texture>
+                </control>
+                <control type="label">
+                    <left>64</left>
+                    <width>162</width>
+                    <height>64</height>
+                    <aligny>center</aligny>
+                    <font>font_mini_bold</font>
+                    <textcolor>FF141414</textcolor>
+                    <label>Channels</label>
+                    <visible>Control.HasFocus(9121)</visible>
+                </control>
+                <control type="label">
+                    <left>64</left>
+                    <width>162</width>
+                    <height>64</height>
+                    <aligny>center</aligny>
+                    <font>font_mini_bold</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>Channels</label>
+                    <visible>!Control.HasFocus(9121)</visible>
+                </control>
+            </control>
+            <control type="group">
+                <right>282</right>
+                <bottom>64</bottom>
+                <width>188</width>
+                <height>64</height>
+                <control type="button" id="9122">
+                    <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                    <texturenofocus colordiffuse="99141414" border="12">common/box.png</texturenofocus>
+                    <label />
+                    <onleft>9121</onleft>
+                    <onright>9123</onright>
+                    <onup>Dialog.Close(videoosd)</onup>
+                    <onup>Action(ChannelUp,12005)</onup>
+                    <ondown>Dialog.Close(videoosd)</ondown>
+                    <ondown>Action(ChannelDown,12005)</ondown>
+                    <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                    <onfocus>AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                    <onclick>CancelAlarm(osdnf_hide,true)</onclick>
+                    <onclick>Dialog.Close(videoosd)</onclick>
+                    <onclick>ActivateWindow(PVROSDGuide)</onclick>
+                </control>
+                <control type="image">
+                    <left>22</left>
+                    <top>19</top>
+                    <width>26</width>
+                    <height>26</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture colordiffuse="$VAR[OSDNF_BtnColor_9122]">special://skin/extras/icons/tvguide.png</texture>
+                </control>
+                <control type="label">
+                    <left>64</left>
+                    <width>114</width>
+                    <height>64</height>
+                    <aligny>center</aligny>
+                    <font>font_mini_bold</font>
+                    <textcolor>FF141414</textcolor>
+                    <label>Guide</label>
+                    <visible>Control.HasFocus(9122)</visible>
+                </control>
+                <control type="label">
+                    <left>64</left>
+                    <width>114</width>
+                    <height>64</height>
+                    <aligny>center</aligny>
+                    <font>font_mini_bold</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>Guide</label>
+                    <visible>!Control.HasFocus(9122)</visible>
+                </control>
+            </control>
+            <control type="group">
+                <right>96</right>
+                <bottom>64</bottom>
+                <width>170</width>
+                <height>64</height>
+                <control type="button" id="9123">
+                    <texturefocus colordiffuse="FFFFFFFF" border="12">common/box.png</texturefocus>
+                    <texturenofocus colordiffuse="99141414" border="12">common/box.png</texturenofocus>
+                    <label />
+                    <onleft>9122</onleft>
+                    <onright>noop</onright>
+                    <onup>Dialog.Close(videoosd)</onup>
+                    <onup>Action(ChannelUp,12005)</onup>
+                    <ondown>Dialog.Close(videoosd)</ondown>
+                    <ondown>Action(ChannelDown,12005)</ondown>
+                    <onfocus>CancelAlarm(osdnf_hide,true)</onfocus>
+                    <onfocus>AlarmClock(osdnf_hide,Dialog.Close(videoosd),00:06,silent)</onfocus>
+                    <onclick>CancelAlarm(osdnf_hide,true)</onclick>
+                    <onclick>PlayerControl(Stop)</onclick>
+                </control>
+                <control type="image">
+                    <left>22</left>
+                    <top>19</top>
+                    <width>26</width>
+                    <height>26</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture colordiffuse="$VAR[OSDNF_BtnColor_9123]">special://skin/extras/icons/stop.png</texture>
+                </control>
+                <control type="label">
+                    <left>64</left>
+                    <width>96</width>
+                    <height>64</height>
+                    <aligny>center</aligny>
+                    <font>font_mini_bold</font>
+                    <textcolor>FF141414</textcolor>
+                    <label>Stop</label>
+                    <visible>Control.HasFocus(9123)</visible>
+                </control>
+                <control type="label">
+                    <left>64</left>
+                    <width>96</width>
+                    <height>64</height>
+                    <aligny>center</aligny>
+                    <font>font_mini_bold</font>
+                    <textcolor>E6FFFFFF</textcolor>
+                    <label>Stop</label>
+                    <visible>!Control.HasFocus(9123)</visible>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

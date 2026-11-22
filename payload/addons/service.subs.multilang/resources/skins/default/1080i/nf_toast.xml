@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <zorder>4</zorder>
+    <animation effect="fade" start="0" end="100" time="220">WindowOpen</animation>
+    <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+    <controls>
+        <control type="group">
+            <centerleft>50%</centerleft><bottom>110</bottom>
+            <width>680</width><height>118</height>
+            <animation effect="slide" start="0,40" end="0,0" time="300" tween="cubic" easing="out">WindowOpen</animation>
+            <control type="image">
+                <texture colordiffuse="E6141416" border="24">common/box.png</texture>
+            </control>
+            <control type="image">
+                <left>32</left><top>34</top><width>34</width><height>34</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="FFFFFFFF">special://skin/extras/icons/closed-captioning.png</texture>
+            </control>
+            <control type="label">
+                <left>88</left><top>16</top><width>560</width><height>44</height>
+                <font>font_main_bold</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[Window.Property(title)]</label>
+            </control>
+            <control type="label">
+                <left>88</left><top>56</top><width>560</width><height>36</height>
+                <font>font_mini</font>
+                <textcolor>99FFFFFF</textcolor>
+                <label>$INFO[Window.Property(sub)]</label>
+            </control>
+            <!-- thin indeterminate bar while searching -->
+            <control type="group">
+                <left>32</left><top>100</top><width>616</width><height>3</height>
+                <visible>!String.IsEmpty(Window.Property(busy))</visible>
+                <control type="image">
+                    <width>616</width><height>3</height>
+                    <texture colordiffuse="26FFFFFF">common/white.png</texture>
+                </control>
+                <control type="image">
+                    <left>0</left><width>140</width><height>3</height>
+                    <texture colordiffuse="FFE50914">common/white.png</texture>
+                    <animation effect="slide" start="0,0" end="476,0" time="900" tween="sine" easing="inout" loop="true" reversible="false">Conditional
+                        <condition>true</condition>
+                    </animation>
+                </control>
+            </control>
+            <control type="image">
+                <left>32</left><top>100</top><width>616</width><height>3</height>
+                <texture colordiffuse="FF46D369">common/white.png</texture>
+                <visible>String.IsEmpty(Window.Property(busy))</visible>
+            </control>
+        </control>
+    </controls>
+</window>

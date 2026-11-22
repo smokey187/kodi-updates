@@ -54,11 +54,39 @@ def notify(msg, icon=xbmcgui.NOTIFICATION_INFO, ms=5000):
 
 HOME = xbmcgui.Window(10000)
 FORCE = {'on': False}  # set while a user-requested check runs: no idle wait
+FIRST = {'on': False}  # fresh install: the friend is in front of the TV, so set up right away
+
+
+class Progress(object):
+    """Big dialog with percentage when the user is waiting for it, small corner bar otherwise."""
+
+    def __init__(self, title, foreground):
+        self.title, self.fg = title, foreground
+        self.d = xbmcgui.DialogProgress() if foreground else xbmcgui.DialogProgressBG()
+        self.d.create(title, '')
+
+    def update(self, pct, msg):
+        pct = max(0, min(100, int(pct)))
+        if self.fg:
+            self.d.update(pct, msg)
+        else:
+            self.d.update(pct, self.title, msg)
+
+    def close(self):
+        try:
+            self.d.close()
+        except Exception:
+            pass
 
 
 def status(state, label, remote=None):
     """state: uptodate | ready | installing | failed | checking"""
     HOME.setProperty('SmokeUpdate.State', state)
+    # the "Box update" menu entry is only shown when there is something to do or see
+    if state in ('ready', 'installing', 'failed') or (state == 'checking' and FORCE['on']):
+        HOME.setProperty('SmokeUpdate.Show', '1')
+    else:
+        HOME.clearProperty('SmokeUpdate.Show')
     HOME.setProperty('SmokeUpdate.Label', label)
     HOME.setProperty('SmokeUpdate.Local', str(load_state().get('version', 0)))
     if remote is not None:
@@ -163,6 +191,7 @@ def wait_idle(monitor, player):
     while not monitor.abortRequested():
         if HOME.getProperty('SmokeUpdate.Request'):  # user pressed "install now" while we were waiting
             HOME.clearProperty('SmokeUpdate.Request')
+            FORCE['on'] = True
             return True
         if not player.isPlaying() and xbmc.getGlobalIdleTime() >= IDLE_NEEDED:
             return True
@@ -207,17 +236,34 @@ def check(monitor, player):
 
     stage = os.path.join(STAGING, str(ver))
     shutil.rmtree(stage, ignore_errors=True)
-    for path in todo:
-        data = fetch('payload/' + path, timeout=120)
-        if hashlib.sha256(data).hexdigest() != man['files'][path]['sha256']:
-            raise ValueError('checksum mismatch for %s' % path)
-        dst = os.path.join(stage, path)
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        with open(dst, 'wb') as f:
-            f.write(keep_personal(path, data))
+    title = 'Setting up your box' if FIRST['on'] else 'Box update v%d' % ver
+    prog = Progress(title, FORCE['on'])
+    total = sum(man['files'][p_].get('size', 1) for p_ in todo) or 1
+    done = 0
+    try:
+        for i, path in enumerate(todo):
+            pct = 70.0 * done / total
+            prog.update(pct, 'Downloading…  %d%%   (%d of %d files)' % (pct / 0.7, i + 1, len(todo)))
+            data = fetch('payload/' + path, timeout=120)
+            if hashlib.sha256(data).hexdigest() != man['files'][path]['sha256']:
+                raise ValueError('checksum mismatch for %s' % path)
+            dst = os.path.join(stage, path)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            with open(dst, 'wb') as f:
+                f.write(keep_personal(path, data))
+            done += man['files'][path].get('size', 1)
+        prog.update(70, 'Downloaded - 100%')
+    except Exception:
+        prog.close()
+        raise
+    if not FORCE['on']:
+        prog.close()  # background download done; install waits until the box is idle
+        prog = None
 
     if not wait_idle(monitor, player):
         return
+    if prog is None:
+        prog = Progress(title, FORCE['on'])
     if needed_files(man, load_state()) != todo:  # something changed while we waited: start over next time
         return
 
@@ -231,17 +277,21 @@ def check(monitor, player):
             shutil.copy2(target, b)
         else:
             created.append(path)
-    st['pending'] = {'version': ver, 'backup': bdir, 'files': todo, 'created': created,
+    prog.update(78, 'Saving a backup of the current version…')
+    st['pending'] = {'version': ver, 'backup': bdir, 'files': todo, 'created': created, 'forced': FORCE['on'],
                      'skin': xbmc.getSkinDir(), 'enable': man.get('enable', []),
                      'once': {p: m['sha256'] for p, m in man['files'].items() if m.get('once')}}
     save_state(st)
+    prog.update(88, 'Installing…')
     for path in todo:
         target = os.path.join(KODI, path)
         os.makedirs(os.path.dirname(target), exist_ok=True)
         os.replace(os.path.join(stage, path), target)
     shutil.rmtree(stage, ignore_errors=True)
     status('installing', 'Installing v%d…' % ver, ver)
-    notify('Installing update %d - restarting' % ver)
+    prog.update(100, 'Restarting Kodi to finish - back in a few seconds')
+    xbmc.sleep(2500)
+    prog.close()
     restart_kodi()
 
 
@@ -316,8 +366,13 @@ def verify_pending(monitor):
     p = st.get('pending')
     if not p:
         return
-    if monitor.waitForAbort(HEALTH_WAIT):
-        return
+    prog = Progress('Box update v%d' % p['version'], False)
+    for i in range(HEALTH_WAIT):
+        prog.update(100.0 * i / HEALTH_WAIT, 'Finishing and checking the update…')
+        if monitor.waitForAbort(1):
+            prog.close()
+            return
+    prog.close()
     why = broken_after_update(p)
     if why:
         rollback(p, st, why)
@@ -331,19 +386,23 @@ def verify_pending(monitor):
     prune_backups()
     log('version %d installed OK' % p['version'])
     status('uptodate', 'Up to date · v%d' % p['version'], p['version'])
-    notify('Updated to version %d' % p['version'])
+    if p.get('forced'):
+        xbmcgui.Dialog().ok('Box update', 'All done - your box is up to date (version %d).' % p['version'])
+    else:
+        notify('Updated to version %d' % p['version'])
 
 
 def main():
     monitor = xbmc.Monitor()
     player = xbmc.Player()
+    FIRST['on'] = not os.path.exists(STATE)
     st = load_state()
     status('checking' if st.get('pending') else 'uptodate',
            'Checking update…' if st.get('pending') else 'Box version v%d' % st.get('version', 0))
     verify_pending(monitor)
-    next_check = time.time() + FIRST_CHECK
+    next_check = time.time() + (10 if FIRST['on'] else FIRST_CHECK)
     while not monitor.waitForAbort(3):
-        asked = HOME.getProperty('SmokeUpdate.Request')
+        asked = HOME.getProperty('SmokeUpdate.Request') or ('first' if FIRST['on'] else '')
         if not asked and time.time() < next_check:
             continue
         HOME.clearProperty('SmokeUpdate.Request')
@@ -363,6 +422,7 @@ def main():
             if asked:
                 notify('Could not check for updates - is the box online?', xbmcgui.NOTIFICATION_WARNING)
         FORCE['on'] = False
+        FIRST['on'] = False
         next_check = time.time() + INTERVAL + random.randint(0, JITTER)
 
 

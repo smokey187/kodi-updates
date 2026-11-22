@@ -26,6 +26,12 @@ than `tools/config.json` says (so an Elementum/skin update never gets mixed with
 
 ## Publishing a change
 
+**From the master box (.143):** Programs → *Publish box update* → check the list → Yes.
+It pushes the changed files + a new manifest straight to GitHub (token in its add-on settings,
+fine-grained, Contents read/write on this repo only). Changes to the updater itself go through the manual way.
+
+**Manually** (run `git pull` first - the box commits too):
+
 1. Copy the changed files from the master box (.143) into `payload/` (same paths).
 2. If an add-on was upgraded on the master box, update its version in `tools/config.json`.
 3. `python3 tools/publish.py`, then commit and push.

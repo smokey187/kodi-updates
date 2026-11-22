@@ -930,7 +930,6 @@
             <control type="$PARAM[control]" id="$PARAM[id]">
                 <onback condition="String.IsEqual(Container.PluginName,plugin.video.elementum) + String.StartsWith(Container.FolderPath,plugin://plugin.video.elementum) + String.Contains(Container.FolderPath,page=2)">ActivateWindow(Home)</onback>
                 <onclick condition="String.IsEqual(Container.PluginName,plugin.video.elementum) + ListItem.IsParentFolder">ActivateWindow(Home)</onclick>
-                <onback condition="!String.IsEqual(Container.PluginName,plugin.video.elementum)">ActivateWindow(Home)</onback>
                 <nested />
                 <include content="$PARAM[hidden_button]_OnFocus">
                     <param name="id">$PARAM[id]</param>
@@ -1151,7 +1150,6 @@
             <control type="$PARAM[control]" id="$PARAM[id]">
                 <onback condition="String.IsEqual(Container.PluginName,plugin.video.elementum) + String.StartsWith(Container.FolderPath,plugin://plugin.video.elementum) + String.Contains(Container.FolderPath,page=2)">ActivateWindow(Home)</onback>
                 <onclick condition="String.IsEqual(Container.PluginName,plugin.video.elementum) + ListItem.IsParentFolder">ActivateWindow(Home)</onclick>
-                <onback condition="!String.IsEqual(Container.PluginName,plugin.video.elementum)">ActivateWindow(Home)</onback>
                 <nested />
                 <include content="$PARAM[hidden_button]_OnFocus" condition="$PARAM[hidden_button_enabled]">
                     <param name="prefix">$PARAM[hidden_button_prefix]</param>

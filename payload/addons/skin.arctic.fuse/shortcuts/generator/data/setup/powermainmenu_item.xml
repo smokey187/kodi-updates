@@ -3,7 +3,7 @@
         <rule>
             <!-- claude 20261122: Box update status/button only where the updater runs (friends' boxes) -->
             <condition>{item_path}==RunScript(service.smoke.updater)</condition>
-            <value>System.HasAddon(service.smoke.updater)</value>
+            <value>System.HasAddon(service.smoke.updater) + !String.IsEmpty(Window(Home).Property(SmokeUpdate.Show))</value>
         </rule>
         <rule>
             <!-- claude 20261122: Publish update button only where the publish add-on exists (the master box) -->

@@ -12,8 +12,8 @@
    "size": 25847
   },
   "addons/plugin.video.elementum/resources/site-packages/elementum/nf_loading.py": {
-   "sha256": "8c13df249ca0c085d683f81a13b170f2f73204f541ce4ac5f938f0934a870813",
-   "size": 8764
+   "sha256": "cd045a11078c2413aabbd84010e664d0b4297584f712d2bc2829bef36b27e3cc",
+   "size": 8838
   },
   "addons/plugin.video.elementum/resources/site-packages/elementum/rpc.py": {
    "sha256": "25a905955c9847e220e7e2e2988221ebbeadddd913f3b5b7238ce335f397d4c7",
@@ -453,5 +453,5 @@
   "service.upnext": "1.3.4",
   "skin.arctic.fuse": "0.7.39~omega"
  },
- "version": 2
+ "version": 3
 }

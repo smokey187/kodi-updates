@@ -12,5 +12,11 @@
   "service.studio.logo.fallback",
   "service.subs.multilang",
   "service.smoke.updater"
+ ],
+ "actions": [
+  {
+   "id": "depersonalize-1",
+   "script": "actions/depersonalize-1.sh"
+  }
  ]
 }

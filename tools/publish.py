@@ -51,7 +51,12 @@ def main():
     old = json.load(open(mpath)) if os.path.exists(mpath) else {'version': 0, 'files': {}}
     changed = old.get('files') != files or old.get('requires') != CONF['requires'] or old.get('enable') != CONF['enable']
     version = old['version'] + 1 if changed else old['version']
-    man = {'version': version, 'requires': CONF['requires'], 'enable': CONF['enable'], 'files': files}
+    actions = []
+    for a in CONF.get('actions', []):
+        actions.append({'id': a['id'], 'script': a['script'], 'sha256': sha(os.path.join(ROOT, a['script']))})
+    changed = changed or old.get('actions', []) != actions
+    version = old['version'] + 1 if changed else old['version']
+    man = {'version': version, 'requires': CONF['requires'], 'enable': CONF['enable'], 'actions': actions, 'files': files}
     with open(mpath, 'w') as f:
         json.dump(man, f, indent=1, sort_keys=True)
 

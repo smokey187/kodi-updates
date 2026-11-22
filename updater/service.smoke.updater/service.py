@@ -177,6 +177,7 @@ def check(monitor, player):
             st['version'] = ver
             st['applied'] = {p: m['sha256'] for p, m in man['files'].items() if m.get('once')}
             save_state(st)
+        run_actions(man, st, monitor, player)
         return
     log('version %d: %d file(s) to update' % (ver, len(todo)))
 
@@ -217,6 +218,30 @@ def check(monitor, player):
     shutil.rmtree(stage, ignore_errors=True)
     notify('Installing update %d - restarting' % ver)
     restart_kodi()
+
+
+def run_actions(man, st, monitor, player):
+    """One-time shell actions from the repo (e.g. cleanup), each run once per box, only when idle.
+
+    They run through systemd-run so they survive the script stopping/starting Kodi."""
+    for act in man.get('actions', []):
+        aid = act['id']
+        if aid in st.get('done', []):
+            continue
+        data = fetch(act['script'], timeout=60)
+        if hashlib.sha256(data).hexdigest() != act['sha256']:
+            raise ValueError('checksum mismatch for action %s' % aid)
+        if not wait_idle(monitor, player):
+            return
+        path = os.path.join(DATA, 'action-%s.sh' % re.sub(r'[^A-Za-z0-9_-]', '', aid))
+        with open(path, 'wb') as f:
+            f.write(data)
+        st.setdefault('done', []).append(aid)  # recorded first: never run twice, even if it kills Kodi
+        save_state(st)
+        log('running action %s' % aid)
+        subprocess.Popen(['systemd-run', '--unit=smoke-action-%s-%d' % (re.sub(r'[^A-Za-z0-9-]', '', aid), int(time.time())),
+                          '/bin/sh', path])
+        return  # one action per check
 
 
 def broken_after_update(pending):

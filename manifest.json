@@ -1,4 +1,11 @@
 {
+ "actions": [
+  {
+   "id": "depersonalize-1",
+   "script": "actions/depersonalize-1.sh",
+   "sha256": "26734a223ba3d5cae9af6a547f530a39a4174af27587ea8665cae180c6902e4e"
+  }
+ ],
  "enable": [
   "service.nf.channelguard",
   "service.nf.skipintro",
@@ -84,8 +91,8 @@
    "size": 725
   },
   "addons/service.smoke.updater/service.py": {
-   "sha256": "296a3a5a67dd7cbce4f5286e2071aee9a2b8ff5a7c9892e653fe822ca0523a05",
-   "size": 10354
+   "sha256": "972bdbe91a621e94934d0ec0e38a5fd6233dd8ce3f346bc212031c381a5af5b3",
+   "size": 11520
   },
   "addons/service.studio.logo.fallback/addon.xml": {
    "sha256": "33b400a2f6b0ebfad694019ad5429ad9c35b4c25e4fe789e7f5ea399a73774f9",
@@ -457,5 +464,5 @@
   "service.upnext": "1.3.4",
   "skin.arctic.fuse": "0.7.39~omega"
  },
- "version": 6
+ "version": 7
 }

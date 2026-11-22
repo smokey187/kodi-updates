@@ -33,6 +33,8 @@ JITTER = 1800
 IDLE_NEEDED = 10 * 60          # remote untouched this long before applying
 HEALTH_WAIT = 60               # after the restart, before judging the update
 KEEP_BACKUPS = 3
+if os.path.exists(os.path.join(DATA, 'fast')):  # testing: touch addon_data/service.smoke.updater/fast
+    FIRST_CHECK, IDLE_NEEDED, HEALTH_WAIT = 20, 0, 30
 
 
 def log(msg, level=xbmc.LOGINFO):

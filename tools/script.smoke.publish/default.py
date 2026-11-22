@@ -26,6 +26,10 @@ KODI = '/storage/.kodi'
 UPDATER = 'addons/service.smoke.updater/'
 SKIP = re.compile(r'(\.bak|\.orig|\.old|\.tmp|\.pyc|\.swp|~$|\.before_|crashtest|\.nf-panel|/__pycache__/)')
 TITLE = 'Publish box update'
+# personal skin settings (search history...) are blanked before upload; boxes keep their own
+PERSONAL_FILES = ('userdata/addon_data/skin.arctic.fuse/settings.xml',)
+PERSONAL_ID = re.compile(r'history', re.I)
+SETTING = re.compile(r'(<setting id="([^"]+)"[^>]*?)(?:/>|>([^<]*)</setting>)')
 
 ADDON = xbmcaddon.Addon()
 
@@ -50,12 +54,18 @@ def gh(method, path, body=None):
         raise RuntimeError('GitHub %s %s: %s %s' % (method, path, e.code, e.read().decode()[:200]))
 
 
+def content(rel):
+    data = open(os.path.join(KODI, rel), 'rb').read()
+    if rel in PERSONAL_FILES:
+        text = data.decode('utf-8', errors='ignore')
+        text = SETTING.sub(lambda m: '%s></setting>' % m.group(1) if PERSONAL_ID.search(m.group(2)) else m.group(0), text)
+        data = text.encode('utf-8')
+    return data
+
+
 def sha256(p):
-    h = hashlib.sha256()
-    with open(p, 'rb') as f:
-        for c in iter(lambda: f.read(65536), b''):
-            h.update(c)
-    return h.hexdigest()
+    rel = os.path.relpath(p, KODI)
+    return hashlib.sha256(content(rel)).hexdigest()
 
 
 def addon_version(aid):
@@ -170,9 +180,10 @@ def main():
             return
         prog.update(int(80 * i / max(1, len(changed))), rel)
         p = os.path.join(KODI, rel)
-        blob = gh('POST', '/git/blobs', {'content': base64.b64encode(open(p, 'rb').read()).decode(), 'encoding': 'base64'})
+        data = content(rel)
+        blob = gh('POST', '/git/blobs', {'content': base64.b64encode(data).decode(), 'encoding': 'base64'})
         tree.append({'path': 'payload/' + rel, 'mode': '100644', 'type': 'blob', 'sha': blob['sha']})
-        files[rel] = {'sha256': sha256(p), 'size': os.path.getsize(p)}
+        files[rel] = {'sha256': hashlib.sha256(data).hexdigest(), 'size': len(data)}
         if once(rel):
             files[rel]['once'] = True
 

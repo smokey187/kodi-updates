@@ -222,7 +222,7 @@
     <setting id="background.image" type="string"></setting>
     <setting id="videoinfo.personcredits.sortkey" type="string">popular</setting>
     <setting id="skin.flixart.size" type="string">ExtraLarge</setting>
-    <setting id="searchhistory" type="string">Inception|The Matrix</setting>
+    <setting id="searchhistory" type="string"></setting>
     <setting id="OSD_Timeout" type="string"></setting>
     <setting id="navigation.hub.home.ondown" type="string"></setting>
     <setting id="hub.home.spotlight.label" type="string"></setting>

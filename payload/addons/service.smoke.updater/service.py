@@ -33,6 +33,10 @@ JITTER = 1800
 IDLE_NEEDED = 10 * 60          # remote untouched this long before applying
 HEALTH_WAIT = 60               # after the restart, before judging the update
 KEEP_BACKUPS = 3
+# skin settings that belong to whoever uses the box (search history...): never taken from the repo
+PERSONAL_FILES = ('userdata/addon_data/skin.arctic.fuse/settings.xml',)
+PERSONAL_ID = re.compile(r'history', re.I)
+SETTING = re.compile(r'(<setting id="([^"]+)"[^>]*?)(?:/>|>([^<]*)</setting>)')
 if os.path.exists(os.path.join(DATA, 'fast')):  # testing: touch addon_data/service.smoke.updater/fast
     FIRST_CHECK, IDLE_NEEDED, HEALTH_WAIT = 20, 0, 30
 
@@ -93,6 +97,24 @@ def addon_version(addon_id):
 def addon_of(path):
     parts = path.split('/')
     return parts[1] if len(parts) > 2 and parts[0] == 'addons' else None
+
+
+def keep_personal(path, new_bytes):
+    """Repo version of a settings file, but with this box's own values for personal settings."""
+    if path not in PERSONAL_FILES:
+        return new_bytes
+    try:
+        local = open(os.path.join(KODI, path), encoding='utf-8', errors='ignore').read()
+    except (IOError, OSError):
+        local = ''
+    mine = {m.group(2): m.group(0) for m in SETTING.finditer(local) if PERSONAL_ID.search(m.group(2))}
+    text = new_bytes.decode('utf-8', errors='ignore')
+
+    def swap(m):
+        if not PERSONAL_ID.search(m.group(2)):
+            return m.group(0)
+        return mine.get(m.group(2), '%s></setting>' % m.group(1))
+    return SETTING.sub(swap, text).encode('utf-8')
 
 
 def needed_files(man, st):
@@ -167,7 +189,7 @@ def check(monitor, player):
         dst = os.path.join(stage, path)
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         with open(dst, 'wb') as f:
-            f.write(data)
+            f.write(keep_personal(path, data))
 
     if not wait_idle(monitor, player):
         return

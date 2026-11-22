@@ -500,7 +500,7 @@
             <onclick>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onclick>
             <onclick condition="Window.IsActive(DialogButtonMenu.xml) | Window.IsVisible(1170)">Close</onclick>
             <onclick>RunScript(script.smoke.publish)</onclick>
-            <visible>True</visible>
+            <visible>System.HasAddon(script.smoke.publish)</visible>
         </item>
     </include>
     <!-- Static Power Side Menu -->

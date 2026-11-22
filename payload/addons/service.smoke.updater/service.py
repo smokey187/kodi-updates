@@ -52,6 +52,19 @@ def notify(msg, icon=xbmcgui.NOTIFICATION_INFO, ms=5000):
         pass
 
 
+HOME = xbmcgui.Window(10000)
+FORCE = {'on': False}  # set while a user-requested check runs: no idle wait
+
+
+def status(state, label, remote=None):
+    """state: uptodate | ready | installing | failed | checking"""
+    HOME.setProperty('SmokeUpdate.State', state)
+    HOME.setProperty('SmokeUpdate.Label', label)
+    HOME.setProperty('SmokeUpdate.Local', str(load_state().get('version', 0)))
+    if remote is not None:
+        HOME.setProperty('SmokeUpdate.Remote', str(remote))
+
+
 def load_state():
     try:
         with open(STATE) as f:
@@ -145,7 +158,12 @@ def needed_files(man, st):
 
 
 def wait_idle(monitor, player):
+    if FORCE['on']:
+        return True
     while not monitor.abortRequested():
+        if HOME.getProperty('SmokeUpdate.Request'):  # user pressed "install now" while we were waiting
+            HOME.clearProperty('SmokeUpdate.Request')
+            return True
         if not player.isPlaying() and xbmc.getGlobalIdleTime() >= IDLE_NEEDED:
             return True
         if monitor.waitForAbort(60):
@@ -170,9 +188,11 @@ def check(monitor, player):
     man = json.loads(fetch('manifest.json').decode('utf-8'))
     ver = int(man['version'])
     if ver in st.get('bad', []):
+        status('uptodate', 'Up to date · v%d' % st.get('version', 0), ver)
         return
     todo = needed_files(man, st)
     if not todo:
+        status('uptodate', 'Up to date · v%d' % ver, ver)
         if st.get('version') != ver:
             st['version'] = ver
             st['applied'] = {p: m['sha256'] for p, m in man['files'].items() if m.get('once')}
@@ -180,6 +200,10 @@ def check(monitor, player):
         run_actions(man, st, monitor, player)
         return
     log('version %d: %d file(s) to update' % (ver, len(todo)))
+    status('ready', 'Update ready · v%d' % ver, ver)
+    if not FORCE['on'] and HOME.getProperty('SmokeUpdate.Announced') != str(ver):
+        HOME.setProperty('SmokeUpdate.Announced', str(ver))
+        notify('Update v%d ready - installs when the box is idle (Options > Box update to install now)' % ver, ms=8000)
 
     stage = os.path.join(STAGING, str(ver))
     shutil.rmtree(stage, ignore_errors=True)
@@ -216,6 +240,7 @@ def check(monitor, player):
         os.makedirs(os.path.dirname(target), exist_ok=True)
         os.replace(os.path.join(stage, path), target)
     shutil.rmtree(stage, ignore_errors=True)
+    status('installing', 'Installing v%d…' % ver, ver)
     notify('Installing update %d - restarting' % ver)
     restart_kodi()
 
@@ -272,6 +297,7 @@ def rollback(pending, st, why):
     st.setdefault('bad', []).append(pending['version'])
     st['pending'] = None
     save_state(st)
+    status('failed', 'Update failed · back on v%d' % st.get('version', 0))
     notify('Update failed - restored previous version', xbmcgui.NOTIFICATION_ERROR, 8000)
     restart_kodi()
 
@@ -304,23 +330,40 @@ def verify_pending(monitor):
     save_state(st)
     prune_backups()
     log('version %d installed OK' % p['version'])
+    status('uptodate', 'Up to date · v%d' % p['version'], p['version'])
     notify('Updated to version %d' % p['version'])
 
 
 def main():
     monitor = xbmc.Monitor()
     player = xbmc.Player()
+    st = load_state()
+    status('checking' if st.get('pending') else 'uptodate',
+           'Checking update…' if st.get('pending') else 'Box version v%d' % st.get('version', 0))
     verify_pending(monitor)
-    wait = FIRST_CHECK
-    while not monitor.waitForAbort(wait):
-        if load_state().get('pending'):  # a restart is on its way
-            wait = 60
+    next_check = time.time() + FIRST_CHECK
+    while not monitor.waitForAbort(3):
+        asked = HOME.getProperty('SmokeUpdate.Request')
+        if not asked and time.time() < next_check:
             continue
+        HOME.clearProperty('SmokeUpdate.Request')
+        if load_state().get('pending'):  # a restart is on its way
+            next_check = time.time() + 60
+            continue
+        FORCE['on'] = bool(asked)
         try:
+            if asked:
+                status('checking', 'Checking…')
             check(monitor, player)
+            if asked and HOME.getProperty('SmokeUpdate.State') == 'uptodate':
+                notify('Up to date (v%d)' % load_state().get('version', 0))
         except Exception as e:
             log('check failed: %s' % e, xbmc.LOGWARNING)
-        wait = INTERVAL + random.randint(0, JITTER)
+            status('failed', 'Update check failed · v%d' % load_state().get('version', 0))
+            if asked:
+                notify('Could not check for updates - is the box online?', xbmcgui.NOTIFICATION_WARNING)
+        FORCE['on'] = False
+        next_check = time.time() + INTERVAL + random.randint(0, JITTER)
 
 
 if __name__ == '__main__':

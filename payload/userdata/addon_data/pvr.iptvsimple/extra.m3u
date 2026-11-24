@@ -81,14 +81,10 @@ https://bitcdn-kronehit.bitmovin.com/v2/hls/playlist.m3u8
 https://lightning-traceurban-samsungau.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/FashionTV_v2.png" tvg-id="FashionTV",FashionTV
 https://edge-fast3.evrideo.tv/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/manifest.m3u8
-#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/FashionTV_2_v2.png" tvg-id="FashionTV 2",FashionTV 2
-http://fashionlive.mediacdn.ru/cdn/fashiontv/playlist.m3u8
 #EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/DroneTV_v2.png" tvg-id="DroneTV",DroneTV
 https://airvuz-dronetv-1-us.ohlscdn.wurl.tv/playlist.m3u8
 #EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Nautical_v2.png" tvg-id="Nautical",Nautical
 https://a-cdn.klowdtv.com/live2/nautical_720p/playlist.m3u8
-#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Travel_TV_v2.png" tvg-id="Travel TV",Travel TV
-https://streamer103.neterra.tv/travel/live.m3u8
 #EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/INTRAVEL_v2.png" tvg-id="INTRAVEL",INTRAVEL
 https://amg00861-amg00861c10-rakuten-uk-3152.playouts.now.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Love_Nature_v2.png" tvg-id="Love Nature",Love Nature
@@ -123,3 +119,215 @@ https://lotus.stingray.com/manifest/ose-122ads-montreal/samsungtvplus/master.m3u
 https://lotus.stingray.com/manifest/zenlife-zen001-montreal/samsungtvplus/master.m3u8
 #EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/i24NEWS_English_v2.png" tvg-id="i24NEWSEnglish",i24NEWS English
 https://hlspackager.akamaized.net/live/DB/i24_ENGLISH/HLS/i24_ENGLISH.m3u8
+#EXTINF:-1 tvg-id="BloombergTV.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Bloomberg_TV_v2.png",Bloomberg TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://bloomberg.com/media-manifest/streams/asia.m3u8
+#EXTINF:-1 tvg-id="CNA.al" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/CNA_v2.png",CNA
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8
+#EXTINF:-1 tvg-id="LiveNOWfromFOX.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/LiveNOW_from_FOX_v2.png",LiveNOW from FOX
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00488-foxdigital-livenowbyfox-lgus-y0a81.amagi.tv/playlist/amg00488-foxdigital-livenowbyfox-lgus/playlist.m3u8
+#EXTINF:-1 tvg-id="NBCNewsNOW.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/NBC_News_NOW_v2.png",NBC News NOW
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d1si3n1st4nkgb.cloudfront.net/10502/88896001/hls/master.m3u8?ads.xumo_channelId=88896001
+#EXTINF:-1 tvg-id="FIFAPlusWomen.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/FIFA_Women_v2.png",FIFA+ Women
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://cffda8ff.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U2Ftc3VuZy1nYl9GSUZBUGx1c3dvbWVuX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-id="Stadium.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Stadium_v2.png",Stadium
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://wurl120sports.global.transmit.live/hls/679a907dce42a042c23ace37/v1/stadium_gracenote/samsung_us/latest/main/hls/playlist.m3u8
+#EXTINF:-1 tvg-id="BabySharkTV.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Baby_Shark_TV_v2.png",Baby Shark TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://c0c65b821b3542c3a4dca92702f59944.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_BabySharkTV/playlist.m3u8
+#EXTINF:-1 tvg-id="MoonbugKids.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Moonbug_Kids_v2.png",Moonbug Kids
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://moonbug-rokuus.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="RyanandFriends.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Ryan_and_Friends_v2.png",Ryan and Friends
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://ryanandfriends-samsungau.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="GustoTV.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Gusto_TV_v2.png",Gusto TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://563f72af.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0d1c3RvVFZfSExT/playlist.m3u8
+#EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Qello_Concerts_by_Stingray_v2.png",Qello Concerts by Stingray
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883052
+#EXTINF:-1 tvg-id="StingrayClassicRock.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Stingray_Classic_Rock_v2.png",Stingray Classic Rock
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://lotus.stingray.com/manifest/ose-101ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="StingrayGreatestHits.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Stingray_Greatest_Hits_v2.png",Stingray Greatest Hits
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883053
+#EXTINF:-1 tvg-id="StingrayHotCountry.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Stingray_Hot_Country_v2.png",Stingray Hot Country
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://lotus.stingray.com/manifest/ose-108ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="StingrayRememberthe80s.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Stingray_Remember_the_80s_v2.png",Stingray Remember the 80s
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/master.m3u8?ads.xumo_channelId=88883071
+#EXTINF:-1 tvg-id="StingrayRockAlternative.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Stingray_Rock_Alternative_v2.png",Stingray Rock Alternative
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://lotus.stingray.com/manifest/ose-102ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="TraceBrazuca.fr" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Trace_Brazuca_v2.png",Trace Brazuca
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01131-tracetv-tracebrazuca-samsungbr/playlist.m3u8
+#EXTINF:-1 tvg-id="TraceLatina.fr" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Trace_Latina_v2.png",Trace Latina
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01131-tracetv-tracelatinait-samsungit/playlist.m3u8
+#EXTINF:-1 tvg-id="AMCThrillers.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/AMC_Thrillers_v2.png",AMC Thrillers
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amc-rushbyamc-1-us.vizio.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="BBCDrama.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/BBC_Drama_v2.png",BBC Drama
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00793-amg00793c40-rakuten-es-5444.playouts.now.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="DoctorWhoClassic.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Doctor_Who_Classic_v2.png",Doctor Who Classic
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://bbc-classicdrwho-1-us.roku.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="MidsomerMurders.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Midsomer_Murders_v2.png",Midsomer Murders
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://all3media-midsomer-1-us.roku.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="MovieSphere.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/MovieSphere_v2.png",MovieSphere
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00353-lionsgatefilmsi-moviesphereaus-samsungau-7qzhf.amagi.tv/playlist/amg00353-lionsgatefilmsi-moviesphereaus-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="ScaresbyShudder.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Scares_by_Shudder_v2.png",Scares by Shudder
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amc-scaresbyshudder-1-us.vizio.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="DarkMatterTV.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Dark_Matter_TV_v2.png",Dark Matter TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://tricoast-tv-dark-matter-01-us.ono.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="MysteryScienceTheater3000.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Mystery_Science_Theater_3000_v2.png",Mystery Science Theater 3000
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://vizioaaaa-mst3k-vizio-eclzp.amagi.tv/playlist/vizioAAAA-mst3k-vizio/playlist.m3u8
+#EXTINF:-1 tvg-id="MrBeanLiveAction.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Mr_Bean_Live_Action_v2.png",Mr Bean Live Action
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00627-amg00627c40-rakuten-uk-5725.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanpopupcc-rakutenuk/playlist.m3u8
+#EXTINF:-1 tvg-id="ColdCaseFiles.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Cold_Case_Files_v2.png",Cold Case Files
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://aegis-cloudfront-1.tubi.video/1e764712-0649-4946-bd7e-f1bbba3be6fa/playlist.m3u8
+#EXTINF:-1 tvg-id="FearFactor.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Fear_Factor_v2.png",Fear Factor
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00627-banijaygroup-fearfactor-samsungau-9vdod.amagi.tv/playlist/amg00627-banijaygroup-fearfactor-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="DealorNoDeal.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Deal_or_No_Deal_v2.png",Deal or No Deal
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00627-banijaygroup-dealornodeal-samsungau-si7xg.amagi.tv/playlist/amg00627-banijaygroup-dealornodeal-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="beINSPORTSXTRA.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/beIN_SPORTS_XTRA_v2.png",beIN SPORTS XTRA
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://bein-xtra-bein.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="EurovisionSport.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Eurovision_Sport_v2.png",Eurovision Sport
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg26268-amg26268c34-amgplt0018.playout.now3.amagi.tv/ts-us-e2-n1/playlist/amg26268-amg26268c34-amgplt0018/playlist.m3u8
+#EXTINF:-1 tvg-id="NHLNetwork.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/NHL_Network_v2.png",NHL Network
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://nhl-firetv.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="TennisChannel.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Tennis_Channel_v2.png",Tennis Channel
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01444-tennischannelth-tennischannelnl-samsungnl/playlist.m3u8
+#EXTINF:-1 tvg-id="FUELTV.pt" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/FUEL_TV_v2.png",FUEL TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg01074-fueltv-fueltvau-samsungau-g09kq.amagi.tv/playlist/amg01074-fueltv-fueltvau-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="talkSPORT.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/talkSPORT_v2.png",talkSPORT
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://af7a8b4e.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZ2JfdGFsa1NQT1JUX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-id="RACERInternational.pl" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/RACER_International_v2.png",RACER International
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00378-mavtv-amg00378c2-rakuten-us-1048.playouts.now.amagi.tv/playlist/amg00378-mavtvfast-motorsportsnetwork-rakutenus/playlist.m3u8
+#EXTINF:-1 tvg-id="WorldPokerTour.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/World_Poker_Tour_v2.png",World Poker Tour
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d39g1vxj2ef6in.cloudfront.net/v1/master/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod-rakuten-stitched/playlist.m3u8?ads.xumo_channelId=88883102
+#EXTINF:-1 tvg-id="WorldofFreesports.de" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/World_of_Freesports_v2.png",World of Freesports
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-mainstreammediafreesportsintl-rakuten/CDN/master.m3u8
+#EXTINF:-1 tvg-id="PowerNationTV.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/PowerNation_TV_v2.png",PowerNation TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg01258-raycomsports-powernationau-samsungau-18bwc.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="WaterBear.ch" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/WaterBear_v2.png",WaterBear
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg01415-waterbearnetwor-waterbear-samsunguk-1h0y8.amagi.tv/playlist/amg01415-waterbearnetwor-waterbear-samsunguk/playlist.m3u8
+#EXTINF:-1 tvg-id="InWonder.nl" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/InWonder_v2.png",InWonder
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00861-terninternation-inwonder-samsungau-1k63k.amagi.tv/playlist/amg00861-terninternation-inwonder-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="INWILD.nl" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/INWILD_v2.png",INWILD
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00861-terninternation-inwild-samsungau-3qrga.amagi.tv/playlist/amg00861-terninternation-inwild-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="NatureTime.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/NatureTime_v2.png",NatureTime
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg00090-blueantllc-lovenature-au-samsungau-wggcn.amagi.tv/playlist/amg00090-blueantllc-lovenature-au-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="DocumentaryPlus.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Documentary_v2.png",Documentary+
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://ef79b15c8c7c46c7a9de9d33001dbd07.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-859-DOCUMENTARYPLUS-DOCUMENTARYPLUS/mt/documentaryplus/859/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-id="LovePets.ca" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Love_Pets_v2.png",Love Pets
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg01576-blueskyeenterta-lovepetsemea-samsungse-ctamh.amagi.tv/playlist/amg01576-blueskyeenterta-lovepetsemea-samsungse/playlist.m3u8
+#EXTINF:-1 tvg-id="Tastemade.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Tastemade_v2.png",Tastemade
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://tastemade-tdint-rakuten.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="bonappetit.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/bon_appetit_v2.png",bon appetit
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://bonappetit-samsung.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="AmericasTestKitchen.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/America_s_Test_Kitchen_v2.png",America's Test Kitchen
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://aegis-cloudfront-1.tubi.video/0094c1fc-7c41-45d0-af7a-6bbb62d6cd6e/playlist.m3u8
+#EXTINF:-1 tvg-id="NinjaKidzTV.us" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Ninja_Kidz_TV_v2.png",Ninja Kidz TV
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://playworksdigital-ninjakidztv-1-us.vizio.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="PopUp.uk" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Pop_Up_v2.png",Pop Up
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://amg01753-amg01753c9-samsung-gb-8005.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg01753-narrativeuk-popup-samsunggb/playlist.m3u8
+#EXTINF:-1 tvg-id="SuperToons.bg" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Super_Toons_v2.png",Super Toons
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://d3bxvshzgfq6in.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-8a0c583l9gryw/feed/samsung/streams/SUPERTOONS_EN/master.m3u8?token=737aa2c3f17862a448f403cd2ac2b5ef1a0c413e1cf080a13a19cea99119221f
+#EXTINF:-1 tvg-id="ZooMoo.sg" tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/ZooMoo_v2.png",ZooMoo
+#KODIPROP:inputstream=inputstream.adaptive
+#KODIPROP:mimetype=application/vnd.apple.mpegurl
+https://zoomoo-samsungau.amagi.tv/playlist.m3u8

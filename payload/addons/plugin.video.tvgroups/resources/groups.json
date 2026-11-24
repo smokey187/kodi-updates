@@ -42,12 +42,28 @@
   "TVP Info",
   "TVP World",
   "Euronews Polska",
-  "i24NEWS English"
+  "i24NEWS English",
+  "Bloomberg TV",
+  "CNA",
+  "LiveNOW from FOX",
+  "NBC News NOW"
  ],
  "ספורט": [
   "TVP Sport",
   "Outside TV",
-  "Red Bull TV"
+  "Red Bull TV",
+  "FIFA+ Women",
+  "Stadium",
+  "beIN SPORTS XTRA",
+  "Eurovision Sport",
+  "NHL Network",
+  "Tennis Channel",
+  "FUEL TV",
+  "talkSPORT",
+  "RACER International",
+  "World Poker Tour",
+  "World of Freesports",
+  "PowerNation TV"
  ],
  "מוזיקה": [
   "Kronehit",
@@ -58,7 +74,15 @@
   "90's",
   "Pop Adult",
   "Smooth Jazz",
-  "Soul Storm"
+  "Soul Storm",
+  "Qello Concerts by Stingray",
+  "Stingray Classic Rock",
+  "Stingray Greatest Hits",
+  "Stingray Hot Country",
+  "Stingray Remember the 80s",
+  "Stingray Rock Alternative",
+  "Trace Brazuca",
+  "Trace Latina"
  ],
  "טבע ורגיעה": [
   "DroneTV",
@@ -67,13 +91,44 @@
   "Adventure Earth",
   "Naturescape",
   "The Spa",
-  "ZenLIFE"
+  "ZenLIFE",
+  "WaterBear",
+  "InWonder",
+  "INWILD",
+  "NatureTime",
+  "Documentary+",
+  "Love Pets"
  ],
  "טיולים ואופנה": [
   "FashionTV",
-  "FashionTV 2",
   "Nautical",
-  "Travel TV",
-  "INTRAVEL"
+  "INTRAVEL",
+  "Gusto TV",
+  "Tastemade",
+  "bon appetit",
+  "America's Test Kitchen"
+ ],
+ "ילדים": [
+  "Baby Shark TV",
+  "Moonbug Kids",
+  "Ryan and Friends",
+  "Ninja Kidz TV",
+  "Pop Up",
+  "Super Toons",
+  "ZooMoo"
+ ],
+ "סרטים": [
+  "AMC Thrillers",
+  "BBC Drama",
+  "Doctor Who Classic",
+  "Midsomer Murders",
+  "MovieSphere",
+  "Scares by Shudder",
+  "Dark Matter TV",
+  "Mystery Science Theater 3000",
+  "Mr Bean Live Action",
+  "Cold Case Files",
+  "Fear Factor",
+  "Deal or No Deal"
  ]
 }

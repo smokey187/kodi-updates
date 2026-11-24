@@ -34,9 +34,8 @@ class Grid(xbmcgui.WindowXML):
         panel.reset(); panel.addItems(items)
         self.setFocusId(100)
     def onClick(self, cid):
-        if cid == 100:
-            self.play = int(self.getControl(100).getSelectedItem().getProperty('channelid'))
-            self.close()
+        if cid == 100:  # play but keep this grid open underneath: Stop returns here, not to Home
+            rpc('Player.Open', item={'channelid': int(self.getControl(100).getSelectedItem().getProperty('channelid'))})
 
 if __name__ == '__main__':
     g = sys.argv[1] if len(sys.argv) > 1 else 'ראשי'

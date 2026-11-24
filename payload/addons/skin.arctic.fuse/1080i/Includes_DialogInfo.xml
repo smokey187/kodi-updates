@@ -48,6 +48,9 @@
         <include content="Info_Panel">
             <param name="titlelabel">$VAR[Label_Title]</param>
             <param name="plotlabel">$VAR[Label_Plot]</param>
+            <!-- claude 20261125: the ratings row sat under the section heading (Production / Videos...) - stars go in the details line instead -->
+            <param name="ratings">false</param>
+            <param name="starrating">true</param>
         </include>
         <include content="Info_Viewline">
             <param name="label">$VAR[Label_Info_ViewLine_Sub]</param>

@@ -3,8 +3,9 @@
     <defaultcontrol always="true">9000</defaultcontrol>
     <onload condition="String.IsEmpty(Window(Home).Property(PlayTrailer))">Close</onload>
     <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + Player.HasVideo + !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)">Action(Stop)</onload>
-    <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + [!Player.HasVideo | !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]">PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)])</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer)) + [!Player.HasVideo | !String.IsEqual(Window(Home).Property(PlayTrailer),Player.FileNameAndPath)]">PlayMedia($ESCINFO[Window(Home).Property(PlayTrailer)],1)</onload>  <!-- claude 20261124: windowed - fullscreen-video window closed the info page, reloaded Home and crashed Kodi -->
     <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer))">SetProperty(TrailerFullscreen,True,1123)</onload>  <!-- claude 20261115: real fullscreen playback (refresh-rate switch); show only the video -->
+    <onload condition="!String.IsEmpty(Window(Home).Property(PlayTrailer))">SetFocus(9100)</onload>
     <onunload>ClearProperty(TrailerFullscreen,1123)</onunload>
     <onunload condition="Player.HasVideo + [Skin.HasSetting(Background.DisableVideo) | !Skin.HasSetting(Trailers.EnableAutoPlayback.Info) | !Window.IsVisible(DialogVideoInfo.xml)]">Action(Stop)</onunload>
     <controls>
@@ -58,8 +59,8 @@
                             <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">ClearProperty(TrailerFullscreen,1123)</onback>
                             <onback condition="!String.IsEmpty(Window.Property(TrailerFullscreen)) + Player.HasVideo">9000</onback>
                             <onclick condition="String.IsEmpty(Window.Property(TrailerFullscreen))">SetProperty(TrailerFullscreen,True,1123)</onclick>
+                            <onclick>SetFocus(9100)</onclick>
                             <onclick condition="!String.IsEmpty(Window.Property(TrailerFullscreen))">ClearProperty(TrailerFullscreen,1123)</onclick>
-                            <onunfocus>ClearProperty(TrailerFullscreen,1123)</onunfocus>
                         </include>
                     </control>
                 </control>
@@ -126,12 +127,34 @@
         </control>
 
         <control type="group">
-            <visible>Player.HasVideo</visible>
             <visible>!String.IsEmpty(Window.Property(TrailerFullscreen))</visible>
             <control type="image">
                 <texture colordiffuse="black">common/white.png</texture>
             </control>
-            <control type="videowindow" />
+            <control type="videowindow">
+                <visible>Player.HasVideo</visible>
+            </control>
+            <control type="label">
+                <centertop>50%</centertop>
+                <height>80</height>
+                <align>center</align>
+                <font>font_main_bold</font>
+                <textcolor>ffbbbbbb</textcolor>
+                <label>Loading trailer…</label>
+                <visible>!Player.HasVideo</visible>
+            </control>
+            <!-- claude 20261124: remote while the trailer fills the screen - OK pause/play, left/right seek, up/down menu, Back closes -->
+            <control type="button" id="9100">
+                <texturefocus />
+                <texturenofocus />
+                <onclick>PlayerControl(Play)</onclick>
+                <onleft>Seek(-10)</onleft>
+                <onright>Seek(10)</onright>
+                <onup>ClearProperty(TrailerFullscreen,1123)</onup>
+                <onup>SetFocus(9000)</onup>
+                <ondown>ClearProperty(TrailerFullscreen,1123)</ondown>
+                <ondown>SetFocus(9000)</ondown>
+            </control>
         </control>
     </controls>
 </window>

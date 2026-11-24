@@ -2254,7 +2254,7 @@
                         <width>20</width>
                         <height>20</height>
                         <texture colordiffuse="$VAR[NF_LiveDot]">common/circle.png</texture>
-                        <visible>!String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + !String.IsEmpty($VAR[NF_LiveDot])</visible>
+                        <visible>!String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + [String.IsEqual($PARAM[listitem].ChannelName,כאן 11) | String.IsEqual($PARAM[listitem].ChannelName,קשת 12) | String.IsEqual($PARAM[listitem].ChannelName,רשת 13)]</visible>  <!-- claude 20261124: $VAR is not allowed in a condition (log spam) -->
                     </control>
                     <include content="Object_Indicator" condition="!$PARAM[selected] + !$PARAM[detailed]">
                         <param name="affix">$PARAM[affix]</param>

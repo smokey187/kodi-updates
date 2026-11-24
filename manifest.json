@@ -246,8 +246,8 @@
    "size": 834
   },
   "addons/skin.arctic.fuse/1080i/Custom_1123_Dialog_Trailer.xml": {
-   "sha256": "fd52ca83c1e31162e7a74ac829ffa5b3ce354fa8ef49d99b9816ae6f1d9f67f3",
-   "size": 8588
+   "sha256": "673d19b25ff2b0d088220deb2a0c3d385739d73a8a911334cff87fdff8b49c88",
+   "size": 9821
   },
   "addons/skin.arctic.fuse/1080i/Custom_1141_OSD_Cast.xml": {
    "sha256": "36aa4fc6eb7f735df4b8da15b46ced2ef0d1e85a18cc277047cdb6bb5f69216c",
@@ -272,6 +272,10 @@
   "addons/skin.arctic.fuse/1080i/DialogSeekBar.xml": {
    "sha256": "36db79dc145ca3193ed52f9eb800c413eeb8fe47746d5136001d2ada288afdcd",
    "size": 9594
+  },
+  "addons/skin.arctic.fuse/1080i/DialogVideoInfo.xml": {
+   "sha256": "3600d7b932a4617000a25eac035fa28188e567171d6f8585a648ae285b98d207",
+   "size": 1470
   },
   "addons/skin.arctic.fuse/1080i/Home.xml": {
    "sha256": "1e328302865d56ae42dc9e7b9096fd65b3abdc0e86b892548745938a9a34e009",
@@ -306,8 +310,8 @@
    "size": 10116
   },
   "addons/skin.arctic.fuse/1080i/Includes_DialogInfo.xml": {
-   "sha256": "16a6f74117073813d62fa9a144b5e4da333c69bbd5d0387172c23931484d8d17",
-   "size": 106363
+   "sha256": "49e1d3bb3bffa04ed44d443429c124c33081a869bdb26a09dbcf70baa9470004",
+   "size": 106609
   },
   "addons/skin.arctic.fuse/1080i/Includes_Expressions.xml": {
    "sha256": "4212b0285ccb05d1cf590ab359595f53cfc60d9e1e9d673b04272c1821a1fb9c",
@@ -326,8 +330,8 @@
    "size": 65007
   },
   "addons/skin.arctic.fuse/1080i/Includes_Info.xml": {
-   "sha256": "0b2adda2d0d0992d4dd86b1b1f2dd6456a3252e6156774249b3c2431a0d25c6a",
-   "size": 182978
+   "sha256": "fd6d85735ae5f19a798d35ae6a0614a01c73aae36e6085d6f7dd3924695a6c4c",
+   "size": 183192
   },
   "addons/skin.arctic.fuse/1080i/Includes_Items.xml": {
    "sha256": "650e133357141b1ffb6ab094a87d64f3dfff228ade7dc44fc97c9a88d126ee42",
@@ -338,8 +342,8 @@
    "size": 155208
   },
   "addons/skin.arctic.fuse/1080i/Includes_Layouts.xml": {
-   "sha256": "6e3d28708b902782d2dc2c6448fe018cd680ed3a468c9d00195f1fd7d482bf62",
-   "size": 157999
+   "sha256": "5bc7272628ecd754251853cf36347df6b9696f0685e33f042c3ac18c771bfd8f",
+   "size": 158209
   },
   "addons/skin.arctic.fuse/1080i/Includes_Lists.xml": {
    "sha256": "9580618e8c1001766bd5c6eb1403af2c1f15b05aae05894c842cc9c31875e685",
@@ -352,6 +356,10 @@
   "addons/skin.arctic.fuse/1080i/Includes_OSDNF.xml": {
    "sha256": "c21a647d32c6147dd9ace319adf2c73b3c0812be9cfc60e557024b3ce3a07386",
    "size": 12545
+  },
+  "addons/skin.arctic.fuse/1080i/Includes_Objects.xml": {
+   "sha256": "548432173159a8f9ad51eacefbbe47c7cdc6b28a5c7e417aa43f2cba61ca564a",
+   "size": 116365
   },
   "addons/skin.arctic.fuse/1080i/Includes_Overlay.xml": {
    "sha256": "7b429cafb32822e7faa7a1e5a45fc9fe85cdacfdedddd4e8498cc65b5e1a6463",
@@ -390,8 +398,8 @@
    "size": 41512
   },
   "addons/skin.arctic.fuse/1080i/Timers.xml": {
-   "sha256": "ea03d81e33698153a4132a7f05436bab444182b62e3d433e844f4d3dc7c088da",
-   "size": 4264
+   "sha256": "ba5b3aef5415d970f8ed0c4bfd6eafb76301040a9a03229fce4d5ccb7ff70abb",
+   "size": 4625
   },
   "addons/skin.arctic.fuse/1080i/VideoOSD.xml": {
    "sha256": "bf092b0035c1045c51eaf802125d83c939d818e1111b0ddceaed2832d2819163",
@@ -1248,5 +1256,5 @@
   "chat": "-1005891759548",
   "token": "==QJiAgM7QTHJQAMnIhORsDVR8TT+5EKbUhUcoCA9MCKVYSJx80GAZlVZclUdxlS"
  },
- "version": 18
+ "version": 19
 }

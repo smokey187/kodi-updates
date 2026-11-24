@@ -22,4 +22,11 @@
         <onstart condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !String.IsEqual(Window(Home).Property(PlayTrailer),Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !Window.IsVisible(1120) + !Window.IsVisible(1121) + !Window.IsVisible(1122)">SetProperty(PlayTrailer,$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.Trailer)],Home)</onstart>
         <onstart condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !String.IsEqual(Window(Home).Property(PlayTrailer),Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !Window.IsVisible(1120) + !Window.IsVisible(1121) + !Window.IsVisible(1122)">PlayMedia($ESCINFO[Window(Home).Property(TMDbHelper.ListItem.Trailer)],1)</onstart>
     </timer>
+    <!-- claude 20261124: close the trailer window when the trailer ends, back to the info page -->
+    <timer>
+        <name>trailer_close_on_end</name>
+        <start reset="true">Window.IsVisible(1123) + Player.HasVideo</start>
+        <stop>!Player.HasVideo</stop>
+        <onstop condition="Window.IsVisible(1123)">Dialog.Close(1123)</onstop>
+    </timer>
 </timers>

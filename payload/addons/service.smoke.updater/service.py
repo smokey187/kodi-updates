@@ -1,16 +1,19 @@
-# Smoke Box Updater - pulls box customizations from GitHub and applies them safely.
+# Smoke Box Updater 1.4 - pulls box customizations from GitHub and installs them safely.
 #
-# Flow: every few hours fetch manifest.json -> find files whose sha256 differs from the box
-# (new version, or an add-on update overwrote a patch) -> download + verify to a staging dir ->
-# wait until nothing plays and the remote was idle for a while -> back up -> swap files in ->
-# restart Kodi -> after restart check health (skin still loaded, no Python traceback in the
-# updated files) -> keep, or roll back and mark the version bad.
+# When:  right after the box starts (big "updating" screen, before anyone watches), or later when a
+#        check (every 30 min, also while watching) finds a new version: it downloads in the background
+#        and installs as soon as nothing is playing and the remote was idle for a few minutes
+#        (30 s countdown on screen, Back = later). "Box update" in the side menu installs right away.
+# How:   download + sha256 check -> back up -> swap files -> restart Kodi -> health check
+#        (skin loaded, no Python error in the new files) -> one-time actions (after Live TV loaded)
+#        -> "Update complete" screen + report to the Telegram channel. Broken -> roll back + report.
+import base64
 import hashlib
 import json
 import os
-import random
 import re
 import shutil
+import socket
 import subprocess
 import time
 import urllib.parse
@@ -25,20 +28,28 @@ DATA = os.path.join(KODI, 'userdata', 'addon_data', 'service.smoke.updater')
 STATE = os.path.join(DATA, 'state.json')
 STAGING = os.path.join(DATA, 'staging')
 BACKUPS = os.path.join(DATA, 'backups')
+ACTIONS = os.path.join(DATA, 'actions')
 LOG = os.path.join(KODI, 'temp', 'kodi.log')
 
-FIRST_CHECK = 60               # seconds after Kodi start (every boot)
-INTERVAL = 3 * 3600            # between checks
-JITTER = 1800
-IDLE_NEEDED = 10 * 60          # remote untouched this long before applying
-HEALTH_WAIT = 60               # after the restart, before judging the update
+BOOT_CHECK = 15                # seconds after Kodi start
+BOOT_RETRIES = 4               # network may still be coming up
+CHECK_EVERY = 30 * 60
+IDLE_NEEDED = 5 * 60           # nothing playing + remote untouched this long -> install
+COUNTDOWN = 30
+POSTPONE = 30 * 60             # Back pressed during the countdown
+HEALTH_WAIT = 45
+ACTION_TIMEOUT = 10 * 60
 KEEP_BACKUPS = 3
-# skin settings that belong to whoever uses the box (search history...): never taken from the repo
 PERSONAL_FILES = ('userdata/addon_data/skin.arctic.fuse/settings.xml',)
 PERSONAL_ID = re.compile(r'history', re.I)
 SETTING = re.compile(r'(<setting id="([^"]+)"[^>]*?)(?:/>|>([^<]*)</setting>)')
 if os.path.exists(os.path.join(DATA, 'fast')):  # testing: touch addon_data/service.smoke.updater/fast
-    FIRST_CHECK, IDLE_NEEDED, HEALTH_WAIT = 20, 0, 30
+    IDLE_NEEDED, HEALTH_WAIT, CHECK_EVERY = 20, 20, 120
+
+HOME = xbmcgui.Window(10000)
+BASE = {'url': REPO}
+READY = {}       # downloaded update waiting for the box to be idle
+FIRST = {'on': False}
 
 
 def log(msg, level=xbmc.LOGINFO):
@@ -52,15 +63,8 @@ def notify(msg, icon=xbmcgui.NOTIFICATION_INFO, ms=5000):
         pass
 
 
-HOME = xbmcgui.Window(10000)
-FORCE = {'on': False}  # set while a user-requested check runs: no idle wait
-FIRST = {'on': False}  # fresh install: the friend is in front of the TV, so set up right away
-
-
 class Progress(object):
-    """Big dialog with percentage when the user is waiting for it, small corner bar otherwise."""
-
-    def __init__(self, title, foreground):
+    def __init__(self, title, foreground=True):
         self.title, self.fg = title, foreground
         self.d = xbmcgui.DialogProgress() if foreground else xbmcgui.DialogProgressBG()
         self.d.create(title, '')
@@ -79,19 +83,7 @@ class Progress(object):
             pass
 
 
-def status(state, label, remote=None):
-    """state: uptodate | ready | installing | failed | checking"""
-    HOME.setProperty('SmokeUpdate.State', state)
-    # the "Box update" menu entry is only shown when there is something to do or see
-    if state in ('ready', 'installing', 'failed') or (state == 'checking' and FORCE['on']):
-        HOME.setProperty('SmokeUpdate.Show', '1')
-    else:
-        HOME.clearProperty('SmokeUpdate.Show')
-    HOME.setProperty('SmokeUpdate.Label', label)
-    HOME.setProperty('SmokeUpdate.Local', str(load_state().get('version', 0)))
-    if remote is not None:
-        HOME.setProperty('SmokeUpdate.Remote', str(remote))
-
+# ---------------------------------------------------------------- state
 
 def load_state():
     try:
@@ -109,23 +101,87 @@ def save_state(st):
     os.replace(tmp, STATE)
 
 
-BASE = {'url': REPO}
-BOOT = {'on': True}  # first check since Kodi started: install right away, without waiting for the box to be idle
+def status(state, label, remote=None):
+    """state: uptodate | ready | installing | failed | checking"""
+    HOME.setProperty('SmokeUpdate.State', state)
+    if state in ('ready', 'installing', 'failed', 'checking'):
+        HOME.setProperty('SmokeUpdate.Show', '1')
+    else:
+        HOME.clearProperty('SmokeUpdate.Show')
+    HOME.setProperty('SmokeUpdate.Label', label)
+    HOME.setProperty('SmokeUpdate.Local', str(load_state().get('version', 0)))
+    if remote is not None:
+        HOME.setProperty('SmokeUpdate.Remote', str(remote))
 
+
+# ---------------------------------------------------------------- Telegram report
+
+def box_name():
+    name = xbmc.getInfoLabel('System.FriendlyName') or 'Kodi'
+    mac = ''
+    for nic in ('eth0', 'wlan0'):
+        try:
+            mac = open('/sys/class/net/%s/address' % nic).read().strip()[-5:].replace(':', '')
+            if mac and mac != '0000':
+                break
+        except (IOError, OSError):
+            pass
+    return '%s [%s]' % (name, mac or socket.gethostname())
+
+
+def tg_token(obf):
+    key = b'smoke-box-updater'
+    raw = base64.b64decode(obf[::-1])
+    return bytes(b ^ key[i % len(key)] for i, b in enumerate(raw)).decode()
+
+
+def report(text):
+    st = load_state()
+    st.setdefault('outbox', []).append('%s %s\n%s' % (time.strftime('%d.%m %H:%M'), box_name(), text))
+    st['outbox'] = st['outbox'][-20:]
+    save_state(st)
+    flush_outbox()
+
+
+def flush_outbox():
+    st = load_state()
+    tg = st.get('tg') or {}
+    if not st.get('outbox') or not tg.get('token') or not tg.get('chat'):
+        return
+    try:
+        token = tg_token(tg['token'])
+    except Exception:
+        return
+    sent = 0
+    for msg in st['outbox']:
+        try:
+            body = urllib.parse.urlencode({'chat_id': tg['chat'], 'text': msg, 'disable_web_page_preview': 'true'}).encode()
+            urllib.request.urlopen('https://api.telegram.org/bot%s/sendMessage' % token, body, timeout=20).read()
+            sent += 1
+        except Exception as e:
+            log('telegram: %s' % e, xbmc.LOGWARNING)
+            break
+    if sent:
+        st = load_state()
+        st['outbox'] = st.get('outbox', [])[sent:]
+        save_state(st)
+
+
+# ---------------------------------------------------------------- repo
 
 def resolve_base():
-    """Read the files of the newest commit by its id: raw.githubusercontent.com caches 'main' for up to 5 minutes,
-    so a box checking just after a publish would still see the old version."""
+    """Read the newest commit by its id: raw.githubusercontent.com caches 'main' for up to 5 minutes."""
     try:
         req = urllib.request.Request('https://api.github.com/repos/smokey187/kodi-updates/commits/main',
                                      headers={'User-Agent': 'smoke-updater', 'Accept': 'application/vnd.github.sha'})
         sha = urllib.request.urlopen(req, timeout=15).read().decode().strip()
         if re.match(r'^[0-9a-f]{40}$', sha):
             BASE['url'] = 'https://raw.githubusercontent.com/smokey187/kodi-updates/%s/' % sha
-            return
+            return sha
     except Exception as e:
         log('commit lookup failed, using main: %s' % e, xbmc.LOGWARNING)
     BASE['url'] = REPO
+    return None
 
 
 def fetch(path, timeout=30):
@@ -160,7 +216,6 @@ def addon_of(path):
 
 
 def keep_personal(path, new_bytes):
-    """Repo version of a settings file, but with this box's own values for personal settings."""
     if path not in PERSONAL_FILES:
         return new_bytes
     try:
@@ -178,12 +233,6 @@ def keep_personal(path, new_bytes):
 
 
 def needed_files(man, st):
-    """Files to (re)write, skipping add-ons whose installed version is not the one the patch was made for.
-
-    'once' files (settings Kodi rewrites itself, generated skin includes) are only written when the
-    repo changed them, never just because they drifted on the box - otherwise every check would
-    rewrite them and restart Kodi.
-    """
     req = man.get('requires', {})
     applied = st.get('applied', {})
     skipped, out = set(), []
@@ -201,25 +250,12 @@ def needed_files(man, st):
             out.append(path)
     for s in sorted(skipped):
         log('skipping %s' % s, xbmc.LOGWARNING)
-    return out
+    return sorted(out)
 
 
-def wait_idle(monitor, player):
-    if FORCE['on']:
-        return True
-    if BOOT['on'] and not player.isPlaying():  # just booted: install now, before anyone starts watching
-        log('installing at startup')
-        return True
-    while not monitor.abortRequested():
-        if HOME.getProperty('SmokeUpdate.Request'):  # user pressed "install now" while we were waiting
-            HOME.clearProperty('SmokeUpdate.Request')
-            FORCE['on'] = True
-            return True
-        if not player.isPlaying() and xbmc.getGlobalIdleTime() >= IDLE_NEEDED:
-            return True
-        if monitor.waitForAbort(60):
-            return False
-    return False
+def needed_actions(man, st):
+    done = set(st.get('done', []))
+    return [a for a in man.get('actions', []) if a['id'] not in done]
 
 
 def restart_kodi():
@@ -228,45 +264,56 @@ def restart_kodi():
     subprocess.Popen(['systemctl', 'restart', 'kodi'])
 
 
+def rpc(method, **params):
+    try:
+        return json.loads(xbmc.executeJSONRPC(json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': method, 'params': params})))
+    except Exception:
+        return {}
+
+
 def enable_addons(ids):
     for aid in ids:
-        xbmc.executeJSONRPC(json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': 'Addons.SetAddonEnabled',
-                                        'params': {'addonid': aid, 'enabled': True}}))
+        rpc('Addons.SetAddonEnabled', addonid=aid, enabled=True)
 
 
-def check(monitor, player):
+# ---------------------------------------------------------------- check + download
+
+def check(monitor, foreground):
+    """Look for a new version. Returns 'uptodate', 'ready' (downloaded, waiting), or raises."""
     resolve_base()
     st = load_state()
     man = json.loads(fetch('manifest.json').decode('utf-8'))
     ver = int(man['version'])
+    if man.get('telegram') and st.get('tg') != man['telegram']:
+        st['tg'] = man['telegram']
+        save_state(st)
+    flush_outbox()
     if ver in st.get('bad', []):
         status('uptodate', 'Up to date · v%d' % st.get('version', 0), ver)
-        return
+        return 'uptodate'
     todo = needed_files(man, st)
-    if not todo:
-        status('uptodate', 'Up to date · v%d' % ver, ver)
+    acts = needed_actions(man, st)
+    if not todo and not acts:
         if st.get('version') != ver:
             st['version'] = ver
             st['applied'] = {p: m['sha256'] for p, m in man['files'].items() if m.get('once')}
             save_state(st)
-        run_actions(man, st, monitor, player)
-        return
-    log('version %d: %d file(s) to update' % (ver, len(todo)))
-    status('ready', 'Update ready · v%d' % ver, ver)
-    if not FORCE['on'] and HOME.getProperty('SmokeUpdate.Announced') != str(ver):
-        HOME.setProperty('SmokeUpdate.Announced', str(ver))
-        notify('Update v%d ready - installs when the box is idle (Options > Box update to install now)' % ver, ms=8000)
-
+        status('uptodate', 'Up to date · v%d' % ver, ver)
+        READY.clear()
+        return 'uptodate'
+    if READY.get('ver') == ver and READY.get('todo') == todo and READY.get('acts') == [a['id'] for a in acts]:
+        return 'ready'
+    log('version %d: %d file(s), %d action(s)' % (ver, len(todo), len(acts)))
     stage = os.path.join(STAGING, str(ver))
     shutil.rmtree(stage, ignore_errors=True)
-    title = 'Setting up your box' if FIRST['on'] else 'Box update v%d' % ver
-    prog = Progress(title, FORCE['on'])
-    total = sum(man['files'][p_].get('size', 1) for p_ in todo) or 1
+    prog = Progress('Setting up your box' if FIRST['on'] else 'Box update v%d' % ver, foreground) if foreground else None
+    total = sum(man['files'][p].get('size', 1) for p in todo) or 1
     done = 0
     try:
         for i, path in enumerate(todo):
-            pct = 70.0 * done / total
-            prog.update(pct, 'Downloading…  %d%%   (%d of %d files)' % (pct / 0.7, i + 1, len(todo)))
+            if prog:
+                pct = 60.0 * done / total
+                prog.update(pct, 'Step 1 of 3 - downloading…  %d%%   (%d of %d files)' % (pct / 0.6, i + 1, len(todo)))
             data = fetch('payload/' + path, timeout=120)
             if hashlib.sha256(data).hexdigest() != man['files'][path]['sha256']:
                 raise ValueError('checksum mismatch for %s' % path)
@@ -275,21 +322,37 @@ def check(monitor, player):
             with open(dst, 'wb') as f:
                 f.write(keep_personal(path, data))
             done += man['files'][path].get('size', 1)
-        prog.update(70, 'Downloaded - 100%')
-    except Exception:
-        prog.close()
-        raise
-    if not FORCE['on']:
-        prog.close()  # background download done; install waits until the box is idle
-        prog = None
+        for a in acts:
+            data = fetch(a['script'], timeout=60)
+            if hashlib.sha256(data).hexdigest() != a['sha256']:
+                raise ValueError('checksum mismatch for action %s' % a['id'])
+            dst = os.path.join(stage, '_actions', a['id'] + '.sh')
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            with open(dst, 'wb') as f:
+                f.write(data)
+    finally:
+        if prog:
+            prog.close()
+    READY.clear()
+    READY.update({'ver': ver, 'man': man, 'todo': todo, 'acts': [a['id'] for a in acts], 'stage': stage})
+    status('ready', 'Update ready · v%d' % ver, ver)
+    return 'ready'
 
-    if not wait_idle(monitor, player):
-        return
-    if prog is None:
-        prog = Progress(title, FORCE['on'])
-    if needed_files(man, load_state()) != todo:  # something changed while we waited: start over next time
-        return
 
+# ---------------------------------------------------------------- install
+
+def install():
+    """Swap the downloaded files in (foreground screen). Restarts Kodi when files changed."""
+    ver, man, todo, stage = READY['ver'], READY['man'], READY['todo'], READY['stage']
+    st = load_state()
+    if needed_files(man, st) != todo:  # something changed meanwhile: download again on the next check
+        READY.clear()
+        return
+    prog = Progress('Box update v%d' % ver)
+    prog.update(62, 'Step 2 of 3 - saving a backup of the current version…')
+    os.makedirs(ACTIONS, exist_ok=True)
+    for aid in READY['acts']:
+        shutil.copy2(os.path.join(stage, '_actions', aid + '.sh'), os.path.join(ACTIONS, aid + '.sh'))
     bdir = os.path.join(BACKUPS, '%d-%s' % (ver, time.strftime('%Y%m%d-%H%M%S')))
     created = []
     for path in todo:
@@ -300,46 +363,27 @@ def check(monitor, player):
             shutil.copy2(target, b)
         else:
             created.append(path)
-    prog.update(78, 'Saving a backup of the current version…')
-    st['pending'] = {'version': ver, 'backup': bdir, 'files': todo, 'created': created, 'forced': FORCE['on'],
-                     'skin': xbmc.getSkinDir(), 'enable': man.get('enable', []),
+    st['pending'] = {'version': ver, 'from': st.get('version', 0), 'backup': bdir, 'files': todo, 'created': created,
+                     'skin': xbmc.getSkinDir(), 'enable': man.get('enable', []), 'actions': READY['acts'],
                      'once': {p: m['sha256'] for p, m in man['files'].items() if m.get('once')}}
     save_state(st)
-    prog.update(88, 'Installing…')
-    for path in todo:
-        target = os.path.join(KODI, path)
-        os.makedirs(os.path.dirname(target), exist_ok=True)
-        os.replace(os.path.join(stage, path), target)
+    if todo:
+        prog.update(75, 'Step 2 of 3 - installing %d files…' % len(todo))
+        for path in todo:
+            target = os.path.join(KODI, path)
+            os.makedirs(os.path.dirname(target), exist_ok=True)
+            os.replace(os.path.join(stage, path), target)
     shutil.rmtree(stage, ignore_errors=True)
+    READY.clear()
     status('installing', 'Installing v%d…' % ver, ver)
-    prog.update(100, 'Restarting Kodi to finish - back in a few seconds')
-    xbmc.sleep(2500)
+    if todo:
+        prog.update(85, 'Restarting Kodi - the update continues right after it starts')
+        xbmc.sleep(2500)
+        prog.close()
+        restart_kodi()
+        return
     prog.close()
-    restart_kodi()
-
-
-def run_actions(man, st, monitor, player):
-    """One-time shell actions from the repo (e.g. cleanup), each run once per box, only when idle.
-
-    They run through systemd-run so they survive the script stopping/starting Kodi."""
-    for act in man.get('actions', []):
-        aid = act['id']
-        if aid in st.get('done', []):
-            continue
-        data = fetch(act['script'], timeout=60)
-        if hashlib.sha256(data).hexdigest() != act['sha256']:
-            raise ValueError('checksum mismatch for action %s' % aid)
-        if not wait_idle(monitor, player):
-            return
-        path = os.path.join(DATA, 'action-%s.sh' % re.sub(r'[^A-Za-z0-9_-]', '', aid))
-        with open(path, 'wb') as f:
-            f.write(data)
-        st.setdefault('done', []).append(aid)  # recorded first: never run twice, even if it kills Kodi
-        save_state(st)
-        log('running action %s' % aid)
-        subprocess.Popen(['systemd-run', '--unit=smoke-action-%s-%d' % (re.sub(r'[^A-Za-z0-9-]', '', aid), int(time.time())),
-                          '/bin/sh', path])
-        return  # one action per check
+    verify_pending(xbmc.Monitor(), restarted=False)
 
 
 def broken_after_update(pending):
@@ -371,7 +415,9 @@ def rollback(pending, st, why):
     st['pending'] = None
     save_state(st)
     status('failed', 'Update failed · back on v%d' % st.get('version', 0))
-    notify('Update failed - restored previous version', xbmcgui.NOTIFICATION_ERROR, 8000)
+    report('❌ v%d FAILED - %s\nRestored v%d.' % (pending['version'], why, st.get('version', 0)))
+    xbmcgui.Dialog().ok('Box update', 'The update to version %d did not work, so the box went back to version %d.[CR]Nothing is lost - Kodi restarts now.'
+                        % (pending['version'], st.get('version', 0)))
     restart_kodi()
 
 
@@ -384,35 +430,137 @@ def prune_backups():
         pass
 
 
-def verify_pending(monitor):
+def verify_pending(monitor, restarted=True):
     st = load_state()
     p = st.get('pending')
     if not p:
         return
-    prog = Progress('Box update v%d' % p['version'], False)
-    for i in range(HEALTH_WAIT):
-        prog.update(100.0 * i / HEALTH_WAIT, 'Finishing and checking the update…')
-        if monitor.waitForAbort(1):
-            prog.close()
+    if restarted:
+        prog = Progress('Box update v%d' % p['version'])
+        for i in range(HEALTH_WAIT):
+            prog.update(85 + 10.0 * i / HEALTH_WAIT, 'Step 3 of 3 - checking that everything works…')
+            if monitor.waitForAbort(1):
+                prog.close()
+                return
+        prog.close()
+        why = broken_after_update(p)
+        if why:
+            rollback(p, st, why)
             return
-    prog.close()
-    why = broken_after_update(p)
-    if why:
-        rollback(p, st, why)
-        return
     if p.get('enable'):
         enable_addons(p['enable'])
     st['version'] = p['version']
     st['applied'] = p.get('once', {})
     st['pending'] = None
+    st['finish'] = {'version': p['version'], 'from': p.get('from', '?'), 'files': len(p['files']),
+                    'actions': list(p.get('actions', [])), 'results': {}, 'running': None, 'started': 0}
     save_state(st)
     prune_backups()
-    log('version %d installed OK' % p['version'])
-    status('uptodate', 'Up to date · v%d' % p['version'], p['version'])
-    if p.get('forced'):
-        xbmcgui.Dialog().ok('Box update', 'All done - your box is up to date (version %d).' % p['version'])
-    else:
-        notify('Updated to version %d' % p['version'])
+    finish(monitor)
+
+
+# ---------------------------------------------------------------- one-time actions + final screen
+
+def live_tv_ready(monitor, prog, limit=150):
+    for i in range(limit):
+        r = rpc('PVR.GetChannels', channelgroupid='alltv', limits={'start': 0, 'end': 1})
+        if r.get('result', {}).get('limits', {}).get('total', 0) > 0:
+            monitor.waitForAbort(10)  # let the channel list settle in the database
+            return True
+        prog.update(96, 'Waiting for Live TV to load…')
+        if monitor.waitForAbort(1):
+            return False
+    return False
+
+
+def rc_of(aid):
+    try:
+        return open(os.path.join(ACTIONS, aid + '.rc')).read().strip()
+    except (IOError, OSError):
+        return None
+
+
+def finish(monitor):
+    """Run the one-time actions of this update (they may restart Kodi; resumes here), then report."""
+    st = load_state()
+    f = st.get('finish')
+    if not f:
+        return
+    prog = Progress('Box update v%d' % f['version'])
+    while f.get('running'):
+        aid = f['running']
+        rc = rc_of(aid)
+        if rc is None and time.time() - f['started'] < ACTION_TIMEOUT:
+            prog.update(97, 'Finishing: %s…' % aid)
+            if monitor.waitForAbort(2):
+                prog.close()
+                return
+            continue
+        f['results'][aid] = 'ok' if rc == '0' else ('error %s' % rc if rc else 'timeout')
+        f['running'] = None
+        save_state(st)
+    while f['actions']:
+        aid = f['actions'][0]
+        script = os.path.join(ACTIONS, aid + '.sh')
+        if not live_tv_ready(monitor, prog):
+            log('Live TV not loaded - running %s anyway' % aid, xbmc.LOGWARNING)
+        if monitor.abortRequested():
+            prog.close()
+            return
+        prog.update(97, 'Finishing: %s…' % aid)
+        try:
+            os.remove(os.path.join(ACTIONS, aid + '.rc'))
+        except OSError:
+            pass
+        f['actions'].pop(0)
+        f['running'], f['started'] = aid, time.time()
+        st.setdefault('done', []).append(aid)  # recorded first: never run twice, even if it kills Kodi
+        save_state(st)
+        log('running action %s' % aid)
+        rcfile = os.path.join(ACTIONS, aid + '.rc')
+        subprocess.Popen(['systemd-run', '--unit=smoke-action-%s-%d' % (re.sub(r'[^A-Za-z0-9-]', '', aid), int(time.time())),
+                          '/bin/sh', '-c', '/bin/sh "%s"; echo $? > "%s"' % (script, rcfile)])
+        while True:  # if the action restarts Kodi we die here and pick it up again after the restart
+            rc = rc_of(aid)
+            if rc is not None or time.time() - f['started'] > ACTION_TIMEOUT:
+                break
+            if monitor.waitForAbort(2):
+                prog.close()
+                return
+        f['results'][aid] = 'ok' if rc == '0' else ('error %s' % rc if rc else 'timeout')
+        f['running'] = None
+        save_state(st)
+    prog.update(100, 'Done')
+    xbmc.sleep(800)
+    prog.close()
+    st['finish'] = None
+    save_state(st)
+    bad = {k: v for k, v in f['results'].items() if v != 'ok'}
+    lines = ['%s v%s -> v%d  (%d files)' % ('⚠️' if bad else '✅', f['from'], f['version'], f['files'])]
+    lines += ['%s %s: %s' % ('✓' if v == 'ok' else '✗', k, v) for k, v in sorted(f['results'].items())]
+    report('\n'.join(lines))
+    status('uptodate', 'Up to date · v%d' % f['version'], f['version'])
+    log('version %d installed: %s' % (f['version'], f['results']))
+    msg = 'Your box is up to date - version %d.' % f['version']
+    if bad:
+        msg += '[CR]Note: %s did not finish.' % ', '.join(sorted(bad))
+    xbmcgui.Dialog().ok('Box update complete', msg)
+
+
+# ---------------------------------------------------------------- idle install with countdown
+
+def countdown(monitor, ver):
+    d = xbmcgui.DialogProgress()
+    d.create('Box update v%d' % ver, '')
+    for i in range(COUNTDOWN, 0, -1):
+        d.update(int(100.0 * (COUNTDOWN - i) / COUNTDOWN),
+                 'A new version is ready. Installing in %d s (Kodi restarts, about 1 minute).[CR]Press Back to do it later.' % i)
+        for _ in range(10):
+            if d.iscanceled() or monitor.waitForAbort(0.1):
+                d.close()
+                return False
+    d.close()
+    return True
 
 
 def main():
@@ -420,34 +568,51 @@ def main():
     player = xbmc.Player()
     FIRST['on'] = not os.path.exists(STATE)
     st = load_state()
-    status('checking' if st.get('pending') else 'uptodate',
-           'Checking update…' if st.get('pending') else 'Box version v%d' % st.get('version', 0))
+    status('installing' if (st.get('pending') or st.get('finish')) else 'uptodate', 'Box version v%d' % st.get('version', 0))
     verify_pending(monitor)
-    next_check = time.time() + (10 if FIRST['on'] else FIRST_CHECK)
+    finish(monitor)
+    if monitor.abortRequested() or load_state().get('pending'):
+        return
+    next_check = time.time() + BOOT_CHECK
+    boot_tries = BOOT_RETRIES
+    postponed = 0
     while not monitor.waitForAbort(3):
-        asked = HOME.getProperty('SmokeUpdate.Request') or ('first' if FIRST['on'] else '')
-        if not asked and time.time() < next_check:
+        asked = HOME.getProperty('SmokeUpdate.Request')
+        if asked:
+            HOME.clearProperty('SmokeUpdate.Request')
+        if asked or time.time() >= next_check:
+            boot = boot_tries > 0
+            fg = bool(asked) or (boot and not player.isPlaying())
+            try:
+                if asked:
+                    status('checking', 'Checking…')
+                res = check(monitor, fg)
+                boot_tries = 0
+                if res == 'ready' and (fg or asked == 'install'):
+                    install()
+                    if load_state().get('pending'):
+                        return  # Kodi is restarting
+                elif asked and res == 'uptodate':
+                    notify('Up to date (v%d)' % load_state().get('version', 0))
+                next_check = time.time() + CHECK_EVERY
+            except Exception as e:
+                log('check failed: %s' % e, xbmc.LOGWARNING)
+                if boot_tries > 0:
+                    boot_tries -= 1
+                    next_check = time.time() + 15
+                else:
+                    next_check = time.time() + CHECK_EVERY
+                if asked:
+                    status('failed', 'Update check failed · v%d' % load_state().get('version', 0))
+                    notify('Could not check for updates - is the box online?', xbmcgui.NOTIFICATION_WARNING)
             continue
-        HOME.clearProperty('SmokeUpdate.Request')
-        if load_state().get('pending'):  # a restart is on its way
-            next_check = time.time() + 60
-            continue
-        FORCE['on'] = bool(asked)
-        try:
-            if asked:
-                status('checking', 'Checking…')
-            check(monitor, player)
-            if asked and HOME.getProperty('SmokeUpdate.State') == 'uptodate':
-                notify('Up to date (v%d)' % load_state().get('version', 0))
-        except Exception as e:
-            log('check failed: %s' % e, xbmc.LOGWARNING)
-            status('failed', 'Update check failed · v%d' % load_state().get('version', 0))
-            if asked:
-                notify('Could not check for updates - is the box online?', xbmcgui.NOTIFICATION_WARNING)
-        FORCE['on'] = False
-        FIRST['on'] = False
-        BOOT['on'] = False
-        next_check = time.time() + INTERVAL + random.randint(0, JITTER)
+        if READY and time.time() >= postponed and not player.isPlaying() and xbmc.getGlobalIdleTime() >= IDLE_NEEDED:
+            if countdown(monitor, READY['ver']):
+                install()
+                if load_state().get('pending'):
+                    return
+            else:
+                postponed = time.time() + POSTPONE
 
 
 if __name__ == '__main__':

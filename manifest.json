@@ -202,7 +202,7 @@
    "size": 5878
   },
   "addons/service.smoke.updater/addon.xml": {
-   "sha256": "668421d4edb18986b697968125ffc95049fa0cf625b6932190f3604a89474583",
+   "sha256": "980e6aaa3d87a61400201decf787de5fa5714f3fd3f98ef00161f321d19537ae",
    "size": 851
   },
   "addons/service.smoke.updater/default.py": {
@@ -210,8 +210,8 @@
    "size": 1231
   },
   "addons/service.smoke.updater/service.py": {
-   "sha256": "8b644d9814ac26d1e20ba480a27fa4d179ac42912751d16e5ef517164fd58bdd",
-   "size": 23562
+   "sha256": "ac273f7a96891ede6fada15a014539a90d27192177da2cad35b6312a12df46a0",
+   "size": 24447
   },
   "addons/service.studio.logo.fallback/addon.xml": {
    "sha256": "33b400a2f6b0ebfad694019ad5429ad9c35b4c25e4fe789e7f5ea399a73774f9",
@@ -1236,6 +1236,7 @@
    "size": 86
   }
  },
+ "names": {},
  "requires": {
   "plugin.video.elementum": "0.1.119",
   "plugin.video.themoviedb.helper": "6.21.5",
@@ -1247,5 +1248,5 @@
   "chat": "-1005891759548",
   "token": "==QJiAgM7QTHJQAMnIhORsDVR8TT+5EKbUhUcoCA9MCKVYSJx80GAZlVZclUdxlS"
  },
- "version": 17
+ "version": 18
 }

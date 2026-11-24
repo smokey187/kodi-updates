@@ -126,7 +126,9 @@ def box_name():
                 break
         except (IOError, OSError):
             pass
-    return '%s [%s]' % (name, mac or socket.gethostname())
+    code = mac or socket.gethostname()
+    nice = (load_state().get('names') or {}).get(code)  # owner's names for the boxes, from the manifest
+    return '%s [%s]' % (nice, code) if nice else '%s [%s]' % (name, code)
 
 
 def tg_token(obf):
@@ -165,6 +167,20 @@ def flush_outbox():
         st = load_state()
         st['outbox'] = st.get('outbox', [])[sent:]
         save_state(st)
+
+
+def hello():
+    """Once per power-on: tell the channel the box is alive and which version it runs."""
+    try:
+        boot = open('/proc/sys/kernel/random/boot_id').read().strip()
+    except (IOError, OSError):
+        return
+    st = load_state()
+    if st.get('boot_id') == boot:
+        return
+    st['boot_id'] = boot
+    save_state(st)
+    report('🟢 on · v%s' % st.get('version', '?'))
 
 
 # ---------------------------------------------------------------- repo
@@ -286,6 +302,9 @@ def check(monitor, foreground):
     ver = int(man['version'])
     if man.get('telegram') and st.get('tg') != man['telegram']:
         st['tg'] = man['telegram']
+        save_state(st)
+    if st.get('names') != man.get('names'):
+        st['names'] = man.get('names')
         save_state(st)
     flush_outbox()
     if ver in st.get('bad', []):
@@ -538,6 +557,11 @@ def finish(monitor):
     bad = {k: v for k, v in f['results'].items() if v != 'ok'}
     lines = ['%s v%s -> v%d  (%d files)' % ('⚠️' if bad else '✅', f['from'], f['version'], f['files'])]
     lines += ['%s %s: %s' % ('✓' if v == 'ok' else '✗', k, v) for k, v in sorted(f['results'].items())]
+    try:
+        st['boot_id'] = open('/proc/sys/kernel/random/boot_id').read().strip()
+        save_state(st)
+    except (IOError, OSError):
+        pass
     report('\n'.join(lines))
     status('uptodate', 'Up to date · v%d' % f['version'], f['version'])
     log('version %d installed: %s' % (f['version'], f['results']))
@@ -588,6 +612,8 @@ def main():
                     status('checking', 'Checking…')
                 res = check(monitor, fg)
                 boot_tries = 0
+                if res == 'uptodate':
+                    hello()
                 if res == 'ready' and (fg or asked == 'install'):
                     install()
                     if load_state().get('pending'):

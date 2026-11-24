@@ -7,11 +7,13 @@
   }
  ],
  "enable": [
+  "plugin.video.tvgroups",
+  "plugin.video.tvplive",
   "service.nf.channelguard",
   "service.nf.skipintro",
+  "service.smoke.updater",
   "service.studio.logo.fallback",
-  "service.subs.multilang",
-  "service.smoke.updater"
+  "service.subs.multilang"
  ],
  "files": {
   "addons/plugin.video.elementum/resources/site-packages/elementum/navigation.py": {
@@ -37,6 +39,78 @@
   "addons/plugin.video.themoviedb.helper/resources/service.py": {
    "sha256": "98379e8363aae62a089c20726dc6cfde487b91159516224b9105026266f8d148",
    "size": 688
+  },
+  "addons/plugin.video.tvgroups/addon.xml": {
+   "sha256": "2dc0efdc7a9ce655f081720332f7bd4fc3168d6c49053a166d97f85ccd8d23ba",
+   "size": 482
+  },
+  "addons/plugin.video.tvgroups/default.py": {
+   "sha256": "f2744e452ac1abc200c6f511ca5eb992f2ea6d1b7c0b12eb871f6713293844e6",
+   "size": 1218
+  },
+  "addons/plugin.video.tvgroups/grid.py": {
+   "sha256": "437abefec60c8cbad5961d1a068abbcaca2fbfb982096f366ae39f37c79ecbaf",
+   "size": 2413
+  },
+  "addons/plugin.video.tvgroups/resources/groups.json": {
+   "sha256": "e78e43b75237816b7fd164eea308dfa127688fda1806f3766f057685242fbd83",
+   "size": 1215
+  },
+  "addons/plugin.video.tvgroups/resources/skins/Default/1080i/tvgrid.xml": {
+   "sha256": "3fbd9ce0f2573d4c4ada6087eb5010d73c90b490f57bd1dfdc757176e1ede679",
+   "size": 2415
+  },
+  "addons/plugin.video.tvgroups/resources/skins/Default/media/bg.png": {
+   "sha256": "19e5315424eb3cf40594cf0c30a430c78f07a12a34934007a58507efb6cc7271",
+   "size": 377
+  },
+  "addons/plugin.video.tvgroups/resources/skins/Default/media/black.png": {
+   "sha256": "3d82b245757b9607f44c84572388448341713a23c670bdc96ab19057ecef2f4c",
+   "size": 78
+  },
+  "addons/plugin.video.tvgroups/resources/skins/Default/media/card.png": {
+   "sha256": "85b60bd4ebcde082b89d80c83a738fda9c6ff04643bb75fd874c35960461e24f",
+   "size": 1081
+  },
+  "addons/plugin.video.tvgroups/resources/skins/Default/media/focus.png": {
+   "sha256": "741b26cc245d0b41cb5a1321f73d5de0c9b61107a2a38f2596eb824ea8175923",
+   "size": 1186
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_0.png": {
+   "sha256": "3681349d9429db490c07adc7d15e15f80848f1fb37c0e96f765229be36b5b6e9",
+   "size": 11929
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_1.png": {
+   "sha256": "9410955f7979b9d52266a3621742cc3e6171d5326cdf352016ddf5eba7729312",
+   "size": 12488
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_2.png": {
+   "sha256": "4793238b9b01ae158d1f8030605873264956a19ae4b8b603d35e25caac71c584",
+   "size": 12312
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_3.png": {
+   "sha256": "3fc29a19e981dd3ddd14c904595ff484f2754562d75375d1bbf63a0bb532c190",
+   "size": 14506
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_4.png": {
+   "sha256": "08c26cb09b844a2d5ea2251c50f62159598cd55bfcbce6d44456850797631ab7",
+   "size": 12560
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_5.png": {
+   "sha256": "0c510a1d2787e810d9bdd1dfcad14a5a74c2810be5a2f19fb898128946fcb40d",
+   "size": 16515
+  },
+  "addons/plugin.video.tvgroups/resources/tiles/en_6.png": {
+   "sha256": "f98a6898b780c5fbad72c54334c0c0d836fbdbd3deba9aa5e04b77ecf0e1290f",
+   "size": 16091
+  },
+  "addons/plugin.video.tvplive/addon.xml": {
+   "sha256": "cf44b3024872f14554cc9166392df981efda30d965147168a6788f9dd64733eb",
+   "size": 569
+  },
+  "addons/plugin.video.tvplive/default.py": {
+   "sha256": "6bec9a9b38b84d8e1070231cdcfa72ff497aff35a26c7cbfa56aeec45de3cf91",
+   "size": 1420
   },
   "addons/script.trakt/default.py": {
    "sha256": "fe8244e489c07738ba0888289ea7949764214c0e05aeb9200c39b74bd92fbce8",
@@ -284,8 +358,8 @@
   },
   "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-includes--kodiprofile-8c34d337b002490eda7727171fcb9dbf.xml": {
    "once": true,
-   "sha256": "18b29259e453236e2fd18dfb6c62b119738ba671390d1083bf8ebe1feb39cea9",
-   "size": 47664
+   "sha256": "6aa7a9f6df0fc2e7f526ba31dc7f3c0434b2d8220b4defec1791d528eeab77e6",
+   "size": 47605
   },
   "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-includes-.xml": {
    "once": true,
@@ -327,8 +401,8 @@
    "size": 518
   },
   "addons/skin.arctic.fuse/shortcuts/generator/data/setup/powermainmenu_item.xml": {
-   "sha256": "a0fecb325fb92fea8128b4d2c0389b8a40f6df38377c41aa99fba74d442fb0a6",
-   "size": 2423
+   "sha256": "25cd6868dac4d72fdb6863df2d90791ef16dea2e60b72ac124d6eb9cc0d76a11",
+   "size": 2395
   },
   "addons/skin.arctic.fuse/shortcuts/skinvariables-generator.json": {
    "once": true,
@@ -344,6 +418,266 @@
    "once": true,
    "sha256": "99469d0851f5e6ae98770d152bd6e8813996327bb43859577ff4eb64853671c2",
    "size": 7566
+  },
+  "userdata/addon_data/pvr.iptvsimple/extra.m3u": {
+   "once": true,
+   "sha256": "9d96dda0c4fb8126fca3eaebe0ed0904beb2aa0df670ba09c6fddc1624d50ecd",
+   "size": 13189
+  },
+  "userdata/addon_data/pvr.iptvsimple/instance-settings-3.xml": {
+   "once": true,
+   "sha256": "29769429d086fcba38b38eedde17aca195b2fb35446418cd3d0229dc6bf36d96",
+   "size": 5254
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/80_s.png": {
+   "once": true,
+   "sha256": "5c8a93eec41220dc783245f1100a7cc17f144f6d8c15d908b3f8c531afbfdb1b",
+   "size": 8142
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/80_s_v2.png": {
+   "once": true,
+   "sha256": "5c8a93eec41220dc783245f1100a7cc17f144f6d8c15d908b3f8c531afbfdb1b",
+   "size": 8142
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/90_s.png": {
+   "once": true,
+   "sha256": "8fe6e98b5accc4634321155323393e9d9175bcf3d0ea9810bc5bae68afc6eb95",
+   "size": 7937
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/90_s_v2.png": {
+   "once": true,
+   "sha256": "8fe6e98b5accc4634321155323393e9d9175bcf3d0ea9810bc5bae68afc6eb95",
+   "size": 7937
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Adventure_Earth.png": {
+   "once": true,
+   "sha256": "fd37db6e1ff22fe404756a7cb21e1fbdaaff49451e794e8c6e9abc85df417a7d",
+   "size": 5740
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Adventure_Earth_v2.png": {
+   "once": true,
+   "sha256": "d147dc9445684b12b3070b5da81f34520dea48b5e2feba3dc8f8b2186b933859",
+   "size": 10466
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/DroneTV.png": {
+   "once": true,
+   "sha256": "3946112a62627885d40de86b2eab7a965946f590d352c5edfd3413351ea2fc5b",
+   "size": 6549
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/DroneTV_v2.png": {
+   "once": true,
+   "sha256": "3946112a62627885d40de86b2eab7a965946f590d352c5edfd3413351ea2fc5b",
+   "size": 6549
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Easy_Listening.png": {
+   "once": true,
+   "sha256": "be605a651e5ea17259ececd4547eda4b2925d43b7de3d49646aaf644602e071a",
+   "size": 23977
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Easy_Listening_v2.png": {
+   "once": true,
+   "sha256": "be605a651e5ea17259ececd4547eda4b2925d43b7de3d49646aaf644602e071a",
+   "size": 23977
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Euronews_Polska.png": {
+   "once": true,
+   "sha256": "fbb4e76c287372491955ede48913d6755497478f2507c6c082f3607760540440",
+   "size": 8769
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Euronews_Polska_v2.png": {
+   "once": true,
+   "sha256": "fbb4e76c287372491955ede48913d6755497478f2507c6c082f3607760540440",
+   "size": 8769
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/FashionTV.png": {
+   "once": true,
+   "sha256": "86f013905bdf52ea195c77df24832a21d162a2cf9dc9e461f4b5ffd14442f544",
+   "size": 8230
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/FashionTV_2.png": {
+   "once": true,
+   "sha256": "86f013905bdf52ea195c77df24832a21d162a2cf9dc9e461f4b5ffd14442f544",
+   "size": 8230
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/FashionTV_2_v2.png": {
+   "once": true,
+   "sha256": "86f013905bdf52ea195c77df24832a21d162a2cf9dc9e461f4b5ffd14442f544",
+   "size": 8230
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/FashionTV_v2.png": {
+   "once": true,
+   "sha256": "86f013905bdf52ea195c77df24832a21d162a2cf9dc9e461f4b5ffd14442f544",
+   "size": 8230
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Hit_List.png": {
+   "once": true,
+   "sha256": "0c6edb3060bc632a8dc4fbc8ee5a4075f5fc8d4895b412236872dfe506d64d4d",
+   "size": 27330
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Hit_List_v2.png": {
+   "once": true,
+   "sha256": "0c6edb3060bc632a8dc4fbc8ee5a4075f5fc8d4895b412236872dfe506d64d4d",
+   "size": 27330
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/INTRAVEL.png": {
+   "once": true,
+   "sha256": "0f8b4343114efd600241ce58d7d3e661e7252f048522c2bcfb5bf3a31cdf6e0f",
+   "size": 24217
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/INTRAVEL_v2.png": {
+   "once": true,
+   "sha256": "0f8b4343114efd600241ce58d7d3e661e7252f048522c2bcfb5bf3a31cdf6e0f",
+   "size": 24217
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Kronehit.png": {
+   "once": true,
+   "sha256": "ad5a9d8b87048caec96c86bb2d30d982a9f2fc3993406d6c85b71df12bcf761b",
+   "size": 21680
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Kronehit_v2.png": {
+   "once": true,
+   "sha256": "ad5a9d8b87048caec96c86bb2d30d982a9f2fc3993406d6c85b71df12bcf761b",
+   "size": 21680
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Love_Nature.png": {
+   "once": true,
+   "sha256": "8d5faecc7c01b98e28158f558e25fff0b7dd192e6fa2b4e0ca06938f84835119",
+   "size": 28096
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Love_Nature_v2.png": {
+   "once": true,
+   "sha256": "8d5faecc7c01b98e28158f558e25fff0b7dd192e6fa2b4e0ca06938f84835119",
+   "size": 28096
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Naturescape.png": {
+   "once": true,
+   "sha256": "4403baf59fb645b065c28584549a0fc61d6a1c4a0fafc10fc61fd106d5169716",
+   "size": 21883
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Naturescape_v2.png": {
+   "once": true,
+   "sha256": "be28a3c271ad2a2ac9326bfd65d958f8ab893f15b41e37bc7d969c88c1e28d4d",
+   "size": 28792
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Nautical.png": {
+   "once": true,
+   "sha256": "49f35d9ca10060f1e00dbe7c0befff631b2bc530d51805ce815fc0e55efcdacd",
+   "size": 5312
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Nautical_v2.png": {
+   "once": true,
+   "sha256": "49f35d9ca10060f1e00dbe7c0befff631b2bc530d51805ce815fc0e55efcdacd",
+   "size": 5312
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Outside_TV.png": {
+   "once": true,
+   "sha256": "9426e4f5bee697915a63600698be888d5548958552eb2b3de3f6493e36f51388",
+   "size": 22910
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Outside_TV_v2.png": {
+   "once": true,
+   "sha256": "9426e4f5bee697915a63600698be888d5548958552eb2b3de3f6493e36f51388",
+   "size": 22910
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Pop_Adult.png": {
+   "once": true,
+   "sha256": "843b99f500a2e3d020015a55bc0d2a34a04851dbf25760b58dcda1cb2f5a5e1a",
+   "size": 29609
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Pop_Adult_v2.png": {
+   "once": true,
+   "sha256": "843b99f500a2e3d020015a55bc0d2a34a04851dbf25760b58dcda1cb2f5a5e1a",
+   "size": 29609
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Red_Bull_TV.png": {
+   "once": true,
+   "sha256": "1a66336e344b0d54a9310ea640bfd77d04a1d777e1d684fe9ab48d1daf639fd4",
+   "size": 27825
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Red_Bull_TV_v2.png": {
+   "once": true,
+   "sha256": "1a66336e344b0d54a9310ea640bfd77d04a1d777e1d684fe9ab48d1daf639fd4",
+   "size": 27825
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Smooth_Jazz.png": {
+   "once": true,
+   "sha256": "51b2178efe2c16613c481d32caf0f22fa161a0db03d885bfb83bb4a615f99fbc",
+   "size": 32835
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Smooth_Jazz_v2.png": {
+   "once": true,
+   "sha256": "51b2178efe2c16613c481d32caf0f22fa161a0db03d885bfb83bb4a615f99fbc",
+   "size": 32835
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Soul_Storm.png": {
+   "once": true,
+   "sha256": "54710b0bef8fef7c07a8f32ebccee55824052f8bad34f55fe74975a5edb5dcdc",
+   "size": 29116
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Soul_Storm_v2.png": {
+   "once": true,
+   "sha256": "54710b0bef8fef7c07a8f32ebccee55824052f8bad34f55fe74975a5edb5dcdc",
+   "size": 29116
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/The_Spa.png": {
+   "once": true,
+   "sha256": "16b47f6e5b7b777d23d3b6238e2b2cd77f48f03deaf568961054e92b3d6480b2",
+   "size": 29557
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/The_Spa_v2.png": {
+   "once": true,
+   "sha256": "16b47f6e5b7b777d23d3b6238e2b2cd77f48f03deaf568961054e92b3d6480b2",
+   "size": 29557
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Trace_Urban.png": {
+   "once": true,
+   "sha256": "d6e6ef5fff2b1a635dc75e93bf881834e8849256e487d808ef600513b51c6ae1",
+   "size": 11678
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Trace_Urban_v2.png": {
+   "once": true,
+   "sha256": "d6e6ef5fff2b1a635dc75e93bf881834e8849256e487d808ef600513b51c6ae1",
+   "size": 11678
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Travel_TV.png": {
+   "once": true,
+   "sha256": "217e09772b95eab7c843b29b84cb1e32062faf0ed569cf31fc3d6bb33ef344e3",
+   "size": 8474
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/Travel_TV_v2.png": {
+   "once": true,
+   "sha256": "217e09772b95eab7c843b29b84cb1e32062faf0ed569cf31fc3d6bb33ef344e3",
+   "size": 8474
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/WildEarth.png": {
+   "once": true,
+   "sha256": "52180bc9a186037bb07ddfea6ba0c8b52c05b950407e3b31edc8e59fb543f87e",
+   "size": 36456
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/WildEarth_v2.png": {
+   "once": true,
+   "sha256": "52180bc9a186037bb07ddfea6ba0c8b52c05b950407e3b31edc8e59fb543f87e",
+   "size": 36456
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/ZenLIFE.png": {
+   "once": true,
+   "sha256": "4c89a1694b94e5dc0f9397ebfc102428fa7aee4791813a46d888c6c0fe334a24",
+   "size": 3963
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/ZenLIFE_v2.png": {
+   "once": true,
+   "sha256": "4c89a1694b94e5dc0f9397ebfc102428fa7aee4791813a46d888c6c0fe334a24",
+   "size": 3963
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/i24NEWS_English.png": {
+   "once": true,
+   "sha256": "c6f9fda36918f70dace59eee75fccc05fe275df0878516dd21648ca8dd641dd7",
+   "size": 8469
+  },
+  "userdata/addon_data/pvr.iptvsimple/logos/i24NEWS_English_v2.png": {
+   "once": true,
+   "sha256": "c6f9fda36918f70dace59eee75fccc05fe275df0878516dd21648ca8dd641dd7",
+   "size": 8469
   },
   "userdata/addon_data/script.skinshortcuts/0.DATA.xml": {
    "once": true,
@@ -452,7 +786,7 @@
   },
   "userdata/addon_data/skin.arctic.fuse/settings.xml": {
    "once": true,
-   "sha256": "44104afae61e1762bc4c5fc18950f1ef86ccb9eb0c795d08f727267b884f4013",
+   "sha256": "12b7c3fa8c86f3cd0315f044d8f5ecd0c2985f68c0d8283703f7bba826c4a7d1",
    "size": 21880
   },
   "userdata/keymaps/gen.xml": {
@@ -468,5 +802,5 @@
   "service.upnext": "1.3.4",
   "skin.arctic.fuse": "0.7.39~omega"
  },
- "version": 13
+ "version": 14
 }

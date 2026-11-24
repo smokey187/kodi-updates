@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">100</defaultcontrol>
+    <controls>
+        <control type="image"><left>0</left><top>0</top><width>1920</width><height>1080</height><texture>bg.png</texture></control>
+        <control type="label" id="10"><left>100</left><top>50</top><width>1400</width><height>80</height><font>font_head_bold</font><textcolor>FFFFFFFF</textcolor></control>
+        <control type="label"><left>100</left><top>120</top><width>800</width><height>40</height><font>font_mini</font><textcolor>AAFFFFFF</textcolor><label>$INFO[Container(100).CurrentItem] / $INFO[Container(100).NumItems]</label></control>
+        <control type="panel" id="100">
+            <left>90</left><top>190</top><width>1760</width><height>870</height>
+            <orientation>vertical</orientation><scrolltime tween="cubic" easing="out">250</scrolltime>
+            <onleft>100</onleft><onright>100</onright>
+            <itemlayout width="220" height="290">
+                <control type="image"><left>12</left><top>12</top><width>196</width><height>196</height><texture>card.png</texture></control>
+                <control type="image"><left>32</left><top>32</top><width>156</width><height>156</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Icon]</texture></control>
+                <control type="label"><left>8</left><top>216</top><width>204</width><height>40</height><font>font_mini</font><align>center</align><textcolor>CCFFFFFF</textcolor><label>$INFO[ListItem.Label]</label></control>
+            </itemlayout>
+            <focusedlayout width="220" height="290">
+                <control type="image"><left>2</left><top>2</top><width>216</width><height>216</height><texture>card.png</texture></control>
+                <control type="image"><left>22</left><top>22</top><width>176</width><height>176</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Icon]</texture></control>
+                <control type="image"><left>0</left><top>0</top><width>220</width><height>220</height><texture>focus.png</texture></control>
+                <control type="label"><left>0</left><top>226</top><width>220</width><height>40</height><font>font_mini_bold</font><align>center</align><textcolor>FFFFFFFF</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+            </focusedlayout>
+        </control>
+    </controls>
+</window>

@@ -1,9 +1,9 @@
 <contents>
     <rules name="parts_visible">
         <rule>
-            <!-- claude 20261122: Box update status/button only where the updater runs (friends' boxes) -->
+            <!-- claude 20261122: Box update button always shown where the updater runs (friends boxes); click = check and install now -->
             <condition>{item_path}==RunScript(service.smoke.updater)</condition>
-            <value>System.HasAddon(service.smoke.updater) + !String.IsEmpty(Window(Home).Property(SmokeUpdate.Show))</value>
+            <value>System.HasAddon(service.smoke.updater)</value>
         </rule>
         <rule>
             <!-- claude 20261122: Publish update button only where the publish add-on exists (the master box) -->

@@ -1,0 +1,79 @@
+{
+ "פולין": [
+  "TVP1",
+  "TVP2",
+  "TVP Info",
+  "TVP Kultura",
+  "TVP Historia",
+  "TVP ABC",
+  "TVP Sport",
+  "TVP World",
+  "TV Bielsat",
+  "TVP Wilno",
+  "TVP Kobieta",
+  "TVP Dokument",
+  "TVP NAUKA",
+  "TVP Polonia",
+  "TVP Rozrywka",
+  "Historia2",
+  "ALFA TVP",
+  "ABC 2",
+  "Kultura2",
+  "TVP3 Białystok",
+  "TVP3 Bydgoszcz",
+  "TVP3 Gdańsk",
+  "TVP3 Gorzów Wlkp.",
+  "TVP3 Katowice",
+  "TVP3 Kielce",
+  "TVP3 Kraków",
+  "TVP3 Łódź",
+  "TVP3 Lublin",
+  "TVP3 Olsztyn",
+  "TVP3 Opole",
+  "TVP3 Poznań",
+  "TVP3 Rzeszów",
+  "TVP3 Szczecin",
+  "TVP3 Warszawa",
+  "TVP3 Wrocław",
+  "TVP PARLAMENT SEJM",
+  "TVP PARLAMENT SENAT"
+ ],
+ "חדשות": [
+  "TVP Info",
+  "TVP World",
+  "Euronews Polska",
+  "i24NEWS English"
+ ],
+ "ספורט": [
+  "TVP Sport",
+  "Outside TV",
+  "Red Bull TV"
+ ],
+ "מוזיקה": [
+  "Kronehit",
+  "Trace Urban",
+  "Easy Listening",
+  "80's",
+  "Hit List",
+  "90's",
+  "Pop Adult",
+  "Smooth Jazz",
+  "Soul Storm"
+ ],
+ "טבע ורגיעה": [
+  "DroneTV",
+  "Love Nature",
+  "WildEarth",
+  "Adventure Earth",
+  "Naturescape",
+  "The Spa",
+  "ZenLIFE"
+ ],
+ "טיולים ואופנה": [
+  "FashionTV",
+  "FashionTV 2",
+  "Nautical",
+  "Travel TV",
+  "INTRAVEL"
+ ]
+}

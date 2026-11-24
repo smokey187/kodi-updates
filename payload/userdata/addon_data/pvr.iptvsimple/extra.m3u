@@ -1,0 +1,125 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="T1D.tvp" tvg-logo="https://s8.tvp.pl/images2/8/a/c/uid_8ac2b72c379abf831e4d27a56988eae11638275540325_width_512_play_0_pos_0_gs_0_height_512.png",TVP1
+plugin://plugin.video.tvplive/?code=T1D
+#EXTINF:-1 tvg-id="T2D.tvp" tvg-logo="https://s3.tvp.pl/images2/3/8/3/uid_38313bd81e2ec78f92fa8d360e738b921638275558292_width_512_play_0_pos_0_gs_0_height_512.png",TVP2
+plugin://plugin.video.tvplive/?code=T2D
+#EXTINF:-1 tvg-id="INF.tvp" tvg-logo="https://s4.tvp.pl/images2/4/a/d/uid_4ad77ef5d9314477a07a2372b0bc10a9_width_512_play_0_pos_0_gs_0_height_512.png",TVP Info
+plugin://plugin.video.tvplive/?code=INF
+#EXTINF:-1 tvg-id="T5D.tvp" tvg-logo="https://s9.tvp.pl/images2/9/6/1/uid_96117b8fceb8a7db897a9757240316451638275727542_width_512_play_0_pos_0_gs_0_height_512.png",TVP Kultura
+plugin://plugin.video.tvplive/?code=T5D
+#EXTINF:-1 tvg-id="TKH.tvp" tvg-logo="https://s4.tvp.pl/images2/d/5/e/uid_d5e250a46a37955df5b33847a1f661921638275686065_width_512_play_0_pos_0_gs_0_height_512.png",TVP Historia
+plugin://plugin.video.tvplive/?code=TKH
+#EXTINF:-1 tvg-id="ABC.tvp" tvg-logo="https://s5.tvp.pl/images2/5/c/8/uid_5c8ba79e2229bf9909ffa4ea9907595e1638275665760_width_512_play_0_pos_0_gs_0_height_512.png",TVP ABC
+plugin://plugin.video.tvplive/?code=ABC
+#EXTINF:-1 tvg-id="KSP.tvp" tvg-logo="https://s9.tvp.pl/images2/9/6/b/uid_96b6b3e217181c3d3925ba783fe68a131638275633849_width_512_play_0_pos_0_gs_0_height_512.png",TVP Sport
+plugin://plugin.video.tvplive/?code=KSP
+#EXTINF:-1 tvg-id="PIE.tvp" tvg-logo="https://s3.tvp.pl/images2/3/1/a/uid_31a1cb9f553a4e62fdc1a68311068b931639054119238_width_512_play_0_pos_0_gs_0_height_512.png",TVP World
+plugin://plugin.video.tvplive/?code=PIE
+#EXTINF:-1 tvg-id="TVBI.tvp" tvg-logo="https://s9.tvp.pl/images2/9/4/d/uid_94daec69fb7046226f9c42ad28c8f7251638805351087_width_512_play_0_pos_0_gs_0_height_512.png",TV Bielsat
+plugin://plugin.video.tvplive/?code=TVBI
+#EXTINF:-1 tvg-id="WILNO.tvp" tvg-logo="https://s1.tvp.pl/images2/1/9/9/uid_199e4e4be38043918dedbbdc96725fa3_width_512_play_0_pos_0_gs_0_height_512.png",TVP Wilno
+plugin://plugin.video.tvplive/?code=WILNO
+#EXTINF:-1 tvg-id="KBT.tvp" tvg-logo="https://s3.tvp.pl/images2/3/6/2/uid_362ac36e5828f7e25f5e5d028b7abb7b1638275648497_width_512_play_0_pos_0_gs_0_height_512.png",TVP Kobieta
+plugin://plugin.video.tvplive/?code=KBT
+#EXTINF:-1 tvg-id="DOK.tvp" tvg-logo="https://s1.tvp.pl/images2/a/f/1/uid_af1b5529d584f3e6dc893021b38901971638275709609_width_512_play_0_pos_0_gs_0_height_512.png",TVP Dokument
+plugin://plugin.video.tvplive/?code=DOK
+#EXTINF:-1 tvg-id="NK.tvp" tvg-logo="https://s5.tvp.pl/images2/e/3/a/uid_e3a95bba0e16e0eed0e5fd59229cfbd01663860050881_width_512_play_0_pos_0_gs_0_height_512.png",TVP NAUKA
+plugin://plugin.video.tvplive/?code=NK
+#EXTINF:-1 tvg-id="T4D.tvp" tvg-logo="https://s5.tvp.pl/images2/e/7/b/uid_e7b9ee2c3a342e7b97eda1b96e48808d1638275742066_width_512_play_0_pos_0_gs_0_height_512.png",TVP Polonia
+plugin://plugin.video.tvplive/?code=T4D
+#EXTINF:-1 tvg-id="TRO.tvp" tvg-logo="https://s9.tvp.pl/images2/9/6/4/uid_9647031d5810bf7b78b1a9f30904468c1638275757901_width_512_play_0_pos_0_gs_0_height_512.png",TVP Rozrywka
+plugin://plugin.video.tvplive/?code=TRO
+#EXTINF:-1 tvg-id="H2.tvp" tvg-logo="https://s1.tvp.pl/images2/a/e/0/uid_ae0b108d4f6da63a62b15c2c8a58b4021638275776152_width_512_play_0_pos_0_gs_0_height_512.png",Historia2
+plugin://plugin.video.tvplive/?code=H2
+#EXTINF:-1 tvg-id="ALFA.tvp" tvg-logo="https://s6.tvp.pl/images2/6/0/0/uid_6008af70ab882fa088c7f00ec2f640271671613962973_width_512_play_0_pos_0_gs_0_height_512.png",ALFA TVP
+plugin://plugin.video.tvplive/?code=ALFA
+#EXTINF:-1 tvg-id="DMPR.tvp" tvg-logo="https://s8.tvp.pl/images2/8/1/c/uid_81cab4e1725ca1969ec02d7d3cbd56441644906820060_width_512_play_0_pos_0_gs_0_height_512.png",ABC 2
+plugin://plugin.video.tvplive/?code=DMPR
+#EXTINF:-1 tvg-id="KUL2.tvp" tvg-logo="https://s9.tvp.pl/images2/9/5/d/uid_95d9115d0087e74f98e473318137f5611638276367938_width_512_play_0_pos_0_gs_0_height_512.png",Kultura2
+plugin://plugin.video.tvplive/?code=KUL2
+#EXTINF:-1 tvg-id="XCC.tvp" tvg-logo="https://s7.tvp.pl/images2/7/6/b/uid_76b66286b86d010e5e78545d4bbfabfe1638793990832_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Białystok
+plugin://plugin.video.tvplive/?code=XCC
+#EXTINF:-1 tvg-id="XBB.tvp" tvg-logo="https://s8.tvp.pl/images2/8/b/9/uid_8b9e1ca7617a13ed24a10e8a68c900391638794003585_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Bydgoszcz
+plugin://plugin.video.tvplive/?code=XBB
+#EXTINF:-1 tvg-id="XGG.tvp" tvg-logo="https://s7.tvp.pl/images2/7/1/e/uid_71e77467c7991a71cb5ae513cdbfb93b1638794021831_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Gdańsk
+plugin://plugin.video.tvplive/?code=XGG
+#EXTINF:-1 tvg-id="XFF.tvp" tvg-logo="https://s1.tvp.pl/images2/a/6/8/uid_a680bed6f158daeced52be6028aa38de1638794040463_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Gorzów Wlkp.
+plugin://plugin.video.tvplive/?code=XFF
+#EXTINF:-1 tvg-id="XTT.tvp" tvg-logo="https://s9.tvp.pl/images2/9/b/8/uid_9b8946e1bbb0f209f8f5b871f2a13fe51638794057243_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Katowice
+plugin://plugin.video.tvplive/?code=XTT
+#EXTINF:-1 tvg-id="XEE.tvp" tvg-logo="https://s3.tvp.pl/images2/c/7/0/uid_c70410e8a2bb818b017996ee2fe423811638794072791_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Kielce
+plugin://plugin.video.tvplive/?code=XEE
+#EXTINF:-1 tvg-id="XKK.tvp" tvg-logo="https://s6.tvp.pl/images2/6/6/2/uid_662ba75baf330ab045340a95a6e9e90e1638794087292_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Kraków
+plugin://plugin.video.tvplive/?code=XKK
+#EXTINF:-1 tvg-id="XDD.tvp" tvg-logo="https://s2.tvp.pl/images2/b/f/3/uid_bf3e7858a15fde048d5a93b447f5d1a51644849140435_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Łódź
+plugin://plugin.video.tvplive/?code=XDD
+#EXTINF:-1 tvg-id="XLL.tvp" tvg-logo="https://s5.tvp.pl/images2/e/0/d/uid_e0d10c0efcfefb27acc8ad1b9036cbf61644849187650_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Lublin
+plugin://plugin.video.tvplive/?code=XLL
+#EXTINF:-1 tvg-id="XHH.tvp" tvg-logo="https://s2.tvp.pl/images2/2/2/9/uid_229b4d7600dc98bd6a1ba4e3c98e77181638794135703_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Olsztyn
+plugin://plugin.video.tvplive/?code=XHH
+#EXTINF:-1 tvg-id="XJJ.tvp" tvg-logo="https://s10.tvp.pl/images2/0/2/3/uid_023b8852dd115dad974e843fe338e9b41638794151873_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Opole
+plugin://plugin.video.tvplive/?code=XJJ
+#EXTINF:-1 tvg-id="XPP.tvp" tvg-logo="https://s1.tvp.pl/images2/a/7/1/uid_a719cd825dd3ef4c9e65b0bc496df7f11638794168362_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Poznań
+plugin://plugin.video.tvplive/?code=XPP
+#EXTINF:-1 tvg-id="XRR.tvp" tvg-logo="https://s4.tvp.pl/images2/d/5/a/uid_d5a0807713dabd9c8287b1059e2b09561638794186940_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Rzeszów
+plugin://plugin.video.tvplive/?code=XRR
+#EXTINF:-1 tvg-id="XSS.tvp" tvg-logo="https://s4.tvp.pl/images2/d/8/5/uid_d852ce14f6500e92d05a3b9d6bcce2181638794202780_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Szczecin
+plugin://plugin.video.tvplive/?code=XSS
+#EXTINF:-1 tvg-id="XAA.tvp" tvg-logo="https://s6.tvp.pl/images2/6/6/9/uid_66970627690489831dd443cb3738a9b21638794219190_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Warszawa
+plugin://plugin.video.tvplive/?code=XAA
+#EXTINF:-1 tvg-id="XWW.tvp" tvg-logo="https://s4.tvp.pl/images2/d/1/5/uid_d154703f62a5907ec0e3b266d90e37a31638794264386_width_512_play_0_pos_0_gs_0_height_512.png",TVP3 Wrocław
+plugin://plugin.video.tvplive/?code=XWW
+#EXTINF:-1 tvg-id="PARSEJM.tvp" tvg-logo="https://s8.tvp.pl/images2/8/0/3/uid_803f076f143446f1916e0e9ca36590b2_width_512_play_0_pos_0_gs_0_height_512.png",TVP PARLAMENT SEJM
+plugin://plugin.video.tvplive/?code=PARSEJM
+#EXTINF:-1 tvg-id="PARSENAT.tvp" tvg-logo="https://s3.tvp.pl/images2/3/b/3/uid_3b389c6ba43043a4917d164eecd0b355_width_512_play_0_pos_0_gs_0_height_512.png",TVP PARLAMENT SENAT
+plugin://plugin.video.tvplive/?code=PARSENAT
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Euronews_Polska_v2.png" tvg-id="Euronews Polska",Euronews Polska
+https://cdn-euronews.akamaized.net/live/eds/euronews-pl/26382/index.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Kronehit_v2.png" tvg-id="Kronehit",Kronehit
+https://bitcdn-kronehit.bitmovin.com/v2/hls/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Trace_Urban_v2.png" tvg-id="Trace Urban",Trace Urban
+https://lightning-traceurban-samsungau.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/FashionTV_v2.png" tvg-id="FashionTV",FashionTV
+https://edge-fast3.evrideo.tv/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/manifest.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/FashionTV_2_v2.png" tvg-id="FashionTV 2",FashionTV 2
+http://fashionlive.mediacdn.ru/cdn/fashiontv/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/DroneTV_v2.png" tvg-id="DroneTV",DroneTV
+https://airvuz-dronetv-1-us.ohlscdn.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Nautical_v2.png" tvg-id="Nautical",Nautical
+https://a-cdn.klowdtv.com/live2/nautical_720p/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Travel_TV_v2.png" tvg-id="Travel TV",Travel TV
+https://streamer103.neterra.tv/travel/live.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/INTRAVEL_v2.png" tvg-id="INTRAVEL",INTRAVEL
+https://amg00861-amg00861c10-rakuten-uk-3152.playouts.now.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Love_Nature_v2.png" tvg-id="Love Nature",Love Nature
+https://aegis-cloudfront-1.tubi.video/6d6d0f24-8445-4b4c-bdf6-44f9e38beaa4/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Outside_TV_v2.png" tvg-id="Outside TV",Outside TV
+https://outsidetv-firetv.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Red_Bull_TV_v2.png" tvg-id="Red Bull TV",Red Bull TV
+https://1a3566cb46914c5499fbc86fbc4ac87e.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-932-WORBUKENFAST-WHALETVPLUS/932/whaletvplus/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/WildEarth_v2.png" tvg-id="WildEarth",WildEarth
+https://dqga3jatxofgx.cloudfront.net/WildEarth.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Adventure_Earth_v2.png" tvg-id="Adventure Earth",Adventure Earth
+https://a57e9c69976649b582a8d7604c00e69a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AdventureEarth/playlist.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Easy_Listening_v2.png" tvg-id="Easy Listening",Easy Listening
+https://lotus.stingray.com/manifest/ose-137ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/80_s_v2.png" tvg-id="80's",80's
+https://lotus.stingray.com/manifest/ose-128ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Hit_List_v2.png" tvg-id="Hit List",Hit List
+https://lotus.stingray.com/manifest/ose-107ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/90_s_v2.png" tvg-id="90's",90's
+https://lotus.stingray.com/manifest/ose-142ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Pop_Adult_v2.png" tvg-id="Pop Adult",Pop Adult
+https://lotus.stingray.com/manifest/ose-104ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Smooth_Jazz_v2.png" tvg-id="Smooth Jazz",Smooth Jazz
+https://lotus.stingray.com/manifest/ose-140ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Soul_Storm_v2.png" tvg-id="Soul Storm",Soul Storm
+https://lotus.stingray.com/manifest/ose-134ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/Naturescape_v2.png" tvg-id="Naturescape",Naturescape
+https://lotus.stingray.com/manifest/naturescape-a003-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/The_Spa_v2.png" tvg-id="The Spa",The Spa
+https://lotus.stingray.com/manifest/ose-122ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/ZenLIFE_v2.png" tvg-id="ZenLIFE",ZenLIFE
+https://lotus.stingray.com/manifest/zenlife-zen001-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-logo="/storage/.kodi/userdata/addon_data/pvr.iptvsimple/logos/i24NEWS_English_v2.png" tvg-id="i24NEWSEnglish",i24NEWS English
+https://hlspackager.akamaized.net/live/DB/i24_ENGLISH/HLS/i24_ENGLISH.m3u8

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.tvgroups" name="TV Groups" version="1.0.0" provider-name="smoke">
+  <requires><import addon="xbmc.python" version="3.0.0"/></requires>
+  <extension point="xbmc.python.pluginsource" library="default.py"><provides>video</provides></extension>
+  <extension point="xbmc.addon.metadata"><summary lang="en_GB">Tiles that open each Live TV channel group</summary><platform>all</platform></extension>
+</addon>

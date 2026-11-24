@@ -161,7 +161,7 @@
    "size": 5878
   },
   "addons/service.smoke.updater/addon.xml": {
-   "sha256": "ed5e37cab70e67255c45bd2209df0acee49872fcf5a65e1bb17aa15d886ab9b9",
+   "sha256": "67f83f0a3f6c6efaca93808498b186ce2b0a0a111af9ab8a7289cece0d5e3014",
    "size": 846
   },
   "addons/service.smoke.updater/default.py": {
@@ -169,8 +169,8 @@
    "size": 1231
   },
   "addons/service.smoke.updater/service.py": {
-   "sha256": "2f747182d2d22fed8bfa7f28c0629eb7233dd877128173c3f31a6298821a2eb8",
-   "size": 16274
+   "sha256": "3f6c87c4fa21355f1a51ae8218a16ae4f496aab00021f620a692d080d700b332",
+   "size": 17447
   },
   "addons/service.studio.logo.fallback/addon.xml": {
    "sha256": "33b400a2f6b0ebfad694019ad5429ad9c35b4c25e4fe789e7f5ea399a73774f9",
@@ -802,5 +802,5 @@
   "service.upnext": "1.3.4",
   "skin.arctic.fuse": "0.7.39~omega"
  },
- "version": 14
+ "version": 15
 }

@@ -27,7 +27,7 @@ STAGING = os.path.join(DATA, 'staging')
 BACKUPS = os.path.join(DATA, 'backups')
 LOG = os.path.join(KODI, 'temp', 'kodi.log')
 
-FIRST_CHECK = 120              # seconds after Kodi start
+FIRST_CHECK = 60               # seconds after Kodi start (every boot)
 INTERVAL = 3 * 3600            # between checks
 JITTER = 1800
 IDLE_NEEDED = 10 * 60          # remote untouched this long before applying
@@ -109,8 +109,27 @@ def save_state(st):
     os.replace(tmp, STATE)
 
 
+BASE = {'url': REPO}
+BOOT = {'on': True}  # first check since Kodi started: install right away, without waiting for the box to be idle
+
+
+def resolve_base():
+    """Read the files of the newest commit by its id: raw.githubusercontent.com caches 'main' for up to 5 minutes,
+    so a box checking just after a publish would still see the old version."""
+    try:
+        req = urllib.request.Request('https://api.github.com/repos/smokey187/kodi-updates/commits/main',
+                                     headers={'User-Agent': 'smoke-updater', 'Accept': 'application/vnd.github.sha'})
+        sha = urllib.request.urlopen(req, timeout=15).read().decode().strip()
+        if re.match(r'^[0-9a-f]{40}$', sha):
+            BASE['url'] = 'https://raw.githubusercontent.com/smokey187/kodi-updates/%s/' % sha
+            return
+    except Exception as e:
+        log('commit lookup failed, using main: %s' % e, xbmc.LOGWARNING)
+    BASE['url'] = REPO
+
+
 def fetch(path, timeout=30):
-    url = REPO + urllib.parse.quote(path) + '?t=%d' % int(time.time())
+    url = BASE['url'] + urllib.parse.quote(path) + '?t=%d' % int(time.time())
     req = urllib.request.Request(url, headers={'User-Agent': 'smoke-updater', 'Cache-Control': 'no-cache'})
     return urllib.request.urlopen(req, timeout=timeout).read()
 
@@ -188,6 +207,9 @@ def needed_files(man, st):
 def wait_idle(monitor, player):
     if FORCE['on']:
         return True
+    if BOOT['on'] and not player.isPlaying():  # just booted: install now, before anyone starts watching
+        log('installing at startup')
+        return True
     while not monitor.abortRequested():
         if HOME.getProperty('SmokeUpdate.Request'):  # user pressed "install now" while we were waiting
             HOME.clearProperty('SmokeUpdate.Request')
@@ -213,6 +235,7 @@ def enable_addons(ids):
 
 
 def check(monitor, player):
+    resolve_base()
     st = load_state()
     man = json.loads(fetch('manifest.json').decode('utf-8'))
     ver = int(man['version'])
@@ -423,6 +446,7 @@ def main():
                 notify('Could not check for updates - is the box online?', xbmcgui.NOTIFICATION_WARNING)
         FORCE['on'] = False
         FIRST['on'] = False
+        BOOT['on'] = False
         next_check = time.time() + INTERVAL + random.randint(0, JITTER)
 
 

@@ -85,7 +85,7 @@
                 <include content="Widget_Row" condition="True">
                     <param name="id">102601</param>
                     <param name="groupid">102701</param>
-                    <param name="label">Live TV</param>
+                    <param name="label">Channels</param>
                     <param name="usewidgetlabel">False</param>
                     <param name="include">List_Square_Row</param>
                     <param name="transition_include">true</param>
@@ -101,7 +101,7 @@
                     <param name="shortstack_visible">[Control.IsVisible(102602) | Control.IsVisible(102603) | Control.IsVisible(102604)]</param>
                     <param name="widgetfade_include">!Skin.HasSetting(Hub.Home.WidgetSelector)</param>
                     <description/>
-                    <content sortby="" sortorder="ascending" target="tvguide" limit="" browse="$VAR[Defs_BrowseLimitedLists]">pvr://channels/tv/%D7%A8%D7%90%D7%A9%D7%99@-1/</content>
+                    <content sortby="" sortorder="ascending" target="videos" limit="" browse="$VAR[Defs_BrowseLimitedLists]">plugin://plugin.video.tvgroups/</content>
                     <include content="Defs_AutoScroll" condition="True">
                         <param name="condition">[!Control.HasFocus(102601) | System.IdleTime(3)]</param>
                     </include>
@@ -163,17 +163,17 @@
                 </item>
                 <!-- Sidemenu EndRow for homemenu 2 $LOCALIZE[31085] -->
                 <item>
-                    <label>Live TV</label>
+                    <label>Channels</label>
                     <icon>special://skin/extras/icons/tvguide.png</icon>
-                    <property name="target">tvguide</property>
-                    <property name="path">pvr://channels/tv/%D7%A8%D7%90%D7%A9%D7%99@-1/</property>
+                    <property name="target">videos</property>
+                    <property name="path">plugin://plugin.video.tvgroups/</property>
                     <property name="item">$NUMBER[0]</property>
                     <property name="guid">guid-27538532</property>
                     <property name="listid">$NUMBER[102601]</property>
                     <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,102601)</property>
                     <property name="onfocus_two">SetProperty(Transition.WidgetStyle,List_Square_Row,Home)</property>
-                    <label2>$LOCALIZE[31000]</label2>
-                    <onclick>ActivateWindow(tvguide,pvr://channels/tv/%D7%A8%D7%90%D7%A9%D7%99@-1/,return)</onclick>
+                    <label2>$LOCALIZE[24000]</label2>
+                    <onclick>ActivateWindow(videos,plugin://plugin.video.tvgroups/,return)</onclick>
                     <visible>[!Integer.IsEqual(Container(102601).NumItems,0) | Container(102601).IsUpdating] + [String.IsEqual(Container(303).ListItem.Property(guid),guid-e79824eb)]</visible>
                     <visible>String.IsEmpty(Window.Property(Widgets.ResetPosition))</visible>
                 </item>

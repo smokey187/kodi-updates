@@ -284,8 +284,8 @@
   },
   "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-includes--kodiprofile-8c34d337b002490eda7727171fcb9dbf.xml": {
    "once": true,
-   "sha256": "8b939b1526fa305bf80b56e12b973abccca99c7d7b23e998243902a448fee6a7",
-   "size": 47710
+   "sha256": "18b29259e453236e2fd18dfb6c62b119738ba671390d1083bf8ebe1feb39cea9",
+   "size": 47664
   },
   "addons/skin.arctic.fuse/1080i/script-skinvariables-generator-includes-.xml": {
    "once": true,
@@ -437,8 +437,8 @@
   },
   "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-sidemenu.json": {
    "once": true,
-   "sha256": "5ad423021981f06f73bc59603223bd9c9f8ac598f1c57947409355a6b8036f27",
-   "size": 2914
+   "sha256": "6352aff39f7b268749e2bbe12b39e618bfb22c8fabb62ece8cfd51f975da4edd",
+   "size": 2899
   },
   "userdata/addon_data/script.skinvariables/nodes/skin.arctic.fuse/skinvariables-shortcut-sidemenu.json.with-cw": {
    "once": true,
@@ -452,7 +452,7 @@
   },
   "userdata/addon_data/skin.arctic.fuse/settings.xml": {
    "once": true,
-   "sha256": "fb0a4264b983a460e21c48035e20229c724b35ed27536018e83c1c1443434b64",
+   "sha256": "44104afae61e1762bc4c5fc18950f1ef86ccb9eb0c795d08f727267b884f4013",
    "size": 21880
   },
   "userdata/keymaps/gen.xml": {
@@ -468,5 +468,5 @@
   "service.upnext": "1.3.4",
   "skin.arctic.fuse": "0.7.39~omega"
  },
- "version": 12
+ "version": 13
 }
